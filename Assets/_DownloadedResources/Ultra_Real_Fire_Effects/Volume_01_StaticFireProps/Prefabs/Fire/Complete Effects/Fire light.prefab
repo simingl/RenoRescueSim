@@ -1,0 +1,224 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400000}
+  - 108: {fileID: 10800000}
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: Fire light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -40.7020683, y: 1.51651299, z: -65.2505493}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!108 &10800000
+Light:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_Type: 2
+  m_Color: {r: .845588207, g: .470390588, b: .0683931783, a: 1}
+  m_Intensity: 5.46235275
+  m_Range: 10.4415207
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_NormalBias: .400000006
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 1
+  m_BounceIntensity: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_AreaSize: {x: 1, y: 1}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5c588450bc3544f8d70198ce628563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightIntensity: 1
+  flickerCurve:
+    flickerCurve:
+      serializedVersion: 2
+      m_Curve:
+      - time: 0
+        value: .562326849
+        inSlope: 9.00373936
+        outSlope: 9.00373936
+        tangentMode: 10
+      - time: .0389880091
+        value: .913364708
+        inSlope: -5.20590544
+        outSlope: -5.20590544
+        tangentMode: 10
+      - time: .0626514107
+        value: .453926742
+        inSlope: -1.12071609
+        outSlope: -1.12071609
+        tangentMode: 10
+      - time: .080181703
+        value: .754994035
+        inSlope: 6.98498917
+        outSlope: 6.98498917
+        tangentMode: 10
+      - time: .132269949
+        value: .588096023
+        inSlope: 1.31572151
+        outSlope: 1.31572151
+        tangentMode: 10
+      - time: .186575785
+        value: .905002236
+        inSlope: -6.53724766
+        outSlope: -6.53724766
+        tangentMode: 10
+      - time: .211794019
+        value: .428123474
+        inSlope: -4.23991156
+        outSlope: -4.23991156
+        tangentMode: 10
+      - time: .265184999
+        value: .985005021
+        inSlope: 2.26134276
+        outSlope: 2.26134276
+        tangentMode: 10
+      - time: .328249723
+        value: .612445772
+        inSlope: .247618198
+        outSlope: .247618198
+        tangentMode: 10
+      - time: .375468731
+        value: .914779902
+        inSlope: -.854942083
+        outSlope: -.854942083
+        tangentMode: 10
+      - time: .428341091
+        value: .485842854
+        inSlope: 1.21424913
+        outSlope: 1.21424913
+        tangentMode: 10
+      - time: .475767314
+        value: .985771596
+        inSlope: -.0245289803
+        outSlope: -.0245289803
+        tangentMode: 10
+      - time: .504597366
+        value: .680454254
+        inSlope: -3.60679221
+        outSlope: -3.60679221
+        tangentMode: 10
+      - time: .554719388
+        value: .849699378
+        inSlope: -7.18643093
+        outSlope: -7.18643093
+        tangentMode: 10
+      - time: .578746617
+        value: .423227519
+        inSlope: -2.58372355
+        outSlope: -2.58372355
+        tangentMode: 10
+      - time: .623478055
+        value: .986041903
+        inSlope: -.22044754
+        outSlope: -.22044754
+        tangentMode: 10
+      - time: .657298207
+        value: .545603037
+        inSlope: -3.70502281
+        outSlope: -3.70502281
+        tangentMode: 10
+      - time: .719720304
+        value: .895973623
+        inSlope: -8.15476799
+        outSlope: -8.15476799
+        tangentMode: 10
+      - time: .735135376
+        value: .558037281
+        inSlope: -5.87282801
+        outSlope: -5.87282801
+        tangentMode: 10
+      - time: .770261407
+        value: .915508091
+        inSlope: -5.87773466
+        outSlope: -5.87773466
+        tangentMode: 10
+      - time: .788755178
+        value: .50989759
+        inSlope: -6.45231724
+        outSlope: -6.45231724
+        tangentMode: 10
+      - time: .8356812
+        value: .9335289
+        inSlope: -2.38165474
+        outSlope: -2.38165474
+        tangentMode: 10
+      - time: .862394273
+        value: .565130234
+        inSlope: -1.80792809
+        outSlope: -1.80792809
+        tangentMode: 10
+      - time: .899696827
+        value: .944687247
+        inSlope: 2.6870563
+        outSlope: 2.6870563
+        tangentMode: 10
+      - time: .97307694
+        value: .592390656
+        inSlope: 5.16940117
+        outSlope: 5.16940117
+        tangentMode: 10
+      - time: 1
+        value: 1
+        inSlope: 15.1397848
+        outSlope: 15.1397848
+        tangentMode: 10
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+    timeLength: 4
+    randomStartTime: 1
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1

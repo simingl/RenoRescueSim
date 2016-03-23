@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Camera_3rd_view
+  - Camera_1st_view
+  - Ground
+  - DestinationMark
+  - DayNightToggle
+  - Sun
+  - Camera_hover_view
+  - SceneManager
+  - Camera_minimap
+  - Fire
+  - Waypoint
+  - Drone
+  - StationCharger
+  - WaypointAir
+  - DroneSpawnLocation
+  - HelicopterSpawnLocation
+  - Reno
+  - Questions
+  - AnswerStateButton
+  - RouteLinePoint
+  - ScoureText
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - miniMap
+  - pipCamera
+  - road
+  - Entities
+  - Ground
+  - EntitiesCommon
+  - MainCamera
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
