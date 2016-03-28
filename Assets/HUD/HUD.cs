@@ -12,7 +12,7 @@ public class HUD : MonoBehaviour {
 
 	public Texture drone_cam_front, drone_cam_down;
 	
-	public Button cellBtn; //test Change
+	public Button cellBtn; //test Change 2nd change
 
 	private const int RESOURCE_BAR_HEIGHT = 30;
 	private const int LINE_HEIGHT = 20;
