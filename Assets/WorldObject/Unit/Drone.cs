@@ -605,8 +605,8 @@ public class Drone : WorldObject {
 		}
 	}
 
-	public void showPIPCameraFront(){
-		this.camera_front.rect = ResourceManager.getInstance ().getPIPCameraPosition();
+	public void showPIPCameraFront(){ //show first camera
+		this.camera_front.rect = ResourceManager.getInstance ().getPIPCameraPosition(); 
 		this.camera_front.depth = PIP_DEPTH_ACTIVE;
 		this.camera_down.depth = PIP_DEPTH_DEACTIVE;
 	}

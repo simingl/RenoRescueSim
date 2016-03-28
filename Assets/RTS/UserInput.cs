@@ -170,6 +170,11 @@ public class UserInput : MonoBehaviour {
 					cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
 					cam.depth = Drone.PIP_DEPTH_ACTIVE;
 				}
+                //else
+                //{
+                //    cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
+                //}
+
 			}
 		}else if(player.hud.MouseInBounds()) {
 			GameObject hitObject = FindHitObject();
