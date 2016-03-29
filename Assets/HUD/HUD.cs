@@ -7,7 +7,7 @@ using RTS;
 
 public class HUD : MonoBehaviour {
 	public GUISkin resourceSkin, ordersSkin, selectBoxSkin, selectionBarSkin,selectBtnSkin;
-
+    //change in Sonu
 	public Texture drone_2d, drone_2d_h;
 
 	public Texture drone_cam_front, drone_cam_down;
