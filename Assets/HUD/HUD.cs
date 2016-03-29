@@ -14,9 +14,6 @@ public class HUD : MonoBehaviour {
 	
 	public Button cellBtn; //test Change 2nd change change in master
 
-    //change in master
-    //change in Tea
-
 	private const int RESOURCE_BAR_HEIGHT = 30;
 	private const int LINE_HEIGHT = 20;
 
