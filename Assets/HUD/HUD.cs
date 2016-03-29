@@ -7,13 +7,17 @@ using RTS;
 
 public class HUD : MonoBehaviour {
 	public GUISkin resourceSkin, ordersSkin, selectBoxSkin, selectionBarSkin,selectBtnSkin;
-//change in Tea
+
+  	//change in Sonu
+
+	//change in Tea
+
+        //hello
+
 	public Texture drone_2d, drone_2d_h;
 
 	public Texture drone_cam_front, drone_cam_down;
-	
 	public Button cellBtn; 
-    
 	private const int RESOURCE_BAR_HEIGHT = 30;
 	private const int LINE_HEIGHT = 20;
 
