@@ -189,18 +189,18 @@ public class UserInput : MonoBehaviour {
 							player.setSelectedObject(worldObject);
 						}
 					}
-                    else if (hitObject.tag != "drone")
-                    {
-                        player.cleanSelectedObject();
-                    }
+                    //else if (hitObject.tag != "drone")
+                    //{
+                    //    player.cleanSelectedObject();
+                    //}
                  //   Debug.Log(hitObject.name);
 				}
-                //click on world  except drones--------------
-                else if (hitObject.tag != "drone")
-                {
-                    player.cleanSelectedObject();
-                }
-                //click on world  except drones--------------
+                ////click on world  except drones--------------
+                //else if (hitObject.tag != "drone")
+                //{
+                //    player.cleanSelectedObject();
+                //}
+                ////click on world  except drones--------------
             }
         }
 

@@ -204,7 +204,7 @@ public class Drone : WorldObject {
                 this.player.addSelectedObject(this);
             }
             else {
-                this.player.removeSelectedObject(this);
+        //        this.player.removeSelectedObject(this);   //remove if drone is not in the mouseDrag area;
             }
         }
 
