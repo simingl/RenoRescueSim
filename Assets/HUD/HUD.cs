@@ -233,7 +233,7 @@ public class HUD : MonoBehaviour {
 
         GUI.color = Color.white;
         GUI.skin = ordersSkin;
-        GUI.BeginGroup(new Rect(0, Screen.height - ORDERS_BAR_HEIGHT, Screen.width, ORDERS_BAR_HEIGHT));
+        GUI.BeginGroup(new Rect(0, Screen.height - ORDERS_BAR_HEIGHT, Screen.width*0.8f, ORDERS_BAR_HEIGHT));
 
         int orderWidth = Screen.width;
         if (player.isPIPActive())
