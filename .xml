@@ -24,16 +24,16 @@
         </opt>
       </option>
       <answer>C</answer>
-      <userAnswer>C</userAnswer>
-      <timeConsumed>1</timeConsumed>
+      <userAnswer>2</userAnswer>
+      <timeConsumed>7</timeConsumed>
     </question>
     <question>
       <description>How old are you?</description>
       <type>InputNumber</type>
       <droneNumber />
       <answer>25</answer>
-      <userAnswer />
-      <timeConsumed>1</timeConsumed>
+      <userAnswer>22</userAnswer>
+      <timeConsumed>4</timeConsumed>
     </question>
     <question>
       <description>Where is the No.0 drone?</description>
