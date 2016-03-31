@@ -25,15 +25,14 @@ public class SceneManager : MonoBehaviour {
 	void Awake(){
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player>();
 		configManager = ConfigManager.getInstance ();
-
-
 	}
 
 	void Start(){
 		Random.seed = 1;
 		InitialScene ();
-        
-	}
+        Drone drone = (Drone)getAllDrones()[0];
+        drone.showPIPCameraFront();
+    }
 
 	void InitialScene (){
 		initialDroneSpawnLocation ();
