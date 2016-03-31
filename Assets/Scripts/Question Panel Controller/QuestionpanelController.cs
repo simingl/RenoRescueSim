@@ -33,7 +33,7 @@ public class QuestionpanelController : MonoBehaviour {
     void activeScreenSpaceRender(bool screenSpaceStatus)
     {
 
-        Canvas canvas = GameObject.FindGameObjectWithTag("AnswerStateButton").GetComponent<Canvas>();
+/*        Canvas canvas = GameObject.FindGameObjectWithTag("AnswerStateButton").GetComponent<Canvas>();
         if (screenSpaceStatus)
         {
             canvas.renderMode = RenderMode.ScreenSpaceCamera;
@@ -42,7 +42,7 @@ public class QuestionpanelController : MonoBehaviour {
         {
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         }
-
+        */
     }
 
 

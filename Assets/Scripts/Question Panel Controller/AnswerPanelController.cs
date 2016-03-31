@@ -66,7 +66,7 @@ public class AnswerPanelController : MonoBehaviour {
                 optionDropdown.gameObject.SetActive(true);
                 inputPanelText.gameObject.SetActive(false);
                 areaPanelDetails.gameObject.SetActive(false);
-
+                submitButton.gameObject.SetActive(true);
 
 
 
@@ -81,6 +81,7 @@ public class AnswerPanelController : MonoBehaviour {
                 optionDropdown.gameObject.SetActive(false);
                 inputPanelText.gameObject.SetActive(true);
                 areaPanelDetails.gameObject.SetActive(false);
+                submitButton.gameObject.SetActive(true);
 
                 inputPanelText.text = "";
 
@@ -92,6 +93,7 @@ public class AnswerPanelController : MonoBehaviour {
                 optionDropdown.gameObject.SetActive(false);
                 inputPanelText.gameObject.SetActive(false);
                 areaPanelDetails.gameObject.SetActive(true);
+                submitButton.gameObject.SetActive(false);
 
                 areaPanelDetails.text = "Please choose an area from map";
                 break;
