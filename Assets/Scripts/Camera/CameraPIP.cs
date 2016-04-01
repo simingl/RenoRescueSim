@@ -9,19 +9,41 @@ public class CameraPIP : MonoBehaviour {
 	private Camera cam;
 	private Drone drone;
 
-	void Start(){
+    //detect if objects in the camera---------------
+    private GameObject [] people;
+    private Plane[] firstCamPlanes;
+    private Collider[] peopleColliders;
+      
+    
+    //detect if objects in the camera---------------
+    void Start(){
 		cam = this.GetComponent<Camera>();
 		drone = this.transform.parent.gameObject.GetComponent<Drone> ();
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player>();
-
-
-	}
+        people = GameObject.FindGameObjectsWithTag("People");
+        peopleColliders = new Collider[people.Length];
+        for (int i=0; i<people.Length;++i)
+        {
+            peopleColliders[i] = people[i].GetComponent<Collider>();
+        }
+        
+        //int k = 0;
+        //while (k < firstCamPlanes.Length)
+        //{
+        //    GameObject p = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        //    p.name = "Plane " + k.ToString();
+        //    p.transform.position = -firstCamPlanes[k].normal * firstCamPlanes[k].distance;
+        //    p.transform.rotation = Quaternion.FromToRotation(Vector3.up, firstCamPlanes[k].normal);
+        //    k++;
+        //}
+    }
 
 	void Update () {
         if (cam.tag == "Camera_1st_view")
         {
             cam.transform.GetChild(0).gameObject.GetComponent<MeshFilter>().mesh = CameraExtention.GenerateFrustumMesh(cam);
         }
+        CheckPeopleInCam();
         if (Input.GetMouseButton (0) && player.hud.MouseInBoundsPIP () && cam.depth == Drone.PIP_DEPTH_ACTIVE) {
 			GameObject hitObject = FindHitObject ();
 			if (hitObject) {
@@ -51,6 +73,25 @@ public class CameraPIP : MonoBehaviour {
 			}
 		}
 	}
+
+    private void CheckPeopleInCam()
+    {
+        firstCamPlanes = GeometryUtility.CalculateFrustumPlanes(cam);
+        foreach (Collider collider in peopleColliders)
+        {
+            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds))
+            {
+                for(int i=0; i<people.Length; ++i)
+                {
+                    if(peopleColliders[i] == collider )
+                    {
+                      //  Debug.Log(i);
+                    }
+                }
+                Debug.Log(collider.name + " has been detected!");
+            }
+        }
+    }
 
 	void OnGUI(){
 		if (cam.depth != Drone.PIP_DEPTH_DEACTIVE ) {

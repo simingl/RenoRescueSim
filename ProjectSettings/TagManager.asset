@@ -25,6 +25,7 @@ TagManager:
   - AnswerStateButton
   - RouteLinePoint
   - ScoureText
+  - People
   layers:
   - Default
   - TransparentFX

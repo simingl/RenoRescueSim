@@ -14,7 +14,8 @@ public class SceneManager : MonoBehaviour {
 	private List<WorldObject> allHelicopters = new List<WorldObject> ();
 	private List<WorldObject> allPeople = new List<WorldObject> ();
 	private List<WorldObject> allCars = new List<WorldObject> ();
-
+    //private List<WorldObject> allFires
+ 
 	private Player player;
 	private ConfigManager configManager;
 	private int sceneDroneCount = 1;
@@ -30,8 +31,9 @@ public class SceneManager : MonoBehaviour {
 	void Start(){
 		Random.seed = 1;
 		InitialScene ();
-        Drone drone = (Drone)getAllDrones()[0];
-        drone.showPIPCameraFront();
+        //Drone drone = (Drone)getAllDrones()[0];
+        //drone.showPIPCameraFront();
+        player.setSelectedObject(getAllDrones()[0]);
     }
 
 	void InitialScene (){

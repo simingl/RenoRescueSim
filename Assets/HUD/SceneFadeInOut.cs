@@ -8,11 +8,17 @@ public class SceneFadeInOut : MonoBehaviour {
 	private bool sceneStarting = true;
 
 	private Image image;
+
+    //private ChangePOV changePOV;
 	void Awake(){
 		image = this.GetComponent<Image> ();
 		image.rectTransform.sizeDelta = new Vector2( Screen.width, Screen.height);
 		//image.pixelInset = new Rect (0f, 0f, Screen.width, Screen.height);
 	}
+    void Start()
+    {
+        //changePOV = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ChangePOV>();
+    }
 
 	void Update(){
 		if (sceneStarting) {
@@ -21,11 +27,11 @@ public class SceneFadeInOut : MonoBehaviour {
 	}
 
 	void FadeToClear(){
-		image.color = Color.Lerp (image.color, Color.clear, fadeSpeed * Time.deltaTime); 
+		image.color = Color.Lerp (image.color, Color.clear, fadeSpeed * Time.deltaTime/**changePOV.worldSimulationSpeedVar*/); 
 	}
 
 	void FadeToBlack(){
-		image.color = Color.Lerp (image.color, Color.black, fadeSpeed * Time.deltaTime); 
+		image.color = Color.Lerp (image.color, Color.black, fadeSpeed * Time.deltaTime/**changePOV.worldSimulationSpeedVar*/); 
 	}
 
 	void StartScene(){
