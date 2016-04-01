@@ -26,16 +26,16 @@ public class CameraPIP : MonoBehaviour {
         {
             peopleColliders[i] = people[i].GetComponent<Collider>();
         }
-        firstCamPlanes = GeometryUtility.CalculateFrustumPlanes(cam);
-        int k = 0;
-        while (k < firstCamPlanes.Length)
-        {
-            GameObject p = GameObject.CreatePrimitive(PrimitiveType.Plane);
-            p.name = "Plane " + k.ToString();
-            p.transform.position = -firstCamPlanes[k].normal * firstCamPlanes[k].distance;
-            p.transform.rotation = Quaternion.FromToRotation(Vector3.up, firstCamPlanes[k].normal);
-            k++;
-        }
+        
+        //int k = 0;
+        //while (k < firstCamPlanes.Length)
+        //{
+        //    GameObject p = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        //    p.name = "Plane " + k.ToString();
+        //    p.transform.position = -firstCamPlanes[k].normal * firstCamPlanes[k].distance;
+        //    p.transform.rotation = Quaternion.FromToRotation(Vector3.up, firstCamPlanes[k].normal);
+        //    k++;
+        //}
     }
 
 	void Update () {
@@ -43,7 +43,7 @@ public class CameraPIP : MonoBehaviour {
         {
             cam.transform.GetChild(0).gameObject.GetComponent<MeshFilter>().mesh = CameraExtention.GenerateFrustumMesh(cam);
         }
-   //     CheckPeopleInCam();
+        CheckPeopleInCam();
         if (Input.GetMouseButton (0) && player.hud.MouseInBoundsPIP () && cam.depth == Drone.PIP_DEPTH_ACTIVE) {
 			GameObject hitObject = FindHitObject ();
 			if (hitObject) {
@@ -76,10 +76,20 @@ public class CameraPIP : MonoBehaviour {
 
     private void CheckPeopleInCam()
     {
+        firstCamPlanes = GeometryUtility.CalculateFrustumPlanes(cam);
         foreach (Collider collider in peopleColliders)
         {
-            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds)) ;
-            //    Debug.Log(collider.name + " has been detected!");
+            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds))
+            {
+                for(int i=0; i<people.Length; ++i)
+                {
+                    if(peopleColliders[i] == collider )
+                    {
+                        Debug.Log(i);
+                    }
+                }
+                Debug.Log(collider.name + " has been detected!");
+            }
         }
     }
 
