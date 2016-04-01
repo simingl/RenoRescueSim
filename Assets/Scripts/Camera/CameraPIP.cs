@@ -43,7 +43,7 @@ public class CameraPIP : MonoBehaviour {
         {
             cam.transform.GetChild(0).gameObject.GetComponent<MeshFilter>().mesh = CameraExtention.GenerateFrustumMesh(cam);
         }
-        CheckPeopleInCam();
+   //     CheckPeopleInCam();
         if (Input.GetMouseButton (0) && player.hud.MouseInBoundsPIP () && cam.depth == Drone.PIP_DEPTH_ACTIVE) {
 			GameObject hitObject = FindHitObject ();
 			if (hitObject) {
@@ -78,8 +78,8 @@ public class CameraPIP : MonoBehaviour {
     {
         foreach (Collider collider in peopleColliders)
         {
-            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds))
-                Debug.Log(collider.name + " has been detected!");
+            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds)) ;
+            //    Debug.Log(collider.name + " has been detected!");
         }
     }
 
