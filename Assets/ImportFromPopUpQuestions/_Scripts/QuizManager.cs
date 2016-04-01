@@ -90,7 +90,16 @@ public class QuizManager : MonoBehaviour
         if (QuizManager.getInstance().answered)
         {
             AnswerState(QuizManager.getInstance().answerNum);
+
+            if (QuizManager.getInstance().write == false && QuizManager.getInstance().questionButtonCounter + 1 == QuizManager.getInstance().getQuizSettings().quiz.question.Count)
+            {
+                ResumeSceneButtonClick();
+            }
+
         }
+
+
+
         timeNow = Time.realtimeSinceStartup;
         if (timeNow > getQuizStartTime() && QuizManager.getInstance().write)
         {
@@ -103,7 +112,7 @@ public class QuizManager : MonoBehaviour
                 OnPopUpQuestionButtonClick();
             }
         }
-        if (QuizManager.getInstance().questionButtonCounter+1 == QuizManager.getInstance().getQuizSettings().quiz.question.Count 
+        if (QuizManager.getInstance().questionButtonCounter == QuizManager.getInstance().getQuizSettings().quiz.question.Count 
             )
         {
 
@@ -111,10 +120,7 @@ public class QuizManager : MonoBehaviour
                 QuizManager.getInstance().displayResultBoard = false;
                 DisplayResult();
             }
-            else
-            {
-                ResumeSceneButtonClick();
-            }
+            
         }
     }
 
@@ -323,9 +329,10 @@ public class QuizManager : MonoBehaviour
 
     public void OnPopUpQuestionButtonClick()
     {
-        //if (QuizManager.getInstance().questionButtonCounter+1 < QuizManager.getInstance().getQuizSettings().quiz.question.Count)
-        //{
-            if (QuizManager.getInstance().answered || startPopupQuestion)
+ 
+       // 
+
+        if (QuizManager.getInstance().answered || startPopupQuestion)
             {
                 enableQuestionPanel(true);
                 QuizManager.getInstance().startAnswerTime = (int)Time.realtimeSinceStartup;
