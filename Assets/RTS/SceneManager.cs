@@ -14,7 +14,8 @@ public class SceneManager : MonoBehaviour {
 	private List<WorldObject> allHelicopters = new List<WorldObject> ();
 	private List<WorldObject> allPeople = new List<WorldObject> ();
 	private List<WorldObject> allCars = new List<WorldObject> ();
-
+    //private List<WorldObject> allFires
+ 
 	private Player player;
 	private ConfigManager configManager;
 	private int sceneDroneCount = 1;

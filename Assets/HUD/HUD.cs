@@ -45,19 +45,22 @@ public class HUD : MonoBehaviour {
 	private CursorState activeCursorState;
 
 	private GameObject sun;
-
+    private bool initialCams;
 	//For selection rendering
 	public Texture2D selectionHighlight = null;
 	public static Rect selection = new Rect(0,0,0,0);
 	private Vector3 startClick = -Vector3.one;
+
+
 
 	private Camera camera_minimap;
 
 	void Start () {
 		int WIDTH = Screen.width;
 		int HEIGHT = Screen.height;
+        initialCams = true;
 
-		MINIMAP_WIDTH=(int)(0.2*WIDTH);
+        MINIMAP_WIDTH =(int)(0.2*WIDTH);
 		MINIMAP_HEIGHT = (int)(0.33 * HEIGHT);
 		SELECTION_BAR_HEIGHT = (int)(0.16 * HEIGHT);
 		SELECTION_BAR_WIDTH = (int)(0.29*WIDTH);
@@ -79,7 +82,7 @@ public class HUD : MonoBehaviour {
 		RESOURCE_STATUS_WIDTH = (int)(0.1*WIDTH);
 
 		ResourceManager.StoreSelectBoxItems(selectBoxSkin);
- //       ShowAllCameras();
+        
     }
 	
 	void OnGUI () {
@@ -105,6 +108,10 @@ public class HUD : MonoBehaviour {
 
 	void Update(){
 		MouseDragSelection();
+        if(initialCams)
+        {
+            ShowAllCameras();
+        }
 	}
 
 	private void DrawResourceBar() {
@@ -304,6 +311,7 @@ public class HUD : MonoBehaviour {
 
     public void ShowAllCameras()
     {
+        initialCams = false;
         Drone[] allEntities = this.player.sceneManager.getAllDrones();
         foreach (Drone drone in allEntities)
         {
