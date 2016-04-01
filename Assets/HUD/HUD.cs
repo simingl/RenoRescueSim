@@ -7,13 +7,6 @@ using RTS;
 
 public class HUD : MonoBehaviour {
 	public GUISkin resourceSkin, ordersSkin, selectBoxSkin, selectionBarSkin,selectBtnSkin;
-
-  	//change in Sonu
-
-	//change in Tea
-
-        //hello
-
 	public Texture drone_2d, drone_2d_h;
 
 	public Texture drone_cam_front, drone_cam_down;
@@ -177,63 +170,72 @@ public class HUD : MonoBehaviour {
 	}
 
 	private void DrawSelectionBar() {
-		GUI.skin = this.selectionBarSkin;
-		GUI.BeginGroup(new Rect(0, Screen.height - SELECTION_BAR_HEIGHT, Screen.width, SELECTION_BAR_HEIGHT));
-		GUI.Box(new Rect(MINIMAP_WIDTH,0,SELECTION_BAR_WIDTH,SELECTION_BAR_HEIGHT),"");
-		GUI.EndGroup();
+        GUI.skin = this.selectionBarSkin;
+        GUI.BeginGroup(new Rect(0, Screen.height - SELECTION_BAR_HEIGHT, Screen.width, SELECTION_BAR_HEIGHT));
+        GUI.Box(new Rect(MINIMAP_WIDTH, 0, SELECTION_BAR_WIDTH, SELECTION_BAR_HEIGHT), "");
+        GUI.EndGroup();
 
-		Drone[] allEntities = this.player.sceneManager.getAllDrones ();
-		if(allEntities.Length>0) {
-			for(int i =0;i<allEntities.Length;i++){
-				GUI.skin = selectBtnSkin;
-				Drone obj = allEntities[i];
+        Drone[] allEntities = this.player.sceneManager.getAllDrones();
+        if (allEntities.Length > 0)
+        {
+            for (int i = 0; i < allEntities.Length; i++)
+            {
+         //       GUI.skin = selectBtnSkin;
+                Drone obj = allEntities[i];
 
-				GUI.color = obj.color;
+                GUI.color = obj.color;
 
-				int row = i/ROW_MAX;
-				int col = i - row*ROW_MAX ;
+                int row = i / ROW_MAX;
+                int col = i - row * ROW_MAX;
 
-				if(obj.isSelected()){
-					if(GUI.Button(new Rect(MINIMAP_WIDTH+ col*SELECT_BAR_BTN_WIDTH,Screen.height - SELECTION_BAR_HEIGHT + row* SELECT_BAR_BTN_HEIGHT  ,SELECT_BAR_BTN_WIDTH,SELECT_BAR_BTN_HEIGHT), drone_2d_h)){
-						if(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)){
-							this.player.toggleSelectObject(obj);
-						}else{
-							this.player.setSelectedObject(obj);
-							obj.centerMainCamera();
-						}
-					}
-				}
-				else {
-					if(GUI.Button(new Rect(MINIMAP_WIDTH+ col*SELECT_BAR_BTN_WIDTH,Screen.height - SELECTION_BAR_HEIGHT + row* SELECT_BAR_BTN_HEIGHT ,SELECT_BAR_BTN_WIDTH,SELECT_BAR_BTN_HEIGHT), drone_2d) && obj.isSelectable()){
-						if(Input.GetKey(KeyCode.LeftControl)){
-							this.player.toggleSelectObject(obj);
-						}else{
-							this.player.setSelectedObject(obj);
-							obj.centerMainCamera();
-						}
-					}                    
-				}
-			}
-		}
-	}
+                if (obj.isSelected())
+                {
+                    if (GUI.Button(new Rect(MINIMAP_WIDTH + col * SELECT_BAR_BTN_WIDTH, Screen.height - SELECTION_BAR_HEIGHT + row * SELECT_BAR_BTN_HEIGHT, SELECT_BAR_BTN_WIDTH, SELECT_BAR_BTN_HEIGHT), drone_2d_h))
+                    {
+                        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+                        {
+                            this.player.toggleSelectObject(obj);
+                        }
+                        else {
+                            this.player.setSelectedObject(obj);
+                            obj.centerMainCamera();
+                        }
+                    }
+                }
+                else {
+                    if (GUI.Button(new Rect(MINIMAP_WIDTH + col * SELECT_BAR_BTN_WIDTH, Screen.height - SELECTION_BAR_HEIGHT + row * SELECT_BAR_BTN_HEIGHT, SELECT_BAR_BTN_WIDTH, SELECT_BAR_BTN_HEIGHT), drone_2d) && obj.isSelectable())
+                    {
+                        if (Input.GetKey(KeyCode.LeftControl))
+                        {
+                            this.player.toggleSelectObject(obj);
+                        }
+                        else {
+                            this.player.setSelectedObject(obj);
+                            obj.centerMainCamera();
+                        }
+                    }
+                }
+            }
+        }
+    }
 	private void DrawInfoBar(){
-		int offset = MINIMAP_WIDTH + SELECTION_BAR_WIDTH;
+        int offset = MINIMAP_WIDTH + SELECTION_BAR_WIDTH;
 
-		//GUI.color = Color.yellow;
-		GUI.skin = ordersSkin;
-		GUI.BeginGroup(new Rect(0, Screen.height - INFO_BAR_HEIGHT, Screen.width, INFO_BAR_HEIGHT));
-		GUI.Box(new Rect(MINIMAP_WIDTH + SELECTION_BAR_WIDTH,0,INFO_BAR_WIDHT,INFO_BAR_HEIGHT),"");
-		GUI.EndGroup();
+        //GUI.color = Color.yellow;
+        GUI.skin = ordersSkin;
+        GUI.BeginGroup(new Rect(0, Screen.height - INFO_BAR_HEIGHT, Screen.width, INFO_BAR_HEIGHT));
+        GUI.Box(new Rect(MINIMAP_WIDTH + SELECTION_BAR_WIDTH, 0, INFO_BAR_WIDHT, INFO_BAR_HEIGHT), "");
+        GUI.EndGroup();
 
 
-	}
+    }
 
 	private void DrawOrdersBar() {
         int offset = MINIMAP_WIDTH + SELECTION_BAR_WIDTH + INFO_BAR_WIDHT;
 
         GUI.color = Color.white;
         GUI.skin = ordersSkin;
-        GUI.BeginGroup(new Rect(0, Screen.height - ORDERS_BAR_HEIGHT, Screen.width*0.8f, ORDERS_BAR_HEIGHT));
+        GUI.BeginGroup(new Rect(0, Screen.height - ORDERS_BAR_HEIGHT, Screen.width * 0.8f, ORDERS_BAR_HEIGHT));
 
         int orderWidth = Screen.width;
         if (player.isPIPActive())
@@ -274,8 +276,8 @@ public class HUD : MonoBehaviour {
                     Drone unit = (Drone)obj;
                     unit.Recharge();
                 }
-                
-                
+
+
 
                 //				if(GUI.Button (new Rect(offset + ACTION_BTN_WIDTH+5+5,Screen.height - ORDERS_BAR_HEIGHT + i*LINE_HEIGHT +5+ACTION_BTN_HEIGHT,ACTION_BTN_WIDTH,ACTION_BTN_HEIGHT), "Drop Water")){
                 //					Drone unit = (Drone)obj;
@@ -287,30 +289,40 @@ public class HUD : MonoBehaviour {
         //show all cameras-------------
         if (GUI.Button(new Rect(offset + 5, Screen.height - ORDERS_BAR_HEIGHT + 0 * LINE_HEIGHT + 5 + ACTION_BTN_HEIGHT * 2, ACTION_BTN_WIDTH, ACTION_BTN_HEIGHT), "Show All Cam"))
         {
-            Drone[] allEntities = this.player.sceneManager.getAllDrones();
-            foreach (Drone drone in allEntities)
-            {
-                Camera cam = drone.getCameraFront();
-                if (cam.depth != Drone.PIP_DEPTH_ACTIVE)
-                {
-                    cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
-                    cam.depth = Drone.PIP_DEPTH_ACTIVE;
-                }
-            }
+            ShowAllCameras();
         }
         //show all cameras-------------
 
         //clear all cameras-------------
         if (GUI.Button(new Rect(offset + ACTION_BTN_WIDTH + 5 + 5, Screen.height - ORDERS_BAR_HEIGHT + 0 * LINE_HEIGHT + 5 + ACTION_BTN_HEIGHT * 2, ACTION_BTN_WIDTH, ACTION_BTN_HEIGHT), "Clear All Cam"))
         {
-            Drone[] allEntities = this.player.sceneManager.getAllDrones();
-            foreach (Drone drone in allEntities)
-            {
-                Camera cam = drone.getCameraFront();
-                cam.depth = -1;
-            }
+            ClearAllCameras();
         }
         //clear all cameras-------------
+    }
+
+    public void ShowAllCameras()
+    {
+        Drone[] allEntities = this.player.sceneManager.getAllDrones();
+        foreach (Drone drone in allEntities)
+        {
+            Camera cam = drone.getCameraFront();
+            if (cam.depth != Drone.PIP_DEPTH_ACTIVE)
+            {
+                cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
+                cam.depth = Drone.PIP_DEPTH_ACTIVE;
+            }
+        }
+    }
+
+    public void ClearAllCameras()
+    {
+        Drone[] allEntities = this.player.sceneManager.getAllDrones();
+        foreach (Drone drone in allEntities)
+        {
+            Camera cam = drone.getCameraFront();
+            cam.depth = -1;
+        }
     }
 
     public bool MouseInBounds() {
@@ -394,25 +406,32 @@ public class HUD : MonoBehaviour {
     }
 
 	private void DrawPIPBar(){
-		if (player.getSelectedObjects ().Count > 0) {
-			WorldObject wo = player.getSelectedObjects () [0];
-			if (wo is Drone) {
-				Drone drone = (Drone)wo;
-				int offset_w = MINIMAP_WIDTH + ORDERS_BAR_WIDTH + INFO_BAR_WIDHT + SELECTION_BAR_WIDTH + 3;
-				int offset_h = Screen.height - MINIMAP_HEIGHT;
+        if (player.getSelectedObjects().Count > 0)
+        {
+            WorldObject wo = player.getSelectedObjects()[0];
+            if (wo is Drone)
+            {
+                Drone drone = (Drone)wo;
+                int offset_w = MINIMAP_WIDTH + ORDERS_BAR_WIDTH + INFO_BAR_WIDHT + SELECTION_BAR_WIDTH + 3;
+                int offset_h = Screen.height - MINIMAP_HEIGHT;
 
-				if (drone.getCameraFront ().depth == Drone.PIP_DEPTH_ACTIVE) {
-					if (GUI.Button (new Rect (offset_w, offset_h, PIP_BTN_WIDTH, PIP_BTN_HEIGHT), drone_cam_front)) {
-						drone.togglePIPCamera ();
-					}
-				} else if (drone.getCameraDown ().depth == Drone.PIP_DEPTH_ACTIVE) {
-					if (GUI.Button (new Rect (offset_w, offset_h, PIP_BTN_WIDTH, PIP_BTN_HEIGHT), drone_cam_down)) {
-						drone.togglePIPCamera ();
-					}                    
-				}
-			}
-		}
-	}
+                if (drone.getCameraFront().depth == Drone.PIP_DEPTH_ACTIVE)
+                {
+                    if (GUI.Button(new Rect(offset_w, offset_h, PIP_BTN_WIDTH, PIP_BTN_HEIGHT), drone_cam_front))
+                    {
+                        drone.togglePIPCamera();
+                    }
+                }
+                else if (drone.getCameraDown().depth == Drone.PIP_DEPTH_ACTIVE)
+                {
+                    if (GUI.Button(new Rect(offset_w, offset_h, PIP_BTN_WIDTH, PIP_BTN_HEIGHT), drone_cam_down))
+                    {
+                        drone.togglePIPCamera();
+                    }
+                }
+            }
+        }
+    }
 
 	public static float InvertMouseY(float y){
 		return Screen.height - y;

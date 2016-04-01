@@ -9,11 +9,16 @@ public class DroneController : MonoBehaviour {
 	public float speedUp = 3f;
 
 	public Rigidbody player;
+
+    private ChangePOV changePOV;
 	
 	void Awake(){
 		player = GetComponent<Rigidbody> ();
 	}
-	
+	void Start()
+    {
+        changePOV = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ChangePOV>();
+    }
 	void FixedUpdate(){
 		float h = Input.GetAxis ("Horizontal");
 		float v = Input.GetAxis ("Vertical");
@@ -33,14 +38,14 @@ public class DroneController : MonoBehaviour {
 	void Rotating(float horizontal, float vertical){
 		Vector3 targetDirection = new Vector3 (horizontal, 0f, vertical);
 		Quaternion targetRotation = Quaternion.LookRotation (targetDirection, Vector3.up);
-		Quaternion newRotation = Quaternion.Lerp (player.rotation, targetRotation, turnSmoothing*Time.deltaTime);
+		Quaternion newRotation = Quaternion.Lerp (player.rotation, targetRotation, turnSmoothing*Time.deltaTime /* * changePOV.worldSimulationSpeedVar */);
 		player.MoveRotation (newRotation);
 	}
 
 	void Moving(float horizontal, float jump, float vertical){
 		Vector3 oldPosition = player.position;
 		Vector3 targetPosition = new Vector3(oldPosition.x+horizontal, oldPosition.y + jump, oldPosition.z+vertical);
-		Vector3 newPosition = Vector3.Lerp (oldPosition, targetPosition, speedDampTime * Time.deltaTime);
+		Vector3 newPosition = Vector3.Lerp (oldPosition, targetPosition, speedDampTime * Time.deltaTime /* * changePOV.worldSimulationSpeedVar*/);
 		player.MovePosition (newPosition);
 	}
 }

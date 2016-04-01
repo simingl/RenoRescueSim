@@ -43,11 +43,7 @@ public class QuizManager : MonoBehaviour
     private Vector2 minimapSize;
     public GameObject ButtonsOnMiniMapFolder;
     public RectTransform questionPanel;
-   
-
     //minimapPosition---
-
-
     public GameObject resultTextPrefab;
     //   public Text resultTextInPrefab;
     public Text resultTextBoard;

@@ -9,11 +9,14 @@ public class UserInput : MonoBehaviour {
 	private Player player;
 	private GameObject dayNightToggle;
 
+    //private ChangePOV changePOV;
+
 	// Use this for initialization
 	void Start () {
 		player = transform.root.GetComponent< Player >();
 		dayNightToggle = GameObject.FindGameObjectWithTag ("DayNightToggle");
-	}
+        //changePOV = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ChangePOV>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -129,7 +132,7 @@ public class UserInput : MonoBehaviour {
 
 		//if a change in position is detected perform the necessary update
 		if(destination != origin) {
-			Camera.main.transform.position = Vector3.MoveTowards(origin, destination, Time.deltaTime * ResourceManager.ScrollSpeed*10);
+			Camera.main.transform.position = Vector3.MoveTowards(origin, destination, Time.deltaTime /* *changePOV.worldSimulationSpeedVar*/ * ResourceManager.ScrollSpeed*10);
 		}
 
 		Camera.main.GetComponent<CameraMain>().ClampCam();
