@@ -94,7 +94,7 @@ public class Drone : WorldObject {
                 this.color = Color.yellow;
                 break;
             case 1:
-                this.color = Color.white;
+                this.color = Color.red;
                 break;
             case 2:
                 this.color = Color.blue;
@@ -105,12 +105,9 @@ public class Drone : WorldObject {
             case 4:
                 this.color = Color.green;
                 break;
-            case 5:
-                this.color = Color.gray;
-                break;
-            case 6:
-                this.color = Color.black;
-                break;
+            //case 5:
+            //    this.color = Color.gray;
+                //break;
             default:
                 this.color = Color.cyan;                
                 break;                
@@ -154,8 +151,7 @@ public class Drone : WorldObject {
         //setup the line from object to the ground
         lineRaycast = this.GetComponent<LineRenderer>();
         lineRaycast.useWorldSpace = true;
-
-       
+        
 
         this.malFunction ();
     }
@@ -235,57 +231,7 @@ public class Drone : WorldObject {
 
         this.CalculateBattery();
     }
-
-    public void blurEnable()
-    {
-        Component myScript = this.GetComponentInChildren<Drone>();
-        Debug.Log(myScript.gameObject);
-    }
-
-    public void blurDisable()
-    {
-       
-        if(this.isSelected() == true)
-        {
-            Debug.Log(this.name);
-        }
-    }
-
-
-    public void testDroneNumberButton()
-    {
-        //Debug.Log(player.getSelectedObjects()[0]);
-        //Debug.Log(ConfigManager.getInstance().getSceneDroneCount());
-    }
-
-    //getDroneArea base on drone num---
-    //public int getDroneArea()
-    //{
-    //    int droneCount = ConfigManager.getInstance().getSceneDroneCount();
-    //    int rootOfDrone = (int)Mathf.Sqrt(droneCount);
-    //    float gridSizeOfScene = 200 / rootOfDrone;
-
-    //    int dronePostionOffset = 100;
-    //    int result = 0;
-    //    for (int i=0; i< rootOfDrone; ++i)
-    //    {
-    //        for (int j=0; j< rootOfDrone; ++j )
-    //        {
-    //            if(gridSizeOfScene * i<(this.transform.position.x+dronePostionOffset) && 
-    //               gridSizeOfScene * (i+1) > (this.transform.position.x+ dronePostionOffset) &&
-    //               gridSizeOfScene * j < (this.transform.position.z + dronePostionOffset) &&
-    //               gridSizeOfScene * (j + 1) > (this.transform.position.z + dronePostionOffset)
-    //               )
-    //            {
-    //                result = i + (rootOfDrone -1-j)*rootOfDrone;
-    //            }
-    //        }
-    //    }
-    //    //Debug.Log(this.name + "is in: " + result);
-    //    return result;
-    //}
-    //getDroneArea base on drone num---
-
+   
     //getDroneArea base on settring file-----------------------------------
     public int getDroneArea()
     {
@@ -314,12 +260,6 @@ public class Drone : WorldObject {
                    gridSizeOfSceneWidth * (j + 1) > (this.transform.position.x + dronePostionOffset)
                    )
                 {
-                    //Debug.Log("gridSizeOfSceneWidth"+ gridSizeOfSceneWidth);
-                    //Debug.Log("gridSizeOfSceneHeight"+ gridSizeOfSceneHeight);
-                    //Debug.Log("this.transform.position.z is: " + this.transform.position.z);
-                    //Debug.Log("this.transform.position.x is: " + this.transform.position.x);
-                    //Debug.Log("i is: " + i);
-                    //Debug.Log("j is: " + j);
                     result = j + (VButtonsNum-i-1) * HButtonsNum;
                 }
             }
@@ -399,7 +339,6 @@ public class Drone : WorldObject {
 
     public void writeDroneAreasToXML()
     {
-
     }
 
 	public void StartMove(Vector3 d) {
@@ -448,16 +387,6 @@ public class Drone : WorldObject {
                 {
                     speed = 0f;
                 }
-                //                GameObject tmp = this.routePointsQueue.Peek();
-                //                Vector3 d = tmp.transform.position ;
-                //                this.routePointsQueue.Dequeue();
-                //                Object.Destroy(tmp);
-                ////				this.routePoints.Dequeue ();
-                //				if (this.routelines.ContainsKey (d)) {
-                //					Object.Destroy (this.routelines [d]);
-                //					this.routelines.Remove (d);
-                //				}
-
                 GameObject ball = this.routePointsQueue.Dequeue();
                 Object.Destroy(this.routelines[ball]);
                 this.routelines.Remove(ball);
@@ -546,25 +475,6 @@ public class Drone : WorldObject {
             }
         }
     }
-
-
-//	private GameObject drawLine(Vector3 org, Vector3 dst){
-//		GameObject line = (GameObject)Instantiate (routePoints, dst, new Quaternion(0,0,0,1));
-//
-//		LineRenderer lr = line.GetComponent<LineRenderer> ();
-//		line.GetComponent<Renderer>().material.color=color;
-//		lr.SetPosition (0, org);
-//		lr.SetPosition (1, dst);
-//		lr.material = new Material(Shader.Find("Particles/Additive"));
-//		lr.SetColors(color, color);
-//		line.layer = ResourceManager.LayerMainCamerea;
-//
-//		return line;
-//	}
-
-    //public 
-
-
 	private GameObject drawLine(Vector3 org, Vector3 dst){
 		GameObject[] tmpQueue = routePointsQueue.ToArray();
 		//int length = tmpQueue.Length;
@@ -737,7 +647,9 @@ public class Drone : WorldObject {
 
 	public void Dieing(){
 		this.currentStatus = STATUS.DEAD;
-		this.setColor (Color.gray);
+        transform.FindChild("arrow32").FindChild("Mesh_").GetComponent<Renderer>().material.color = Color.gray;
+        clearDestination();
+        this.setColor (Color.gray);
 		this._isSelectable = false;
 		this.player.removeSelectedObject (this);
 	}
@@ -749,11 +661,6 @@ public class Drone : WorldObject {
 	}
      
 	public void addWayPoint(Vector3 point){
-//		GameObject colon = (GameObject)Instantiate(routePoints,point, new Quaternion(0,0,0,1));
-//		colon.GetComponent<Renderer>().material.color = color;
-//		colon.layer = ResourceManager.LayerMainCamerea;
-//		this.routePointsQueue.Enqueue (point);
-//		this.routePointsQueue.Enqueue (colon);
 		SpawnRoutePoints(point);
 	}
 
@@ -777,13 +684,13 @@ public class Drone : WorldObject {
 		Random random = new Random ();
 		int randInt = Random.Range (1, ConfigManager.getInstance ().getSceneDroneCount ());
 		if(randInt == 2) {
-			this.malFunctionCamera ();
+			this.malFunctionCameraEnable ();
 		} else if (randInt == 3){
 			this.malFunctionSpeed();
 		}
 	}
 
-	private void malFunctionCamera(){
+	public void malFunctionCameraEnable(){
 		Blur blur = camera_front.GetComponent<Blur>();
 		blur.enableFunc();
 	}
@@ -791,4 +698,10 @@ public class Drone : WorldObject {
 	private void malFunctionSpeed(){
 		this.maxSpeed /= 2;
 	}
+
+    public void malFunctionCameraClear()
+    {
+        Blur blur = camera_front.GetComponent<Blur>();
+        blur.disableFunc();
+    }
 }
