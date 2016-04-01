@@ -32,7 +32,7 @@ public class Player : MonoBehaviour {
 	public void addSelectedObject(WorldObject obj){
 		if (!selectedObjects.Contains (obj)) {
 			selectedObjects.Add (obj);
-			this.audioManager.playUnitSelectSound();
+	//		this.audioManager.playUnitSelectSound();
 		}
 
 		if (obj == this.selectedObjects [0] && obj is Drone) {

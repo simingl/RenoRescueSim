@@ -23,7 +23,7 @@ public class Helicopter :  WorldObject {
 
 	void Awake(){
 		regenTime = cycle;
-		fire = transform.FindChild ("fire").gameObject;
+	//	fire = transform.FindChild ("fire").gameObject;
 	}
 
 	protected virtual void Start () {
@@ -41,7 +41,7 @@ public class Helicopter :  WorldObject {
 		mark.transform.localScale = Vector3.one * 20f;
 		mark.transform.localPosition = new Vector3 (0, 5f, 0);
 		mark.transform.rotation = gameObject.transform.rotation;
-		mark.GetComponent<Renderer> ().material.color = Color.yellow;
+		mark.GetComponent<Renderer> ().material.color = Color.white;
 
 		waypoints = GameObject.FindGameObjectsWithTag ("WaypointAir");
 

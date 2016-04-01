@@ -5,7 +5,12 @@ public class MovementScript : MonoBehaviour {
     public float speed = 6.0F;
     public float jumpSpeed = 8.0F;
     public float gravity = 20.0F;
+    //private ChangePOV changePOV;
     private Vector3 moveDirection = Vector3.zero;
+    void Start()
+    {
+        //changePOV = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ChangePOV>();
+    }
     void Update() {
         CharacterController controller = GetComponent<CharacterController>();
         if (controller.isGrounded) {
@@ -16,7 +21,7 @@ public class MovementScript : MonoBehaviour {
                 moveDirection.y = jumpSpeed;
             
         }
-        moveDirection.y -= gravity * Time.deltaTime;
-        controller.Move(moveDirection * Time.deltaTime);
+        moveDirection.y -= gravity * Time.deltaTime/**changePOV.worldSimulationSpeedVar*/;
+        controller.Move(moveDirection * Time.deltaTime/**changePOV.worldSimulationSpeedVar*/);
     }
 }
