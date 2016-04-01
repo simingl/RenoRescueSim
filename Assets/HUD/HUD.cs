@@ -79,7 +79,8 @@ public class HUD : MonoBehaviour {
 		RESOURCE_STATUS_WIDTH = (int)(0.1*WIDTH);
 
 		ResourceManager.StoreSelectBoxItems(selectBoxSkin);
-	}
+ //       ShowAllCameras();
+    }
 	
 	void OnGUI () {
 		if(player && player.human) {
