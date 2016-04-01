@@ -85,7 +85,7 @@ public class CameraPIP : MonoBehaviour {
                 {
                     if(peopleColliders[i] == collider )
                     {
-                        Debug.Log(i);
+                      //  Debug.Log(i);
                     }
                 }
                 Debug.Log(collider.name + " has been detected!");
