@@ -10,6 +10,8 @@ public class QuestionpanelController : MonoBehaviour {
     public GameObject questionPanel;
     public GameObject answerPanel;
     public GameObject ground;
+    public Camera bgCamera;
+ 
 
     // Use this for initialization
     void Start() {
@@ -28,6 +30,8 @@ public class QuestionpanelController : MonoBehaviour {
     void showQuestionPanel(bool hideStatus)
     {
         questionPanel.SetActive(hideStatus);
+        bgCamera.gameObject.SetActive(hideStatus);
+        
     }
 
     void activeScreenSpaceRender(bool screenSpaceStatus)

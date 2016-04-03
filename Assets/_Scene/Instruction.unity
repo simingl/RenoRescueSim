@@ -204,7 +204,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -33, y: -74.5}
+  m_AnchoredPosition: {x: -20, y: -96}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &593768305
@@ -518,7 +518,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11.1, y: 19}
+  m_AnchoredPosition: {x: 3, y: 49}
   m_SizeDelta: {x: 324.1, y: 174}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1759797385
@@ -555,7 +555,8 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "Short-cut-keys:\r\nAWSD:  RTS camera move\r\n0  --- 9:  Select first 10
     in n.\r\nF5      :  Show all cameras.\r\nF6      :  Remove all cameras.\r\nF7
-    \     :  Blur selected drones' cameras.\n"
+    \     :  Blur selected drones' cameras.\nGoal   :  Maximize score by locating
+    \         \n             people and cars on Drone map.\n"
 --- !u!222 &1759797386
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -773,8 +774,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 8, y: 2}
+  m_SizeDelta: {x: 303, y: 261}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2076338643
 MonoBehaviour:
