@@ -8,7 +8,7 @@ public class AnswerPanelController : MonoBehaviour {
 
     Question question;
     //Option Panel
-    public  Dropdown optionDropdown;
+    //public  Dropdown optionDropdown;
     //Input Panel
     public InputField inputPanelText;
     //Area Panel
@@ -40,17 +40,17 @@ public class AnswerPanelController : MonoBehaviour {
     {
         //Debug.Log("answer panel called fillOptions");
 
-        optionDropdown.ClearOptions();
+        //optionDropdown.ClearOptions();
         foreach(Opt option in question.option.opt)
         {
 
-            optionDropdown.options.Add(new Dropdown.OptionData(option.optDescription));
+            //optionDropdown.options.Add(new Dropdown.OptionData(option.optDescription));
             
         }
 
 
-        optionDropdown.value = 0;
-        optionDropdown.RefreshShownValue();
+        //optionDropdown.value = 0;
+        //optionDropdown.RefreshShownValue();
     }
 
 
@@ -63,7 +63,7 @@ public class AnswerPanelController : MonoBehaviour {
             case QuestionType.Single:
  
 
-                optionDropdown.gameObject.SetActive(true);
+                //optionDropdown.gameObject.SetActive(true);
                 inputPanelText.gameObject.SetActive(false);
                 areaPanelDetails.gameObject.SetActive(false);
                 submitButton.gameObject.SetActive(true);
@@ -78,7 +78,7 @@ public class AnswerPanelController : MonoBehaviour {
             case QuestionType.InputNumber:
                 //Debug.Log("answer panel called QuestionType.InputNumber");
  
-                optionDropdown.gameObject.SetActive(false);
+                //optionDropdown.gameObject.SetActive(false);
                 inputPanelText.gameObject.SetActive(true);
                 areaPanelDetails.gameObject.SetActive(false);
                 submitButton.gameObject.SetActive(true);
@@ -90,7 +90,7 @@ public class AnswerPanelController : MonoBehaviour {
             case QuestionType.Area:
                 //Debug.Log("answer panel called QuestionType.Area");
 
-                optionDropdown.gameObject.SetActive(false);
+                //optionDropdown.gameObject.SetActive(false);
                 inputPanelText.gameObject.SetActive(false);
                 areaPanelDetails.gameObject.SetActive(true);
                 submitButton.gameObject.SetActive(false);
@@ -112,7 +112,7 @@ public class AnswerPanelController : MonoBehaviour {
         switch (question.type)
         {
             case QuestionType.Single:
-                question.userAnswer = optionDropdown.captionText.text;
+                //question.userAnswer = optionDropdown.captionText.text;
                 break;
 
             case QuestionType.InputNumber:
