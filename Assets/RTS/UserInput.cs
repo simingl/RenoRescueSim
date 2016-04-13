@@ -173,36 +173,68 @@ public class UserInput : MonoBehaviour {
 					cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
 					cam.depth = Drone.PIP_DEPTH_ACTIVE;
 				}
-                //else
-                //{
-                //    cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
-                //}
+                else
+                {
+                    cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
+                }
 
-			}
-		}else if(player.hud.MouseInBounds()) {
+            }
+        }
+        else if(player.hud.MouseInBounds()) {
 			GameObject hitObject = FindHitObject();
 			Vector3 hitPoint = FindHitPoint();
 			if(hitObject && hitPoint != ResourceManager.InvalidPosition) {
 				if(hitObject.name!="Ground") {
 					WorldObject worldObject = hitObject.GetComponent< WorldObject >();
-					if(worldObject && worldObject.isSelectable()) {
-						if(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)){
-							player.addSelectedObject(worldObject);
-						}else{
-							player.setSelectedObject(worldObject);
-						}
-					}
-                    //else if (hitObject.tag != "drone")
-                    //{
-                    //    player.cleanSelectedObject();
-                    //}
-                 //   Debug.Log(hitObject.name);
-				}
+                    if (worldObject && worldObject.isSelectable())
+                    {
+                        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+                        {
+                            player.addSelectedObject(worldObject);
+                        }
+                        else {
+                            player.setSelectedObject(worldObject);
+                        }
+                    }
+                    else if (hitObject.tag != "Drone")
+                    {
+                        WorldObject tmpGameObject = new WorldObject();
+                        for (int i = 0; i < player.selectedObjects.Count; ++i)
+                        {
+                            if (player.selectedObjects[i].tag == "Drone")
+                            {
+                                tmpGameObject = player.selectedObjects[i];
+                            }
+                            break;
+                        }
+                        player.cleanSelectedObject();
+                        if (tmpGameObject != null)
+                        {
+                            Drone drone = (Drone)tmpGameObject;
+                            drone.showPIPCameraFront();
+                        }
+                    }
+                    //   Debug.Log(hitObject.name);
+                }
                 ////click on world  except drones--------------
-                //else if (hitObject.tag != "drone")
-                //{
-                //    player.cleanSelectedObject();
-                //}
+                else if (hitObject.tag != "drone")
+                {
+                    WorldObject tmpGameObject = new WorldObject();
+                    for (int i = 0; i < player.selectedObjects.Count; ++i)
+                    {
+                        if (player.selectedObjects[i].tag == "Drone")
+                        {
+                            tmpGameObject = player.selectedObjects[i];
+                        }
+                        break;
+                    }
+                    player.cleanSelectedObject();
+                    if (tmpGameObject != null)
+                    {
+                        Drone drone = (Drone)tmpGameObject;
+                        drone.showPIPCameraFront();
+                    }
+                }
                 ////click on world  except drones--------------
             }
         }

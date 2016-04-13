@@ -314,7 +314,11 @@ public class Drone : WorldObject {
     public Camera getCameraFront() {
         return this.camera_front;
     }
-	public Camera getCameraDown() {
+    //public Camera getCameraFront()
+    //{
+    //    return this.camera_front;
+    //}
+    public Camera getCameraDown() {
 		return this.camera_down;
 	}
 	public void StartMove() {

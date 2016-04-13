@@ -88,7 +88,7 @@ public class CameraPIP : MonoBehaviour {
                       //  Debug.Log(i);
                     }
                 }
-                Debug.Log(collider.name + " has been detected!");
+        //        Debug.Log(collider.name + " has been detected!");
             }
         }
     }

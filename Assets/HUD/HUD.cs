@@ -50,9 +50,7 @@ public class HUD : MonoBehaviour {
 	public Texture2D selectionHighlight = null;
 	public static Rect selection = new Rect(0,0,0,0);
 	private Vector3 startClick = -Vector3.one;
-
-
-
+    
 	private Camera camera_minimap;
 
 	void Start () {
