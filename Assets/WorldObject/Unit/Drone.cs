@@ -74,7 +74,7 @@ public class Drone : WorldObject {
         cellphones = new Stack<Cellphone>();
         waters = new Stack<WaterBottle>();
         this.routePointsQueue = new Queue<GameObject>();
-		routelines = new Dictionary<GameObject, GameObject>();
+		routelines = new Dictionary<GameObject, GameObject>();       
 
     }
 

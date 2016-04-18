@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 public class UserInput : MonoBehaviour {
 	private Player player;
 	private GameObject dayNightToggle;
-
     //private ChangePOV changePOV;
 
 	// Use this for initialization
@@ -207,7 +206,8 @@ public class UserInput : MonoBehaviour {
                             }
                             break;
                         }
-                        player.cleanSelectedObject();
+                        //if(!MouseInBoundsPIP())
+                            player.cleanSelectedObject();
                         if (tmpGameObject != null)
                         {
                             Drone drone = (Drone)tmpGameObject;
@@ -228,7 +228,8 @@ public class UserInput : MonoBehaviour {
                         }
                         break;
                     }
-                    player.cleanSelectedObject();
+                    //if (!MouseInBoundsPIP())
+                        player.cleanSelectedObject();
                     if (tmpGameObject != null)
                     {
                         Drone drone = (Drone)tmpGameObject;
@@ -299,5 +300,13 @@ public class UserInput : MonoBehaviour {
 		if(Physics.Raycast(ray, out hit)) return hit.point;
 		return ResourceManager.InvalidPosition;
 	}
+
+    private bool MouseInBoundsPIP()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        bool insideWidth = mousePos.x >= Camera.main.pixelRect.x && mousePos.x <= Camera.main.pixelRect.x + Camera.main.pixelWidth;
+        bool insideHeight = mousePos.y >= Camera.main.pixelRect.y && mousePos.y < Camera.main.pixelRect.yMax;
+        return insideWidth && insideHeight;
+    }
 
 }

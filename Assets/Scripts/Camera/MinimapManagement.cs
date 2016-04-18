@@ -79,10 +79,11 @@ public class MinimapManagement : MonoBehaviour {
 				minimapCam.rect = new Rect(0,0, newWidth/screenWidth,newHeight/screenHeight);
 			}
 
-			this.lastMinimapSize = minimapSize;
-		}
-	}
+			this.lastMinimapSize = minimapSize;            
 
+        }
+	}
+    
 	void OnGUI()
 	{
         if (switchOff)

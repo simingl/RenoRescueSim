@@ -13,8 +13,10 @@ public class CameraPIP : MonoBehaviour {
     private GameObject [] people;
     private Plane[] firstCamPlanes;
     private Collider[] peopleColliders;
-      
-    
+    Ray ray;
+    RaycastHit hit;
+
+
     //detect if objects in the camera---------------
     void Start(){
 		cam = this.GetComponent<Camera>();
@@ -39,6 +41,19 @@ public class CameraPIP : MonoBehaviour {
     }
 
 	void Update () {
+
+        //mouse hover on npc--------
+        ray = cam.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
+        {
+           
+            if (hit.collider.gameObject.name == "Andy(Clone)")
+            {
+                print(hit.collider.gameObject.name);
+            }
+        }
+        //mouse hover on npc--------
+
         if (cam.tag == "Camera_1st_view")
         {
             cam.transform.GetChild(0).gameObject.GetComponent<MeshFilter>().mesh = CameraExtention.GenerateFrustumMesh(cam);
@@ -53,7 +68,8 @@ public class CameraPIP : MonoBehaviour {
 						worldObject.GetComponent<MapItem> ().setColor (Color.green);
 						if (worldObject is NPC) {
 							((NPC)worldObject).Mark ();
-						} else if (worldObject is Vehicle) {
+
+                        } else if (worldObject is Vehicle) {
 							((Vehicle)worldObject).Mark();
 						}
 					}
@@ -93,7 +109,7 @@ public class CameraPIP : MonoBehaviour {
         }
     }
 
-	void OnGUI(){
+	void OnGUI(){           
 		if (cam.depth != Drone.PIP_DEPTH_DEACTIVE ) {
 			GUI.skin = mySkin;
 			GUI.Box (new Rect (cam.pixelRect.x, (Screen.height - cam.pixelRect.yMax), cam.pixelWidth, cam.pixelHeight), "");
@@ -108,14 +124,19 @@ public class CameraPIP : MonoBehaviour {
 
 			//draw drone icon on the top right of the camera
 			Color color = drone.color;
-			Texture droneTexture = player.hud.drone_2d;
-			GUI.color = color;
-			GUI.DrawTexture(new Rect (cam.pixelRect.x + cam.pixelWidth-60, (Screen.height - cam.pixelRect.yMax), 40, 20), player.hud.drone_2d);
+            if (drone.isSelected())
+            {
+                Texture droneTexture = player.hud.drone_2d;
+                GUI.color = color;
+                GUI.DrawTexture(new Rect(cam.pixelRect.x + cam.pixelWidth - 60, (Screen.height - cam.pixelRect.yMax), 40, 20), player.hud.drone_2d);
+            }
 
 			//double click PIP camera to select the cooresponding drone
 			Event e = Event.current;
-			if (e.isMouse && e.type == EventType.MouseDown && e.clickCount == 2 &&  this.MouseInBoundsPIP())
-			{
+			if (e.isMouse && e.type == EventType.MouseDown && e.clickCount == 2 &&  this.MouseInBoundsPIP() )
+                //cam.rect != ResourceManager.getInstance().getPIPCameraPosition()
+
+            {
 				if(player.getSelectedObjects().Count >0){
 					Drone selectedDrone = (Drone)player.getSelectedObjects()[0];
 					Camera dfcam = selectedDrone.getCameraFront();
