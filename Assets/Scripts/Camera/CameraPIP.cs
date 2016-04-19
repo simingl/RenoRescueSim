@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 using System.Collections;
 using RTS;
 
@@ -16,6 +17,8 @@ public class CameraPIP : MonoBehaviour {
     Ray ray;
     RaycastHit hit;
 
+    private List<GameObject> resizedObjects = new List<GameObject>();
+    private SortedDictionary<GameObject, float> findObjectsMap = new SortedDictionary<GameObject, float>();
 
     //detect if objects in the camera---------------
     void Start(){
@@ -40,16 +43,39 @@ public class CameraPIP : MonoBehaviour {
         //}
     }
 
-	void Update () {
-
+    void Update () {
         //mouse hover on npc--------
-        ray = cam.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
+        if (player.hud.MouseInBoundsPIP() && FindHitObject())
         {
-           
-            if (hit.collider.gameObject.name == "Andy(Clone)")
+            float findOjbectTime = Time.timeSinceLevelLoad;
+            GameObject findObject = new GameObject();
+            if (FindHitObject().name == "Andy(Clone)")
             {
-                print(hit.collider.gameObject.name);
+                findObject = FindHitObject();
+                if (!findObjectsMap.ContainsKey(findObject))
+                {
+                    findObjectsMap.Add(findObject, findOjbectTime);
+                    findObject.transform.FindChild("SelectableCollider").gameObject.SetActive(true);
+                    CapsuleCollider myCollider = findObject.GetComponent<CapsuleCollider>();
+                }
+                else
+                {
+                    findObjectsMap[findObject] = findOjbectTime;
+                }
+                //myCollider.radius = 3f;
+                //myCollider.height = 16f;
+            }
+            
+            if (findObjectsMap.Count > 0 )
+            {
+                if(findObjectsMap.ContainsKey())
+                //for (int i = 0; i < findObjectsMap.Count; ++i)
+                //{
+                //    if (findObjectsMap[i] != findObject)
+                //    {
+                //        resizedObjects[i].transform.FindChild("SelectableCollider").gameObject.SetActive(false);
+                //    }
+                //}
             }
         }
         //mouse hover on npc--------
@@ -133,7 +159,7 @@ public class CameraPIP : MonoBehaviour {
 
 			//double click PIP camera to select the cooresponding drone
 			Event e = Event.current;
-			if (e.isMouse && e.type == EventType.MouseDown && e.clickCount == 2 &&  this.MouseInBoundsPIP() )
+			if (e.isMouse && e.type == EventType.MouseDown && e.clickCount == 2 &&  this.MouseInBoundsPIP() /*&& !MouseInBoundsFirstCam()*/)
                 //cam.rect != ResourceManager.getInstance().getPIPCameraPosition()
 
             {
@@ -176,6 +202,8 @@ public class CameraPIP : MonoBehaviour {
 		bool insideHeight = mousePos.y >= cam.pixelRect.y && mousePos.y < cam.pixelRect.yMax;
 		return insideWidth && insideHeight;
 	}
-
-
+    public bool GetMousInBoundsPIP()
+    {
+        return MouseInBoundsPIP();
+    }
 }

@@ -9,6 +9,7 @@ public class UserInput : MonoBehaviour {
 	private Player player;
 	private GameObject dayNightToggle;
     //private ChangePOV changePOV;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -206,8 +207,10 @@ public class UserInput : MonoBehaviour {
                             }
                             break;
                         }
-                        //if(!MouseInBoundsPIP())
+                        if (!MouseInBoundsPIP())
+                        {
                             player.cleanSelectedObject();
+                        }
                         if (tmpGameObject != null)
                         {
                             Drone drone = (Drone)tmpGameObject;
@@ -228,8 +231,10 @@ public class UserInput : MonoBehaviour {
                         }
                         break;
                     }
-                    //if (!MouseInBoundsPIP())
+                    if (!MouseInBoundsPIP())
+                    {
                         player.cleanSelectedObject();
+                    }
                     if (tmpGameObject != null)
                     {
                         Drone drone = (Drone)tmpGameObject;
@@ -303,10 +308,14 @@ public class UserInput : MonoBehaviour {
 
     private bool MouseInBoundsPIP()
     {
-        Vector3 mousePos = Input.mousePosition;
-        bool insideWidth = mousePos.x >= Camera.main.pixelRect.x && mousePos.x <= Camera.main.pixelRect.x + Camera.main.pixelWidth;
-        bool insideHeight = mousePos.y >= Camera.main.pixelRect.y && mousePos.y < Camera.main.pixelRect.yMax;
-        return insideWidth && insideHeight;
+        Drone[] allEntites = player.sceneManager.getAllDrones();
+        foreach (Drone drone in allEntites)
+        {
+            if ( drone.GetComponentInChildren<CameraPIP>().GetMousInBoundsPIP())
+            {
+                return true;                
+            }
+        }
+        return false;
     }
-
 }

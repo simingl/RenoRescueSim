@@ -153,7 +153,7 @@ public class Drone : WorldObject {
         lineRaycast.useWorldSpace = true;
         
 
-        this.malFunction ();
+      //  this.malFunction ();
     }
 
     protected override void Update() {
@@ -411,8 +411,13 @@ public class Drone : WorldObject {
 		
 		speed = Mathf.Clamp (speed, minSpeed, maxSpeed);
 
-		//altitude
-		float jump = Input.GetAxis("Jump");
+        //altitude
+        float jump=0;
+        if (this.isSelected())
+        {
+            jump = Input.GetAxis("Jump");
+        }
+		
 		if (jump != 0) {
 			this.currentStatus = STATUS.MOVING;
 
