@@ -60,9 +60,9 @@ namespace RTS {
         private Rect PIPCameraPosition  = new Rect (new Vector2 (0.8f, 0), new Vector2 (0.2f, 0.33f));
 		public Rect getPIPCameraPosition(){
 			return PIPCameraPosition;
-		}
+		}        
 
-		private Rect[] camPos = new Rect[6];
+        private Rect[] camPos = new Rect[6];
 		private Dictionary<Rect, Camera> cameras  = new Dictionary<Rect, Camera>();
 
 		public Rect getAvailableCameraPosition(Camera cam){
