@@ -21,8 +21,6 @@ public class CameraPIP : MonoBehaviour
 
     private List<GameObject> resizedObjects = new List<GameObject>();
     private Dictionary<GameObject, float> findObjectsMap = new Dictionary<GameObject, float>();
-    private GameObject findObject;
-
     //detect if objects in the camera---------------
     void Start()
     {
@@ -35,28 +33,12 @@ public class CameraPIP : MonoBehaviour
         {
             peopleColliders[i] = people[i].GetComponent<Collider>();
         }
-
-        findObject = new GameObject();
-
-        //int k = 0;
-        //while (k < firstCamPlanes.Length)
-        //{
-        //    GameObject p = GameObject.CreatePrimitive(PrimitiveType.Plane);
-        //    p.name = "Plane " + k.ToString();
-        //    p.transform.position = -firstCamPlanes[k].normal * firstCamPlanes[k].distance;
-        //    p.transform.rotation = Quaternion.FromToRotation(Vector3.up, firstCamPlanes[k].normal);
-        //    k++;
-        //}
     }
 
     void Update()
     {
         //mouse hover on npc--------
         HoverMouseToResizePeople();
-        if(IsMouseInFirstCamera())
-        {
-            Debug.Log("");
-        }
         //mouse hover on npc--------
 
         if (cam.tag == "Camera_1st_view")
@@ -209,60 +191,37 @@ public class CameraPIP : MonoBehaviour
 
     private void HoverMouseToResizePeople()
     {
-        //if (player.hud.MouseInBoundsPIP() && FindHitObject())
         if (IsMouseInFirstCamera() && FindHitObject())
         {
             float findOjbectTime = Time.timeSinceLevelLoad;
-            if (FindHitObject().name == "Andy(Clone)")
+            if (FindHitObject().name == "Andy(Clone)" || FindHitObject().name == "car-alpha(Clone)")
             {
-                
-                findObject = FindHitObject();
-                if (!findObjectsMap.ContainsKey(findObject))
+                if (!findObjectsMap.ContainsKey(FindHitObject()))
                 {
-                    findObjectsMap.Add(findObject, findOjbectTime);
-                    findObject.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                    findObjectsMap.Add(FindHitObject(), findOjbectTime);
+                    FindHitObject().transform.localScale *= 2;
                 }
                 else
                 {
-                    Debug.Log("Enter else statement");
-                    findObjectsMap[findObject] = findOjbectTime;
+                    findObjectsMap[FindHitObject()] = findOjbectTime;
                 }
-                //CapsuleCollider myCollider = findObject.GetComponentInChildren<CapsuleCollider>();
-                //myCollider.radius = 3f;
-                //myCollider.height = 16f;              
             }
-            if (findObjectsMap.Count > 0)
+        }
+        if (findObjectsMap.Count > 0)
+        {
+            foreach (var item in findObjectsMap.Where(kvp => kvp.Value < Time.timeSinceLevelLoad - 3.0f).ToList())
             {
-                //foreach (KeyValuePair<GameObject, float> tmpDic in findObjectsMap)
-                //{
-                //    if (findOjbectTime - tmpDic.Value > 3.0f)
-                //    {
-                //        tmpDic.Key.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
-                //        findObjectsMap.Clear();
-                //        break;
-                //    }
-                //}
-                foreach (var item in findObjectsMap.Where(kvp => kvp.Value < Time.timeSinceLevelLoad -3.0f).ToList())
-                {
-                    item.Key.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-                    findObjectsMap.Remove(item.Key);
-                }
+                item.Key.transform.localScale /= 2;
+                findObjectsMap.Remove(item.Key);
             }
         }
     }
 
-    //public bool IsMouseInFirstCamera()
-    //{
-    //    Vector3 mousePos = Input.mousePosition;
-    //    bool insideWidth = mousePos.x < ResourceManager.getInstance().getPIPCameraPosition().xMax && mousePos.x > ResourceManager.getInstance().getPIPCameraPosition().xMin;
-    //    bool insideHeight = mousePos.y < ResourceManager.getInstance().getPIPCameraPosition().yMax && mousePos.y > ResourceManager.getInstance().getPIPCameraPosition().yMin;
-    //    return insideWidth && insideHeight;
-    //}
     public bool IsMouseInFirstCamera()
     {
         Vector3 mousePos = Input.mousePosition;
-        bool insideWidth = mousePos.x < 1.0f && mousePos.x > 0.8f;
-        bool insideHeight = mousePos.y < 0.33f && mousePos.y > 0;
+        bool insideWidth = mousePos.x < ResourceManager.getInstance().getPIPCameraPosition().xMax*Screen.width && mousePos.x > ResourceManager.getInstance().getPIPCameraPosition().xMin * Screen.width;        
+        bool insideHeight = mousePos.y < ResourceManager.getInstance().getPIPCameraPosition().yMax*Screen.height && mousePos.y > ResourceManager.getInstance().getPIPCameraPosition().yMin*Screen.height;
         return insideWidth && insideHeight;
     }
 }
