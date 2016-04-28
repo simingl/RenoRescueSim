@@ -14,13 +14,13 @@
     <ShowPIPCameraShift>true</ShowPIPCameraShift>
   </hud>
   <scene>
-    <DroneCount>10</DroneCount>
+    <DroneCount>4</DroneCount>
     <PeopleCount>30</PeopleCount>
     <CarCount>5</CarCount>
     <HelicopterCount>4</HelicopterCount>
     <TreeCount>20</TreeCount>
     <FireCount>4</FireCount>
-	<QuizStartTime>120000</QuizStartTime>
+	<QuizStartTime>120</QuizStartTime>
 	<VerticalButtonsNum>7</VerticalButtonsNum>
 	<HorizontalButtonsNum>7</HorizontalButtonsNum>
   </scene>

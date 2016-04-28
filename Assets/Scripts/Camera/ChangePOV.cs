@@ -68,7 +68,7 @@ public class ChangePOV : MonoBehaviour {
         MainCameraMove();               //short-cut-key AWSD for RTS camera movement
         DroneShortCutKey();             //0-9 select first 10 in n.
         ShortCutKeyShowAllCameras();
-        ShortCutKeyClearAllCameras();
+        //ShortCutKeyClearAllCameras();
         BlurSelectedDronesCameras();
         ClearAllDronesBlurCameras();    
         WorldSimulationSpeedFunc();     // keypad + for simulation speed up, - for simulation speed down
@@ -76,7 +76,7 @@ public class ChangePOV : MonoBehaviour {
     }
     private float lastTapTime = 0;
     private float tapSpeed = 0.5f;
-    private KeyCode LastKey = KeyCode.A;
+    private KeyCode LastKey = KeyCode.Y;
     private void DroneShortCutKey()
     {
         int n = -1;
@@ -199,13 +199,13 @@ public class ChangePOV : MonoBehaviour {
         }
     }
 
-    private void ShortCutKeyClearAllCameras()
-    {
-        if (Input.GetKeyDown(KeyCode.F6))
-        {
-            hud.ClearAllCameras();
-        }
-    }
+    //private void ShortCutKeyClearAllCameras()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.F6))
+    //    {
+    //        hud.ClearAllCameras();
+    //    }
+    //}
 
     private void BlurSelectedDronesCameras()
     {

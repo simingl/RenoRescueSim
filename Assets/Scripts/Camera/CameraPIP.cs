@@ -21,7 +21,16 @@ public class CameraPIP : MonoBehaviour
 
     private List<GameObject> resizedObjects = new List<GameObject>();
     private Dictionary<GameObject, float> findObjectsMap = new Dictionary<GameObject, float>();
+    
     //detect if objects in the camera---------------
+
+    //-------------------
+    private Dictionary<GameObject,KeyValuePair<float,float>> NPCShowTime;
+    private KeyValuePair<GameObject, float> NPCShowTimePair;
+    //---------
+    private float startCheckNPCinCamera = 0;
+    private float checkFrequence = 5;
+
     void Start()
     {
         cam = this.GetComponent<Camera>();
@@ -29,6 +38,8 @@ public class CameraPIP : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         people = GameObject.FindGameObjectsWithTag("People");
         peopleColliders = new Collider[people.Length];
+        NPCShowTime = new Dictionary<GameObject, KeyValuePair<float, float>>();
+        NPCShowTimePair = new KeyValuePair<GameObject, float>();
         for (int i = 0; i < people.Length; ++i)
         {
             peopleColliders[i] = people[i].GetComponent<Collider>();
@@ -41,11 +52,17 @@ public class CameraPIP : MonoBehaviour
         HoverMouseToResizePeople();
         //mouse hover on npc--------
 
-        if (cam.tag == "Camera_1st_view")
+        //if (cam.tag == "Camera_1st_view")
+        if (cam.tag == "Camera_2nd_view")
         {
             cam.transform.GetChild(0).gameObject.GetComponent<MeshFilter>().mesh = CameraExtention.GenerateFrustumMesh(cam);
         }
-        CheckPeopleInCam();
+        if(Time.time >= startCheckNPCinCamera)
+        {
+            CheckPeopleInCam();
+            startCheckNPCinCamera += checkFrequence;
+        }
+       
         if (Input.GetMouseButton(0) && player.hud.MouseInBoundsPIP() && cam.depth == Drone.PIP_DEPTH_ACTIVE)
         {
             GameObject hitObject = FindHitObject();
@@ -70,22 +87,23 @@ public class CameraPIP : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetMouseButtonDown(1) && player.hud.MouseInBoundsPIP() && cam.depth == Drone.PIP_DEPTH_ACTIVE
-                 && player.getSelectedObjects().Count > 0 && player.getSelectedObjects()[0] == drone)
-        {
+        //click on firstCamera to add a destination
+        //else if (Input.GetMouseButtonDown(1) && player.hud.MouseInBoundsPIP() && cam.depth == Drone.PIP_DEPTH_ACTIVE
+        //         && player.getSelectedObjects().Count > 0 && player.getSelectedObjects()[0] == drone)
+        //{
 
-            GameObject hitObject = FindHitObject();
-            Vector3 hitPoint = FindHitPoint();
+        //    GameObject hitObject = FindHitObject();
+        //    Vector3 hitPoint = FindHitPoint();
 
-            if (player.getSelectedObjects().Count > 0)
-            {
-                foreach (WorldObject obj in player.getSelectedObjects())
-                {
-                    obj.MouseClick(hitObject, hitPoint, player);
-                }
-                this.player.audioManager.playUnitMoveToSound();
-            }
-        }
+        //    if (player.getSelectedObjects().Count > 0)
+        //    {
+        //        foreach (WorldObject obj in player.getSelectedObjects())
+        //        {
+        //            obj.MouseClick(hitObject, hitPoint, player);
+        //        }
+        //        this.player.audioManager.playUnitMoveToSound();
+        //    }
+        //}
     }
 
     private void CheckPeopleInCam()
@@ -107,6 +125,13 @@ public class CameraPIP : MonoBehaviour
         }
     }
 
+
+    //private void AddFindNpcToDic(GameObject obj, float findTime);
+    //{
+        
+    //}
+
+
     void OnGUI()
     {
         if (cam.depth != Drone.PIP_DEPTH_DEACTIVE)
@@ -115,22 +140,27 @@ public class CameraPIP : MonoBehaviour
             GUI.Box(new Rect(cam.pixelRect.x, (Screen.height - cam.pixelRect.yMax), cam.pixelWidth, cam.pixelHeight), "");
 
             //draw drone icon on the top right of the camera
-            if (cam.rect != ResourceManager.getInstance().getPIPCameraPosition())
-            {
-                if (GUI.Button(new Rect(cam.pixelRect.x + cam.pixelWidth - 20, (Screen.height - cam.pixelRect.yMax), 20, 20), "x"))
-                {
-                    cam.depth = Drone.PIP_DEPTH_DEACTIVE;
-                }
-            }
+            //if (cam.rect != ResourceManager.getInstance().getPIPCameraPosition())
+            //{
+            //    if (GUI.Button(new Rect(cam.pixelRect.x + cam.pixelWidth - 20, (Screen.height - cam.pixelRect.yMax), 20, 20), "x"))
+            //    {
+            //        cam.depth = Drone.PIP_DEPTH_DEACTIVE;
+            //    }
+            //}
 
             //draw drone icon on the top right of the camera
             Color color = drone.color;
-            if (drone.isSelected())
-            {
-                Texture droneTexture = player.hud.drone_2d;
-                GUI.color = color;
-                GUI.DrawTexture(new Rect(cam.pixelRect.x + cam.pixelWidth - 60, (Screen.height - cam.pixelRect.yMax), 40, 20), player.hud.drone_2d);
-            }
+            //if (drone.isSelected()) //if drone is selected, draw drone icon
+            //{
+            //    Texture droneTexture = player.hud.drone_2d;
+            //    GUI.color = color;
+            //    GUI.DrawTexture(new Rect(cam.pixelRect.x + cam.pixelWidth - 60, (Screen.height - cam.pixelRect.yMax), 40, 20), player.hud.drone_2d);
+            //}
+            
+            Texture droneTexture = player.hud.drone_2d;
+            GUI.color = color;
+            GUI.DrawTexture(new Rect(cam.pixelRect.x + cam.pixelWidth - 60, (Screen.height - cam.pixelRect.yMax), 40, 20), player.hud.drone_2d);
+            
 
             //double click PIP camera to select the cooresponding drone
             Event e = Event.current;
@@ -138,13 +168,13 @@ public class CameraPIP : MonoBehaviour
             //cam.rect != ResourceManager.getInstance().getPIPCameraPosition()
 
             {
-                if (player.getSelectedObjects().Count > 0)
-                {
-                    Drone selectedDrone = (Drone)player.getSelectedObjects()[0];
-                    Camera dfcam = selectedDrone.getCameraFront();
-                    ResourceManager.getInstance().setCameraPosition(dfcam, cam.rect);
-                    //dfcam.rect = cam.rect;
-                }
+                //if (player.getSelectedObjects().Count > 0)
+                //{
+                //    Drone selectedDrone = (Drone)player.getSelectedObjects()[0];
+                //    Camera dfcam = selectedDrone.getCameraFront();
+                //    ResourceManager.getInstance().setCameraPosition(dfcam, cam.rect);
+                //    //dfcam.rect = cam.rect;
+                //}
                 player.setSelectedObject(drone);
                 e.Use();
             }

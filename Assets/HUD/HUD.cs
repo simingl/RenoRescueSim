@@ -293,17 +293,17 @@ public class HUD : MonoBehaviour {
         }
 
         //show all cameras-------------
-        if (GUI.Button(new Rect(offset + 5, Screen.height - ORDERS_BAR_HEIGHT + 0 * LINE_HEIGHT + 5 + ACTION_BTN_HEIGHT * 2, ACTION_BTN_WIDTH, ACTION_BTN_HEIGHT), "Show All Cam"))
-        {
-            ShowAllCameras();
-        }
+        //if (GUI.Button(new Rect(offset + 5, Screen.height - ORDERS_BAR_HEIGHT + 0 * LINE_HEIGHT + 5 + ACTION_BTN_HEIGHT * 2, ACTION_BTN_WIDTH, ACTION_BTN_HEIGHT), "Show All Cam"))
+        //{
+        //    ShowAllCameras();
+        //}
         //show all cameras-------------
 
         //clear all cameras-------------
-        if (GUI.Button(new Rect(offset + ACTION_BTN_WIDTH + 5 + 5, Screen.height - ORDERS_BAR_HEIGHT + 0 * LINE_HEIGHT + 5 + ACTION_BTN_HEIGHT * 2, ACTION_BTN_WIDTH, ACTION_BTN_HEIGHT), "Clear All Cam"))
-        {
-            ClearAllCameras();
-        }
+        //if (GUI.Button(new Rect(offset + ACTION_BTN_WIDTH + 5 + 5, Screen.height - ORDERS_BAR_HEIGHT + 0 * LINE_HEIGHT + 5 + ACTION_BTN_HEIGHT * 2, ACTION_BTN_WIDTH, ACTION_BTN_HEIGHT), "Clear All Cam"))
+        //{
+        //    ClearAllCameras();
+        //}
         //clear all cameras-------------
     }
 

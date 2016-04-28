@@ -164,21 +164,21 @@ public class UserInput : MonoBehaviour {
 	private void LeftMouseClick() {
 		if (Input.GetKey(KeyCode.LeftShift) && ConfigManager.getInstance().getShowPIPCameraShift())
 		{
-			GameObject hitObject = FindHitObject();
-			if(hitObject.tag == "Drone"){
-				Drone drone = hitObject.GetComponent<Drone>();
-				if (drone.isDead()) return;
-				Camera cam = drone.getCameraFront();
-				if(cam.depth !=Drone.PIP_DEPTH_ACTIVE){
-					cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
-					cam.depth = Drone.PIP_DEPTH_ACTIVE;
-				}
-                else
-                {
-                    cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
-                }
+			//GameObject hitObject = FindHitObject();
+			//if(hitObject.tag == "Drone"){
+			//	Drone drone = hitObject.GetComponent<Drone>();
+			//	if (drone.isDead()) return;
+			//	Camera cam = drone.getCameraFront();
+			//	if(cam.depth !=Drone.PIP_DEPTH_ACTIVE){
+			//		cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
+			//		cam.depth = Drone.PIP_DEPTH_ACTIVE;
+			//	}
+   //             else
+   //             {
+   //                 cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
+   //             }
 
-            }
+   //         }
         }
         else if(player.hud.MouseInBounds()) {
 			GameObject hitObject = FindHitObject();
@@ -214,7 +214,7 @@ public class UserInput : MonoBehaviour {
                         if (tmpGameObject != null)
                         {
                             Drone drone = (Drone)tmpGameObject;
-                            drone.showPIPCameraFront();
+                            drone.showPIPCamera2ndFront();
                         }
                     }
                     //   Debug.Log(hitObject.name);
@@ -238,7 +238,7 @@ public class UserInput : MonoBehaviour {
                     if (tmpGameObject != null)
                     {
                         Drone drone = (Drone)tmpGameObject;
-                        drone.showPIPCameraFront();
+                        drone.showPIPCamera2ndFront();
                     }
                 }
                 ////click on world  except drones--------------
