@@ -52,8 +52,7 @@ public class Drone : WorldObject {
     private int MAX_WATER = 5;
 
     private Projector projector;
-    private Camera camera_front, camera_down;
-
+    private Camera camera_front, camera_down, camera_2nd_front;
     private Rigidbody rb;
 
     private StationCharger charger;
@@ -74,7 +73,7 @@ public class Drone : WorldObject {
         cellphones = new Stack<Cellphone>();
         waters = new Stack<WaterBottle>();
         this.routePointsQueue = new Queue<GameObject>();
-		routelines = new Dictionary<GameObject, GameObject>();
+		routelines = new Dictionary<GameObject, GameObject>();       
 
     }
 
@@ -126,6 +125,8 @@ public class Drone : WorldObject {
 
         this.camera_front = (Camera)(this.transform.FindChild("camera_1st_view").gameObject).GetComponent<Camera>();
         this.camera_down = (Camera)(this.transform.FindChild("camera_hover_view").gameObject).GetComponent<Camera>();
+        this.camera_2nd_front = (Camera)(this.transform.FindChild("camera_2nd_view").gameObject).GetComponent<Camera>();
+        this.camera_2nd_front.depth = PIP_DEPTH_DEACTIVE ;
         this.camera_front.depth = PIP_DEPTH_DEACTIVE;
         this.camera_down.depth = PIP_DEPTH_DEACTIVE;
     }
@@ -153,7 +154,7 @@ public class Drone : WorldObject {
         lineRaycast.useWorldSpace = true;
         
 
-        this.malFunction ();
+      //  this.malFunction ();
     }
 
     protected override void Update() {
@@ -287,7 +288,7 @@ public class Drone : WorldObject {
 			batterySlider.gameObject.SetActive (false);
 		}
 
-		if (this.camera_front.depth == PIP_DEPTH_ACTIVE || this.camera_down.depth == PIP_DEPTH_ACTIVE) {
+		if (this.camera_front.depth == PIP_DEPTH_ACTIVE || this.camera_down.depth == PIP_DEPTH_ACTIVE || this.camera_2nd_front.depth == PIP_DEPTH_ACTIVE) {
 			DrawCameraIcon ();
 		}
 	}
@@ -314,7 +315,17 @@ public class Drone : WorldObject {
     public Camera getCameraFront() {
         return this.camera_front;
     }
-	public Camera getCameraDown() {
+
+    public Camera getCamera2ndFront()
+    {
+        return this.camera_2nd_front;
+    }
+
+    //public Camera getCameraFront()
+    //{
+    //    return this.camera_front;
+    //}
+    public Camera getCameraDown() {
 		return this.camera_down;
 	}
 	public void StartMove() {
@@ -407,8 +418,13 @@ public class Drone : WorldObject {
 		
 		speed = Mathf.Clamp (speed, minSpeed, maxSpeed);
 
-		//altitude
-		float jump = Input.GetAxis("Jump");
+        //altitude
+        float jump=0;
+        if (this.isSelected())
+        {
+            jump = Input.GetAxis("Jump");
+        }
+		
 		if (jump != 0) {
 			this.currentStatus = STATUS.MOVING;
 
@@ -515,15 +531,22 @@ public class Drone : WorldObject {
 		}
 	}
 
-	public void showPIPCameraFront(){ //show first camera
-		this.camera_front.rect = ResourceManager.getInstance ().getPIPCameraPosition(); 
-		this.camera_front.depth = PIP_DEPTH_ACTIVE;
-		this.camera_down.depth = PIP_DEPTH_DEACTIVE;
-	}
+    //public void showPIPCameraFront(){ //show first camera
+    //	this.camera_front.rect = ResourceManager.getInstance ().getPIPCameraPosition(); 
+    //	this.camera_front.depth = PIP_DEPTH_ACTIVE;
+    //	this.camera_down.depth = PIP_DEPTH_DEACTIVE;
+    //}
 
-	public void togglePIPCamera(){
-		float tmp = this.camera_front.depth;
-		this.camera_front.depth = this.camera_down.depth;
+    public void showPIPCamera2ndFront()
+    { //show first camera
+        this.camera_2nd_front.rect = ResourceManager.getInstance().getPIPCameraPosition();
+        this.camera_2nd_front.depth = PIP_DEPTH_ACTIVE;
+        this.camera_down.depth = PIP_DEPTH_DEACTIVE;
+    }
+
+    public void togglePIPCamera(){
+		float tmp = this.camera_2nd_front.depth;
+		this.camera_2nd_front.depth = this.camera_down.depth;
 		this.camera_down.depth= tmp;
 	}
 
@@ -534,8 +557,12 @@ public class Drone : WorldObject {
 		if (this.camera_down.rect == ResourceManager.getInstance ().getPIPCameraPosition ()) {
 			this.camera_down.depth = PIP_DEPTH_DEACTIVE;
 		}
+        if (this.camera_2nd_front.rect == ResourceManager.getInstance().getPIPCameraPosition())
+        {
+            this.camera_2nd_front.depth = PIP_DEPTH_DEACTIVE;
+        }
 
-	}
+    }
 
 	private void DrawCameraIcon(){
 		GUI.skin = ResourceManager.SelectBoxSkin;

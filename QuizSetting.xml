@@ -24,48 +24,48 @@
         </opt>
       </option>
       <answer>C</answer>
-      <userAnswer>4</userAnswer>
-      <timeConsumed>6</timeConsumed>
+      <userAnswer>2</userAnswer>
+      <timeConsumed>2</timeConsumed>
     </question>
     <question>
       <description>How old are you?</description>
       <type>InputNumber</type>
       <droneNumber />
       <answer>25</answer>
-      <userAnswer>99</userAnswer>
-      <timeConsumed>8</timeConsumed>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
     </question>
     <question>
       <description>Where is the yellow (No.0) drone?</description>
       <type>Area</type>
       <droneNumber>0</droneNumber>
-      <answer>8</answer>
-      <userAnswer>10</userAnswer>
-      <timeConsumed>7</timeConsumed>
+      <answer>16</answer>
+      <userAnswer>18</userAnswer>
+      <timeConsumed>1</timeConsumed>
     </question>
     <question>
       <description>Where is the red (No.1) drone?</description>
       <type>Area</type>
       <droneNumber>1</droneNumber>
-      <answer>8</answer>
-      <userAnswer>1</userAnswer>
-      <timeConsumed>2</timeConsumed>
+      <answer>16</answer>
+      <userAnswer>18</userAnswer>
+      <timeConsumed>0</timeConsumed>
     </question>
     <question>
       <description>Where is the blue (No.2) drone?</description>
       <type>Area</type>
       <droneNumber>2</droneNumber>
       <answer>16</answer>
-      <userAnswer>5</userAnswer>
-      <timeConsumed>3</timeConsumed>
+      <userAnswer>18</userAnswer>
+      <timeConsumed>0</timeConsumed>
     </question>
     <question>
       <description>Where is the pink (No.3) drone</description>
       <type>Area</type>
       <droneNumber>3</droneNumber>
-      <answer>9</answer>
-      <userAnswer>19</userAnswer>
-      <timeConsumed>14</timeConsumed>
+      <answer>16</answer>
+      <userAnswer>18</userAnswer>
+      <timeConsumed>1</timeConsumed>
     </question>
   </quiz>
 </QuizSetting>
