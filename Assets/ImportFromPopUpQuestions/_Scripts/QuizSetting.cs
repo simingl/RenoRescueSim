@@ -9,6 +9,11 @@ public enum QuestionType
 {
     Single,
     InputNumber,
+    InputNumberWithHeight,
+    InputNumberWithBattery,
+    InputNumberwithSpeed,
+    InputNumberWithPeople,
+    InputNumberWithCar,
     Area
 }
 

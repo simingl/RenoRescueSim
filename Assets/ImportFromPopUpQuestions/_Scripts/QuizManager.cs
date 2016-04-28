@@ -55,6 +55,8 @@ public class QuizManager : MonoBehaviour
     private ConfigManager configManager;
     private QuizSettingContainer quizSettings;
     private QuizSettingContainer writeToStudentID;
+    private HUD hud;
+    private SceneManager sceneManager;
    
 
     void Start()
@@ -75,7 +77,10 @@ public class QuizManager : MonoBehaviour
         minimapCam = GameObject.FindGameObjectWithTag("Camera_minimap").GetComponent<Camera>();
         minimapPosition = new Vector3(minimapCam.pixelRect.x, minimapCam.pixelRect.yMax, 0);
         minimapSize = GameObject.FindGameObjectWithTag("Camera_minimap").GetComponent<MinimapManagement>().lastMinimapSize;
+        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUD>();
   //      writeToStudentID = new QuizSettingContainer();
+        sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneManager>();
+
     }
 
    
@@ -83,6 +88,7 @@ public class QuizManager : MonoBehaviour
     void Update()
     {
         GetDronesArea();
+        GetDronesBattery();
         if (QuizManager.getInstance().answered)
         {
             AnswerState(QuizManager.getInstance().answerNum);
@@ -287,6 +293,26 @@ public class QuizManager : MonoBehaviour
         }
     }
 
+    private void GetDronesBattery()
+    {
+        Drone[] allDrones= sceneManager.getAllDrones();
+        for (int i = 0; i < QuizManager.getInstance().getQuizSettings().quiz.question.Count; ++i)
+        {
+            if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberWithBattery)
+            {                                 
+                WriteToXml(DroneBatteryLife(allDrones[i]), i, 5);   
+            }
+        }
+    }
+
+    private string DroneBatteryLife(Drone obj)
+    {
+        Drone unit = (Drone)obj;
+        string battery = "";
+        battery += "Battery: " + (int)(unit.currentBattery) / 60 + " min " + ((int)unit.currentBattery) % 60 + " sec.";
+        return battery;
+    }
+
     //write to XML file
     public void WriteToXml(string str, int questionCount, int num)
     {
@@ -325,9 +351,6 @@ public class QuizManager : MonoBehaviour
 
     public void OnPopUpQuestionButtonClick()
     {
- 
-       // 
-
         if (QuizManager.getInstance().answered || startPopupQuestion)
             {
                 enableQuestionPanel(true);
@@ -345,7 +368,12 @@ public class QuizManager : MonoBehaviour
                         InstantiateOptionsButtons();
                     }
                 }
-                if (getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumber)
+                if (getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumber ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithHeight ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithBattery ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberwithSpeed ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithPeople ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithCar)
                 {
                     InputNumber.text = "";
                     InputNumber.gameObject.SetActive(true);

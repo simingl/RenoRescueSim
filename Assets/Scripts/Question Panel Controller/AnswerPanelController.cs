@@ -86,6 +86,61 @@ public class AnswerPanelController : MonoBehaviour {
                 inputPanelText.text = "";
 
                     break;
+            case QuestionType.InputNumberWithHeight:
+                //Debug.Log("answer panel called QuestionType.InputNumber");
+
+                optionDropdown.gameObject.SetActive(false);
+                inputPanelText.gameObject.SetActive(true);
+                areaPanelDetails.gameObject.SetActive(false);
+                submitButton.gameObject.SetActive(true);
+
+                inputPanelText.text = "";
+
+                break;
+            case QuestionType.InputNumberWithBattery:
+                //Debug.Log("answer panel called QuestionType.InputNumber");
+
+                optionDropdown.gameObject.SetActive(false);
+                inputPanelText.gameObject.SetActive(true);
+                areaPanelDetails.gameObject.SetActive(false);
+                submitButton.gameObject.SetActive(true);
+
+                inputPanelText.text = "";
+
+                break;
+            case QuestionType.InputNumberwithSpeed:
+                //Debug.Log("answer panel called QuestionType.InputNumber");
+
+                optionDropdown.gameObject.SetActive(false);
+                inputPanelText.gameObject.SetActive(true);
+                areaPanelDetails.gameObject.SetActive(false);
+                submitButton.gameObject.SetActive(true);
+
+                inputPanelText.text = "";
+
+                break;
+            case QuestionType.InputNumberWithPeople:
+                //Debug.Log("answer panel called QuestionType.InputNumber");
+
+                optionDropdown.gameObject.SetActive(false);
+                inputPanelText.gameObject.SetActive(true);
+                areaPanelDetails.gameObject.SetActive(false);
+                submitButton.gameObject.SetActive(true);
+
+                inputPanelText.text = "";
+
+                break;
+            case QuestionType.InputNumberWithCar:
+                //Debug.Log("answer panel called QuestionType.InputNumber");
+
+                optionDropdown.gameObject.SetActive(false);
+                inputPanelText.gameObject.SetActive(true);
+                areaPanelDetails.gameObject.SetActive(false);
+                submitButton.gameObject.SetActive(true);
+
+                inputPanelText.text = "";
+
+                break;
 
             case QuestionType.Area:
                 //Debug.Log("answer panel called QuestionType.Area");
@@ -124,8 +179,7 @@ public class AnswerPanelController : MonoBehaviour {
                 break;
 
             default:
-                
-
+                question.userAnswer = inputPanelText.text;
                 break;
         }
 
