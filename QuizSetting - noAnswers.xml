@@ -4,7 +4,7 @@
     <question>
       <description>How many UAVs were you handling?</description>
       <type>Single</type>
-      <droneNumber />
+      <number />
       <option>
         <opt>
           <name>A</name>
@@ -30,47 +30,111 @@
 	<question>
       <description>How much battery left of the No.1(red) UAV? </description>
       <type>InputNumberWithBattery</type>
-      <droneNumber />
+      <number>1</number>
       <answer></answer>
       <userAnswer></userAnswer>
       <timeConsumed></timeConsumed>
     </question>		
+	<question>
+      <description>How much battery left of the No.2(blue) UAV? </description>
+      <type>InputNumberWithBattery</type>
+      <number>2</number>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>	
+	<question>
+      <description>How much battery left of the No.3(magenta) UAV? </description>
+      <type>InputNumberWithBattery</type>
+      <number>3</number>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>	
     <question>
-      <description>What was the velocity of the red/blue/green UAV?</description>
-      <type>InputNumber</type>
-      <droneNumber />
-      <answer>2</answer>
+      <description>What was the altitude of the No.0(yellow) UAV? </description>
+      <type>InputNumberWithHeight</type>
+      <number>0</number>
+      <answer></answer>
       <userAnswer></userAnswer>
       <timeConsumed></timeConsumed>
     </question>
+	<question>
+      <description>What was the altitude of the No.1(red) UAV? </description>
+      <type>InputNumberWithHeight</type>
+      <number>1</number>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>
+	<question>
+      <description>What was the altitude of the No.2(blue) UAV? </description>
+      <type>InputNumberWithHeight</type>
+      <number>2</number>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>
+	<question>
+      <description>What was the velocity of the No.0(yellow)UAV?</description>
+      <type>InputNumberwithSpeed</type>
+      <number>0</number>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>	
+	<question>
+      <description>What was the velocity of the No.1(red)UAV?</description>
+      <type>InputNumberwithSpeed</type>
+      <number>1</number>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>	
+	<question>
+      <description>What was the velocity of the No.2(blue)UAV?</description>
+      <type>InputNumberwithSpeed</type>
+      <number>2</number>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>	
     <question>
       <description>Where is the No.0(yellow) UAV?</description>
-      <type>Area</type>
-      <droneNumber>0</droneNumber>
+      <type>DroneArea</type>
+      <number>0</number>
       <answer />
       <userAnswer></userAnswer>
       <timeConsumed></timeConsumed>
     </question>
     <question>
       <description>Where is the No.1(red) UAV?</description>
-      <type>Area</type>
-      <droneNumber>1</droneNumber>
+      <type>DroneArea</type>
+      <number>1</number>
       <answer />
       <userAnswer></userAnswer>
       <timeConsumed></timeConsumed>
     </question>
     <question>
       <description>Where is the No.2(blue) UAV?</description>
-      <type>Area</type>
-      <droneNumber>2</droneNumber>
+      <type>DroneArea</type>
+      <number>2</number>
       <answer />
       <userAnswer />
       <timeConsumed />
     </question>
     <question>
       <description>Where is the No.3(magenta) UAV</description>
-      <type>Area</type>
-      <droneNumber>3</droneNumber>
+      <type>DroneArea</type>
+      <number>3</number>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
+    </question>
+	<question>
+      <description>Where was the last person you identified?</description>
+      <type>PeopleArea</type>
+      <number></number>
       <answer />
       <userAnswer />
       <timeConsumed />
