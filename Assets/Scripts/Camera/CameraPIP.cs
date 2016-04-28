@@ -10,11 +10,14 @@ public class CameraPIP : MonoBehaviour
     public GUISkin mySkin;
     private Player player;
     private Camera cam;
+    private Camera cam2nd;
     private Drone drone;
 
     //detect if objects in the camera---------------
     private GameObject[] people;
+    private GameObject[] cars;
     private Plane[] firstCamPlanes;
+    private Plane[] secondCamPlanes;
     private Collider[] peopleColliders;
     Ray ray;
     RaycastHit hit;
@@ -25,21 +28,23 @@ public class CameraPIP : MonoBehaviour
     //detect if objects in the camera---------------
 
     //-------------------
-    private Dictionary<GameObject,KeyValuePair<float,float>> NPCShowTime;
-    private KeyValuePair<GameObject, float> NPCShowTimePair;
+    private Dictionary<GameObject,KeyValuePair<float,bool>> NPCShowTimeDic;
+    private KeyValuePair<float, bool> NPCShowTimePair;
     //---------
     private float startCheckNPCinCamera = 0;
-    private float checkFrequence = 5;
+    private float checkFrequence = 0.5f;
 
     void Start()
     {
         cam = this.GetComponent<Camera>();
+        cam2nd = this.GetComponent<Camera>();
         drone = this.transform.parent.gameObject.GetComponent<Drone>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         people = GameObject.FindGameObjectsWithTag("People");
+        cars = GameObject.FindGameObjectsWithTag("Car");
         peopleColliders = new Collider[people.Length];
-        NPCShowTime = new Dictionary<GameObject, KeyValuePair<float, float>>();
-        NPCShowTimePair = new KeyValuePair<GameObject, float>();
+        NPCShowTimeDic = new Dictionary<GameObject, KeyValuePair<float, bool>>();
+        NPCShowTimePair = new KeyValuePair<float, bool>();
         for (int i = 0; i < people.Length; ++i)
         {
             peopleColliders[i] = people[i].GetComponent<Collider>();
@@ -51,7 +56,7 @@ public class CameraPIP : MonoBehaviour
         //mouse hover on npc--------
         HoverMouseToResizePeople();
         //mouse hover on npc--------
-
+        IsNPCMarked();
         //if (cam.tag == "Camera_1st_view")
         if (cam.tag == "Camera_2nd_view")
         {
@@ -77,11 +82,29 @@ public class CameraPIP : MonoBehaviour
                         if (worldObject is NPC)
                         {
                             ((NPC)worldObject).Mark();
+                            NPCShowTimePair = new KeyValuePair<float, bool>(Time.time, true);
+                            if (!NPCShowTimeDic.ContainsKey(worldObject.gameObject))
+                            {
+                                NPCShowTimeDic.Add(worldObject.gameObject, NPCShowTimePair);
+                            }
+                            else
+                            {
+                                NPCShowTimeDic[worldObject.gameObject] = NPCShowTimePair;
+                            }
 
                         }
                         else if (worldObject is Vehicle)
                         {
                             ((Vehicle)worldObject).Mark();
+                            NPCShowTimePair = new KeyValuePair<float, bool>(Time.time,true);
+                            if (!NPCShowTimeDic.ContainsKey(worldObject.gameObject))
+                            {
+                                NPCShowTimeDic.Add(worldObject.gameObject, NPCShowTimePair);
+                            }
+                            else
+                            {
+                                NPCShowTimeDic[worldObject.gameObject] = NPCShowTimePair;
+                            }
                         }
                     }
                 }
@@ -109,29 +132,61 @@ public class CameraPIP : MonoBehaviour
     private void CheckPeopleInCam()
     {
         firstCamPlanes = GeometryUtility.CalculateFrustumPlanes(cam);
+        secondCamPlanes = GeometryUtility.CalculateFrustumPlanes(cam2nd);
+
         foreach (Collider collider in peopleColliders)
         {
-            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds))
+            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds)/* || GeometryUtility.TestPlanesAABB(secondCamPlanes, collider.bounds)*/)
             {
                 for (int i = 0; i < people.Length; ++i)
                 {
                     if (peopleColliders[i] == collider)
                     {
-                        //  Debug.Log(i);
+                        if (!FindHitObjectBetweenObjects(collider.gameObject))
+                        {
+                            if (!NPCShowTimeDic.ContainsKey(collider.gameObject))
+                            {
+                                NPCShowTimePair = new KeyValuePair<float, bool>(Time.time, false);
+                                NPCShowTimeDic.Add(collider.gameObject, NPCShowTimePair);
+                            }
+                            else
+                            {
+                                NPCShowTimePair = new KeyValuePair<float, bool>(Time.time, NPCShowTimeDic[collider.gameObject].Value);
+                                NPCShowTimeDic[collider.gameObject] = NPCShowTimePair;
+                            }
+                        }
                     }
                 }
-                //        Debug.Log(collider.name + " has been detected!");
             }
         }
     }
 
+    private void IsNPCMarked()
+    {
+        //bool result = false;
+        foreach(GameObject p in people)
+        {
+            if (NPCShowTimeDic.ContainsKey(p))
+            {
+                if (NPCShowTimeDic[p].Value)
+                {
+                    Debug.Log(p.name + "is marked");
+                }
+            }
+        }
 
-    //private void AddFindNpcToDic(GameObject obj, float findTime);
-    //{
-        
-    //}
-
-
+        foreach (GameObject c in cars )
+        {
+            if (NPCShowTimeDic.ContainsKey(c))
+            {
+                if (NPCShowTimeDic[c].Value)
+                {
+                    Debug.Log(c.name + "is marked");
+                }
+            }
+        }
+    }
+    
     void OnGUI()
     {
         if (cam.depth != Drone.PIP_DEPTH_DEACTIVE)
@@ -197,6 +252,27 @@ public class CameraPIP : MonoBehaviour
         }
 
         return null;
+    }
+
+    private bool FindHitObjectBetweenObjects(GameObject obj)
+    {
+        LayerMask entitylayerMask = (1 << 11);   //Entity layer, npc and vehicle
+        LayerMask groundlayerMask = (1 << 12);    //ground layer, ground
+        //Ray ray = cam.ScreenPointToRay(obj.transform.position);
+        //Ray ray = this.cam.ScreenPointToRay(Input.mousePosition);
+        Ray ray = new Ray(obj.transform.position, cam.transform.position - obj.transform.position);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, entitylayerMask))
+        {
+            if (hit.collider.gameObject == obj)
+                return false;
+        }
+        else if (Physics.Raycast(ray, out hit, groundlayerMask))
+        {
+            if (hit.collider.gameObject == obj)
+                return false;
+        }
+        return true;
     }
 
     private Vector3 FindHitPoint()
