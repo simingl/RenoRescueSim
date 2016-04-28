@@ -26,6 +26,7 @@ TagManager:
   - RouteLinePoint
   - ScoureText
   - People
+  - Camera_2nd_view
   layers:
   - Default
   - TransparentFX

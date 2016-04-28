@@ -8,8 +8,8 @@ using UnityEngine.EventSystems;
 public class UserInput : MonoBehaviour {
 	private Player player;
 	private GameObject dayNightToggle;
-
     //private ChangePOV changePOV;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -164,45 +164,83 @@ public class UserInput : MonoBehaviour {
 	private void LeftMouseClick() {
 		if (Input.GetKey(KeyCode.LeftShift) && ConfigManager.getInstance().getShowPIPCameraShift())
 		{
-			GameObject hitObject = FindHitObject();
-			if(hitObject.tag == "Drone"){
-				Drone drone = hitObject.GetComponent<Drone>();
-				if (drone.isDead()) return;
-				Camera cam = drone.getCameraFront();
-				if(cam.depth !=Drone.PIP_DEPTH_ACTIVE){
-					cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
-					cam.depth = Drone.PIP_DEPTH_ACTIVE;
-				}
-                //else
-                //{
-                //    cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
-                //}
+			//GameObject hitObject = FindHitObject();
+			//if(hitObject.tag == "Drone"){
+			//	Drone drone = hitObject.GetComponent<Drone>();
+			//	if (drone.isDead()) return;
+			//	Camera cam = drone.getCameraFront();
+			//	if(cam.depth !=Drone.PIP_DEPTH_ACTIVE){
+			//		cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
+			//		cam.depth = Drone.PIP_DEPTH_ACTIVE;
+			//	}
+   //             else
+   //             {
+   //                 cam.rect = ResourceManager.getInstance().getAvailableCameraPosition(cam);
+   //             }
 
-			}
-		}else if(player.hud.MouseInBounds()) {
+   //         }
+        }
+        else if(player.hud.MouseInBounds()) {
 			GameObject hitObject = FindHitObject();
 			Vector3 hitPoint = FindHitPoint();
 			if(hitObject && hitPoint != ResourceManager.InvalidPosition) {
 				if(hitObject.name!="Ground") {
 					WorldObject worldObject = hitObject.GetComponent< WorldObject >();
-					if(worldObject && worldObject.isSelectable()) {
-						if(Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)){
-							player.addSelectedObject(worldObject);
-						}else{
-							player.setSelectedObject(worldObject);
-						}
-					}
-                    //else if (hitObject.tag != "drone")
-                    //{
-                    //    player.cleanSelectedObject();
-                    //}
-                 //   Debug.Log(hitObject.name);
-				}
+                    if (worldObject && worldObject.isSelectable())
+                    {
+                        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+                        {
+                            player.addSelectedObject(worldObject);
+                        }
+                        else {
+                            player.setSelectedObject(worldObject);
+                        }
+                    }
+                    else if (hitObject.tag != "Drone")
+                    {
+                        WorldObject tmpGameObject = new WorldObject();
+                        for (int i = 0; i < player.selectedObjects.Count; ++i)
+                        {
+                            if (player.selectedObjects[i].tag == "Drone")
+                            {
+                                tmpGameObject = player.selectedObjects[i];
+                            }
+                            break;
+                        }
+                        if (!MouseInBoundsPIP())
+                        {
+                            player.cleanSelectedObject();
+                        }
+                        if (tmpGameObject != null)
+                        {
+                            Drone drone = (Drone)tmpGameObject;
+                            drone.showPIPCamera2ndFront();
+                        }
+                    }
+                    //   Debug.Log(hitObject.name);
+                }
                 ////click on world  except drones--------------
-                //else if (hitObject.tag != "drone")
-                //{
-                //    player.cleanSelectedObject();
-                //}
+                else if (hitObject.tag != "drone")
+                {
+                    WorldObject tmpGameObject = new WorldObject();
+                    for (int i = 0; i < player.selectedObjects.Count; ++i)
+                    {
+                        if (player.selectedObjects[i].tag == "Drone")
+                        {
+                            tmpGameObject = player.selectedObjects[i];
+                        }
+                        break;
+                    }
+                    if (!MouseInBoundsPIP())
+                    {
+                        player.cleanSelectedObject();
+                    }
+                    if (tmpGameObject != null)
+                    {
+                        Drone drone = (Drone)tmpGameObject;
+                        drone.showPIPCamera2ndFront();
+                    }
+                }
                 ////click on world  except drones--------------
             }
         }
@@ -268,4 +306,16 @@ public class UserInput : MonoBehaviour {
 		return ResourceManager.InvalidPosition;
 	}
 
+    private bool MouseInBoundsPIP()
+    {
+        Drone[] allEntites = player.sceneManager.getAllDrones();
+        foreach (Drone drone in allEntites)
+        {
+            if ( drone.GetComponentInChildren<CameraPIP>().GetMousInBoundsPIP())
+            {
+                return true;                
+            }
+        }
+        return false;
+    }
 }

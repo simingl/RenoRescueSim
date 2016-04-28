@@ -68,88 +68,129 @@ public class ChangePOV : MonoBehaviour {
         MainCameraMove();               //short-cut-key AWSD for RTS camera movement
         DroneShortCutKey();             //0-9 select first 10 in n.
         ShortCutKeyShowAllCameras();
-        ShortCutKeyClearAllCameras();
+        //ShortCutKeyClearAllCameras();
         BlurSelectedDronesCameras();
         ClearAllDronesBlurCameras();    
         WorldSimulationSpeedFunc();     // keypad + for simulation speed up, - for simulation speed down
         DroneDied();                    // make drone die; for test;
     }
-
+    private float lastTapTime = 0;
+    private float tapSpeed = 0.5f;
+    private KeyCode LastKey = KeyCode.Y;
     private void DroneShortCutKey()
     {
+        int n = -1;
         int droneCounter = sceneManager.getAllDrones().Length;
+        bool doubleClickKeyboard = false;
         if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
+        {           
             if (droneCounter != 0)
             {
+                doubleClickKeyboard = CheckDoubleClick(KeyCode.Alpha0);
                 player.setSelectedObject(sceneManager.getAllDrones()[0]);
+                n = 0;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
+        {            
             if (droneCounter > 1)
             {
+                doubleClickKeyboard = CheckDoubleClick(KeyCode.Alpha1);
                 player.setSelectedObject(sceneManager.getAllDrones()[1]);
+                n = 1;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            
             if (droneCounter > 2)
             {
+                doubleClickKeyboard = CheckDoubleClick(KeyCode.Alpha2);
                 player.setSelectedObject(sceneManager.getAllDrones()[2]);
+                n = 2;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (droneCounter > 3)
             {
+                doubleClickKeyboard = CheckDoubleClick(KeyCode.Alpha3);
                 player.setSelectedObject(sceneManager.getAllDrones()[3]);
+                n = 3;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             if (droneCounter > 4)
             {
+                doubleClickKeyboard = CheckDoubleClick(KeyCode.Alpha4);
                 player.setSelectedObject(sceneManager.getAllDrones()[4]);
+                n = 4;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             if (droneCounter > 5)
             {
+                doubleClickKeyboard = CheckDoubleClick(KeyCode.Alpha5);
                 player.setSelectedObject(sceneManager.getAllDrones()[5]);
+                n = 5;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             if (droneCounter > 6)
             {
+                doubleClickKeyboard = CheckDoubleClick(KeyCode.Alpha6);
                 player.setSelectedObject(sceneManager.getAllDrones()[6]);
+                n = 6;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             if (droneCounter > 7)
             {
+                doubleClickKeyboard = CheckDoubleClick(KeyCode.Alpha7);
                 player.setSelectedObject(sceneManager.getAllDrones()[7]);
+                n = 7;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             if (droneCounter > 8)
             {
+                doubleClickKeyboard = CheckDoubleClick(KeyCode.Alpha8);
                 player.setSelectedObject(sceneManager.getAllDrones()[8]);
+                n = 8;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             if (droneCounter > 9)
             {
+                doubleClickKeyboard = CheckDoubleClick(KeyCode.Alpha9);
                 player.setSelectedObject(sceneManager.getAllDrones()[9]);
+                n = 9;
             }
+        }        
+        if (doubleClickKeyboard)
+        {
+            sceneManager.getAllDrones()[n].centerMainCamera(); 
         }
     }
 
+    private bool CheckDoubleClick(KeyCode key)
+    {
+        bool result = false;
+
+        if (Time.time - lastTapTime < tapSpeed && LastKey == key)
+        {
+            result = true;
+        }
+        lastTapTime = Time.time;
+        LastKey = key;
+        return result;
+    }
     private void ShortCutKeyShowAllCameras()
     {
         if(Input.GetKeyDown(KeyCode.F5))
@@ -158,13 +199,13 @@ public class ChangePOV : MonoBehaviour {
         }
     }
 
-    private void ShortCutKeyClearAllCameras()
-    {
-        if (Input.GetKeyDown(KeyCode.F6))
-        {
-            hud.ClearAllCameras();
-        }
-    }
+    //private void ShortCutKeyClearAllCameras()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.F6))
+    //    {
+    //        hud.ClearAllCameras();
+    //    }
+    //}
 
     private void BlurSelectedDronesCameras()
     {
