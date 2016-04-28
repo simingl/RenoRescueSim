@@ -29,10 +29,13 @@ public class CameraPIP : MonoBehaviour
 
     //-------------------
     private Dictionary<GameObject,KeyValuePair<float,bool>> NPCShowTimeDic;
-    private KeyValuePair<float, bool> NPCShowTimePair;
+    private KeyValuePair<float, bool> NPCShowTimePair;    
     //---------
     private float startCheckNPCinCamera = 0;
     private float checkFrequence = 0.5f;
+
+    private int markedPeople = 0;
+    private int markedCars = 0;
 
     void Start()
     {
@@ -56,7 +59,7 @@ public class CameraPIP : MonoBehaviour
         //mouse hover on npc--------
         HoverMouseToResizePeople();
         //mouse hover on npc--------
-        IsNPCMarked();
+       // IsNPCMarked();
         //if (cam.tag == "Camera_1st_view")
         if (cam.tag == "Camera_2nd_view")
         {
@@ -82,6 +85,7 @@ public class CameraPIP : MonoBehaviour
                         if (worldObject is NPC)
                         {
                             ((NPC)worldObject).Mark();
+                            ++markedPeople;
                             NPCShowTimePair = new KeyValuePair<float, bool>(Time.time, true);
                             if (!NPCShowTimeDic.ContainsKey(worldObject.gameObject))
                             {
@@ -96,6 +100,7 @@ public class CameraPIP : MonoBehaviour
                         else if (worldObject is Vehicle)
                         {
                             ((Vehicle)worldObject).Mark();
+                            ++markedCars;
                             NPCShowTimePair = new KeyValuePair<float, bool>(Time.time,true);
                             if (!NPCShowTimeDic.ContainsKey(worldObject.gameObject))
                             {
@@ -161,31 +166,141 @@ public class CameraPIP : MonoBehaviour
         }
     }
 
-    private void IsNPCMarked()
+    public int GetIdentifyPeoPleNum()
     {
-        //bool result = false;
-        foreach(GameObject p in people)
+        int result=0;
+        foreach(KeyValuePair<GameObject,KeyValuePair<float,bool>> kvp in NPCShowTimeDic)
         {
-            if (NPCShowTimeDic.ContainsKey(p))
+            WorldObject worldObject = kvp.Key.GetComponent<WorldObject>();
+            if (worldObject is NPC)
             {
-                if (NPCShowTimeDic[p].Value)
-                {
-                    Debug.Log(p.name + "is marked");
-                }
+                ++result;
             }
         }
-
-        foreach (GameObject c in cars )
-        {
-            if (NPCShowTimeDic.ContainsKey(c))
-            {
-                if (NPCShowTimeDic[c].Value)
-                {
-                    Debug.Log(c.name + "is marked");
-                }
-            }
-        }
+        return result;
     }
+    public int GetIdentifyCarNum()
+    {
+        return NPCShowTimeDic.Count - GetIdentifyPeoPleNum();
+    }
+
+    public int GetRescuedPeopleNum()
+    {
+        return markedPeople;
+    }
+    public int GetRescuedCarsNum()
+    {
+        return markedCars;
+    }
+    public int GetUnableTagPeopleNum()
+    {
+        return GetIdentifyPeoPleNum() - GetRescuedPeopleNum();
+    }
+    public int GetUnableTagCarsNum()
+    {
+        return GetIdentifyCarNum() - GetRescuedCarsNum();
+    }
+    public int GetLastPersonOrCarIndex(string str)
+    {
+        float max = 0f;
+        int result=0;
+        int tmp = 0;
+        bool isIncrease;
+        if (str == "npc")
+        {
+            foreach (GameObject p in people)
+            {
+                isIncrease = false;
+                if (NPCShowTimeDic.ContainsKey(p))
+                {
+                    if (NPCShowTimeDic[p].Key > max)
+                    {
+                        max = NPCShowTimeDic[p].Key;
+                        isIncrease = true;
+                    }
+                }
+                if (isIncrease)
+                {
+                    result = tmp;
+                }
+                tmp++;
+            }
+        }
+        else if (str=="car")
+        {
+            foreach (GameObject c in cars)
+            {
+                isIncrease = false;
+                if (NPCShowTimeDic.ContainsKey(c))
+                {
+                    if (NPCShowTimeDic[c].Key > max)
+                    {
+                        max = NPCShowTimeDic[c].Key;
+                        isIncrease = true;
+                    }
+                }
+                if (isIncrease)
+                {
+                    result = tmp;
+                }
+                tmp++;
+            }
+        }
+        Debug.Log("result is: " + result);
+        return result;
+        //foreach (KeyValuePair<GameObject, KeyValuePair<float, bool>> kvp in NPCShowTimeDic)
+        //{
+        //    WorldObject wobj = kvp.Key.GetComponent<WorldObject>();
+        //    if (str == "npc" && wobj is NPC)
+        //    {
+        //        if (kvp.Value.Key > max)
+        //        {
+        //            max = kvp.Value.Key;
+        //            isIncrease = true;
+        //        }
+        //    }
+        //    else if(str == "car" && wobj is Vehicle)
+        //    {
+        //        if (kvp.Value.Key > max)
+        //        {
+        //            max = kvp.Value.Key;
+        //            isIncrease = true;
+        //        }
+        //    }
+        //    if (isIncrease)
+        //    {
+        //        result = tmp;
+        //    }
+        //    tmp++;
+        //}
+
+    }
+
+    //private void IsNPCMarked()
+    //{
+    //    //bool result = false;
+    //    foreach(GameObject p in people)
+    //    {
+    //        if (NPCShowTimeDic.ContainsKey(p))
+    //        {
+    //            if (NPCShowTimeDic[p].Value)
+    //            {
+    //                Debug.Log(p.name + "is marked");
+    //            }
+    //        }
+    //    }
+
+    //    foreach (GameObject c in cars )
+    //    {
+    //        if (NPCShowTimeDic.ContainsKey(c))
+    //        {
+    //            if (NPCShowTimeDic[c].Value)
+    //            {
+    //                Debug.Log(c.name + "is marked");
+    //            }
+    //        }
+    //    }
+    //}
     
     void OnGUI()
     {

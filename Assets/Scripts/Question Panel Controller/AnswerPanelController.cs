@@ -86,63 +86,30 @@ public class AnswerPanelController : MonoBehaviour {
                 inputPanelText.text = "";
 
                     break;
-            case QuestionType.InputNumberWithHeight:
-                //Debug.Log("answer panel called QuestionType.InputNumber");
+
+            case QuestionType.DroneArea:
+                //Debug.Log("answer panel called QuestionType.Area");
 
                 optionDropdown.gameObject.SetActive(false);
-                inputPanelText.gameObject.SetActive(true);
-                areaPanelDetails.gameObject.SetActive(false);
-                submitButton.gameObject.SetActive(true);
+                inputPanelText.gameObject.SetActive(false);
+                areaPanelDetails.gameObject.SetActive(true);
+                submitButton.gameObject.SetActive(false);
 
-                inputPanelText.text = "";
-
+                areaPanelDetails.text = "Please choose an area from map";
                 break;
-            case QuestionType.InputNumberWithBattery:
-                //Debug.Log("answer panel called QuestionType.InputNumber");
+
+            case QuestionType.CarArea:
+                //Debug.Log("answer panel called QuestionType.Area");
 
                 optionDropdown.gameObject.SetActive(false);
-                inputPanelText.gameObject.SetActive(true);
-                areaPanelDetails.gameObject.SetActive(false);
-                submitButton.gameObject.SetActive(true);
+                inputPanelText.gameObject.SetActive(false);
+                areaPanelDetails.gameObject.SetActive(true);
+                submitButton.gameObject.SetActive(false);
 
-                inputPanelText.text = "";
-
-                break;
-            case QuestionType.InputNumberwithSpeed:
-                //Debug.Log("answer panel called QuestionType.InputNumber");
-
-                optionDropdown.gameObject.SetActive(false);
-                inputPanelText.gameObject.SetActive(true);
-                areaPanelDetails.gameObject.SetActive(false);
-                submitButton.gameObject.SetActive(true);
-
-                inputPanelText.text = "";
-
-                break;
-            case QuestionType.InputNumberWithPeople:
-                //Debug.Log("answer panel called QuestionType.InputNumber");
-
-                optionDropdown.gameObject.SetActive(false);
-                inputPanelText.gameObject.SetActive(true);
-                areaPanelDetails.gameObject.SetActive(false);
-                submitButton.gameObject.SetActive(true);
-
-                inputPanelText.text = "";
-
-                break;
-            case QuestionType.InputNumberWithCar:
-                //Debug.Log("answer panel called QuestionType.InputNumber");
-
-                optionDropdown.gameObject.SetActive(false);
-                inputPanelText.gameObject.SetActive(true);
-                areaPanelDetails.gameObject.SetActive(false);
-                submitButton.gameObject.SetActive(true);
-
-                inputPanelText.text = "";
-
+                areaPanelDetails.text = "Please choose an area from map";
                 break;
 
-            case QuestionType.Area:
+            case QuestionType.PeopleArea:
                 //Debug.Log("answer panel called QuestionType.Area");
 
                 optionDropdown.gameObject.SetActive(false);
@@ -154,7 +121,11 @@ public class AnswerPanelController : MonoBehaviour {
                 break;
 
             default:
-                Debug.Log("not found");
+                optionDropdown.gameObject.SetActive(false);
+                inputPanelText.gameObject.SetActive(true);
+                areaPanelDetails.gameObject.SetActive(false);
+                submitButton.gameObject.SetActive(true);
+                inputPanelText.text = "";
                 break;
         }
 
@@ -174,8 +145,11 @@ public class AnswerPanelController : MonoBehaviour {
                 question.userAnswer = inputPanelText.text;
                 break;
 
-            case QuestionType.Area:
-                
+            case QuestionType.DroneArea:                
+                break;
+            case QuestionType.PeopleArea:
+                break;
+            case QuestionType.CarArea:
                 break;
 
             default:

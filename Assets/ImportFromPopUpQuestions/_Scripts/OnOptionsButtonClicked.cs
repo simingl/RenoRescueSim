@@ -21,7 +21,10 @@ public class OnOptionsButtonClicked : MonoBehaviour {
             if (this.gameObject == quizManager.tmpCloneOptionsButton[i])
 			{
                 uswerAnswer = i;
-                if (quizManager.getQuizSettings().quiz.question[quizManager.questionButtonCounter].type == QuestionType.Area)
+                if (quizManager.getQuizSettings().quiz.question[quizManager.questionButtonCounter].type == QuestionType.DroneArea   ||
+                    quizManager.getQuizSettings().quiz.question[quizManager.questionButtonCounter].type == QuestionType.PeopleArea  ||
+                    quizManager.getQuizSettings().quiz.question[quizManager.questionButtonCounter].type == QuestionType.CarArea
+                    )
                 {
                     if (quizManager.getQuizSettings().quiz.question[quizManager.questionButtonCounter].answer == i.ToString())
                     {
