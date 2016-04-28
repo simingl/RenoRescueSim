@@ -32,5 +32,32 @@ public class Vehicle : WorldObject {
 		ScoreManager.score += this.scoreValue;
 	}
 
+    public int GetVehicleArea()
+    {
+        int HButtonsNum = ConfigManager.getInstance().getSceneHorizontalButtonsNum();
+        int VButtonsNum = ConfigManager.getInstance().getSceneVerticalButtonsNum();
+
+        float gridSizeOfSceneWidth = 160.0f / HButtonsNum; //200 size with 100 offset
+        float gridSizeOfSceneHeight = 160.0f / VButtonsNum;
+        int dronePostionOffset = 80;
+
+        int result = 0;
+        for (int i = 0; i < HButtonsNum; ++i)
+        {
+            for (int j = 0; j < VButtonsNum; ++j)
+            {
+                if (gridSizeOfSceneHeight * i < (this.transform.position.z + dronePostionOffset) &&
+                   gridSizeOfSceneHeight * (i + 1) > (this.transform.position.z + dronePostionOffset) &&
+                   gridSizeOfSceneWidth * j < (this.transform.position.x + dronePostionOffset) &&
+                   gridSizeOfSceneWidth * (j + 1) > (this.transform.position.x + dronePostionOffset)
+                   )
+                {
+                    result = j + (VButtonsNum - i - 1) * HButtonsNum;
+                }
+            }
+        }
+        return result;
+    }
+
 
 }

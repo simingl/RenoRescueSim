@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using System.Collections.Specialized;
@@ -25,6 +27,7 @@ public class QuizManager : MonoBehaviour
     public GameObject StartButton;
     public GameObject ResumeButton;
     public GameObject PlayerFolder;
+    private bool playerFolderActive = true;
     [HideInInspector]
     public bool startQuestion = false;
     private float timeNow = 0f;
@@ -55,7 +58,9 @@ public class QuizManager : MonoBehaviour
     private ConfigManager configManager;
     private QuizSettingContainer quizSettings;
     private QuizSettingContainer writeToStudentID;
-   
+    private HUD hud;
+    private SceneManager sceneManager;
+    private CameraPIP cameraPIP;
 
     void Start()
     {
@@ -75,14 +80,28 @@ public class QuizManager : MonoBehaviour
         minimapCam = GameObject.FindGameObjectWithTag("Camera_minimap").GetComponent<Camera>();
         minimapPosition = new Vector3(minimapCam.pixelRect.x, minimapCam.pixelRect.yMax, 0);
         minimapSize = GameObject.FindGameObjectWithTag("Camera_minimap").GetComponent<MinimapManagement>().lastMinimapSize;
+        hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUD>();
   //      writeToStudentID = new QuizSettingContainer();
+        sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneManager>();
+        cameraPIP = GameObject.FindGameObjectWithTag("Camera_2nd_view").GetComponent<CameraPIP>(); ;
     }
 
-   
+    private bool isWriteToXML = true;
+    private float writeToXMLFrequency = 0.5f;
 
     void Update()
     {
-        GetDronesArea();
+        timeNow = Time.timeSinceLevelLoad;
+        if (getQuizStartTime()- timeNow <= writeToXMLFrequency && isWriteToXML)
+        {
+            GetArea();
+            if (playerFolderActive)
+            {
+                GetLastPeopleOrCarIndex();
+                WriterResourceStatus();
+            }
+            isWriteToXML = false;
+        }
         if (QuizManager.getInstance().answered)
         {
             AnswerState(QuizManager.getInstance().answerNum);
@@ -93,10 +112,7 @@ public class QuizManager : MonoBehaviour
             }
 
         }
-
-
-
-        timeNow = Time.realtimeSinceStartup;
+        
         if (timeNow > getQuizStartTime() && QuizManager.getInstance().write)
         {
             if (QuizManager.getInstance().questionButtonCounter + 1 == QuizManager.getInstance().getQuizSettings().quiz.question.Count)
@@ -265,27 +281,121 @@ public class QuizManager : MonoBehaviour
         QuizManager.getInstance().displayResultBoard = true;
     }
 
-    private void GetDronesArea()  //n is the number of drones
+    private void GetArea()  //n is the number of drones
     {
-        int droneCount = configManager.getSceneDroneCount();
-
         GameObject[] writeTheNumberOfDroneToXML = GameObject.FindGameObjectsWithTag("Drone");
-
+        GameObject[] writeTheNumberOfPeopleToXML = GameObject.FindGameObjectsWithTag("People");
+        GameObject[] writeTheNumberOfCarsToXML = GameObject.FindGameObjectsWithTag("Car");
         //var drone = writeTheNumberOfDroneToXML.GetComponent<Drone>();
         for (int i = 0; i < QuizManager.getInstance().getQuizSettings().quiz.question.Count; ++i)
         {
-            if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.Area)
+            if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.DroneArea)
             {
                 foreach (GameObject obj in writeTheNumberOfDroneToXML)
                 {
-                    if (obj.GetComponent<Drone>().droneNumber.ToString() == QuizManager.getInstance().getQuizSettings().quiz.question[i].droneNumber)
+                    if (obj.GetComponent<Drone>().droneNumber.ToString() == QuizManager.getInstance().getQuizSettings().quiz.question[i].number)
                     {
                         WriteToXml(obj.GetComponent<Drone>().getDroneArea().ToString(), i, 5);
                     }
                 }
             }
+            else if(QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.CarArea)
+            {
+                for(int j=0; j<writeTheNumberOfCarsToXML.Length; ++j)
+                {
+                    if(j.ToString() == QuizManager.getInstance().getQuizSettings().quiz.question[i].number)
+                    {
+                        WriteToXml(writeTheNumberOfCarsToXML[j].GetComponent<Vehicle>().GetVehicleArea().ToString(), i, 5);
+                    }
+                }
+            }
+            else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.PeopleArea)
+            {
+                for (int j = 0; j < writeTheNumberOfPeopleToXML.Length; ++j)
+                {
+                    if (j.ToString() == QuizManager.getInstance().getQuizSettings().quiz.question[i].number)
+                    {
+                        WriteToXml(writeTheNumberOfPeopleToXML[j].GetComponent<NPC>().GetNPCArea().ToString(), i, 5);
+                    }
+                }
+            }
         }
     }
+
+    private void GetLastPeopleOrCarIndex()
+    {
+        for (int i = 0; i < QuizManager.getInstance().getQuizSettings().quiz.question.Count; ++i)
+        {
+            if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.PeopleArea)
+            {
+                WriteToXml(cameraPIP.GetLastPersonOrCarIndex("npc").ToString(), i, 8);
+            }
+            else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.CarArea)
+            {
+                WriteToXml(cameraPIP.GetLastPersonOrCarIndex("car").ToString(), i, 8);
+            }
+        }
+    }
+
+    private void WriterResourceStatus()
+    {
+        Drone[] allDrones= sceneManager.getAllDrones();        
+        for (int i = 0; i < QuizManager.getInstance().getQuizSettings().quiz.question.Count; ++i)
+        {
+            if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberWithBattery)
+            {
+                WriteToXml(GetResourceStatus(allDrones[Int32.Parse(QuizManager.getInstance().getQuizSettings().quiz.question[i].number)], "Battery"), i, 5);
+            }
+            else if(QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberWithHeight)
+            {
+                //         Debug.Log("number is: " + QuizManager.getInstance().getQuizSettings().quiz.question[i].number);
+                WriteToXml(GetResourceStatus(allDrones[Int32.Parse(QuizManager.getInstance().getQuizSettings().quiz.question[i].number)], "Height"), i, 5);
+            }
+            else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberwithSpeed)
+            {
+                //        Debug.Log("number is: " + QuizManager.getInstance().getQuizSettings().quiz.question[i].number);
+                WriteToXml(GetResourceStatus(allDrones[Int32.Parse(QuizManager.getInstance().getQuizSettings().quiz.question[i].number)], "Speed"), i, 5);
+            }
+        }
+    }
+
+    private string GetResourceStatus(Drone obj, string str)
+    {
+        Drone unit = (Drone)obj;
+        string battery="";
+        string speed="";
+        string height="";
+        battery = (int)(unit.currentBattery) / 60 + "." + ((int)unit.currentBattery) % 60;
+        speed = unit.speed.ToString();
+        height = unit.transform.position.y.ToString();
+        if (str == "Battery")
+        {
+            return battery;
+        }
+        else if(str == "Height")
+        {
+            return height;
+        }
+        else if (str=="Speed")
+        {
+            return speed;
+        }
+        return "";
+    }
+
+    //private string GetPeopleAndCarsNum(string str)
+    //{
+    //    string result = "";
+    //    string resultInt = 0;
+    //    if(str == "npc")
+    //    {
+    //        resultInt = cameraPIP.GetIdentifyCarNum();
+    //    }
+
+    //    return result;
+
+    //}
+
 
     //write to XML file
     public void WriteToXml(string str, int questionCount, int num)
@@ -302,6 +412,10 @@ public class QuizManager : MonoBehaviour
         if (num == 7) //writeToXML timeConsuming
         {
             myContainer.quiz.question[questionCount].timeConsumed= str;
+        }
+        if(num==8)
+        {
+            myContainer.quiz.question[questionCount].number = str;
         }
         QuizSettingContainer.Serialize(myContainer, ConfigManager.getInstance().studentID);
         //QuizSettingContainer.WriteData(myContainer, configManager.studentID);
@@ -325,9 +439,6 @@ public class QuizManager : MonoBehaviour
 
     public void OnPopUpQuestionButtonClick()
     {
- 
-       // 
-
         if (QuizManager.getInstance().answered || startPopupQuestion)
             {
                 enableQuestionPanel(true);
@@ -345,12 +456,19 @@ public class QuizManager : MonoBehaviour
                         InstantiateOptionsButtons();
                     }
                 }
-                if (getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumber)
+                if (getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumber ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithHeight ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithBattery ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberwithSpeed ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithPeopleIdentify ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithCar)
                 {
                     InputNumber.text = "";
                     InputNumber.gameObject.SetActive(true);
                 }
-                if (getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.Area)
+                if (getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.DroneArea ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.CarArea ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.PeopleArea)
                 {
                //     GetDronesArea(droneCount);
               //      InstantiateButtonsInSquare((int)Mathf.Sqrt(droneCount));
@@ -370,6 +488,7 @@ public class QuizManager : MonoBehaviour
             //RenoFolder.SetActive(false);
             Questions.SetActive(true);
             PlayerFolder.SetActive(false);
+            playerFolderActive = false;
             //hideShowGameObjects
             MinimapManagement mapManagement = GameObject.FindGameObjectWithTag("Camera_minimap").GetComponent<MinimapManagement>();
             CameraMain cameraMain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMain>();
@@ -438,6 +557,7 @@ public class QuizManager : MonoBehaviour
         Questions.SetActive(false);
         ScoreText.SetActive(true);
         PlayerFolder.SetActive(true);
+        playerFolderActive = true;
 
         // backGround.SetActive(false);
         //Camera_minimap

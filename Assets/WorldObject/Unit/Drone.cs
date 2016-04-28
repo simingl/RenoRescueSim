@@ -239,11 +239,10 @@ public class Drone : WorldObject {
         int droneCount = ConfigManager.getInstance().getSceneDroneCount();
         int HButtonsNum = ConfigManager.getInstance().getSceneHorizontalButtonsNum();
         int VButtonsNum = ConfigManager.getInstance().getSceneVerticalButtonsNum();
-        
-        float gridSizeOfSceneWidth = 200.0f / HButtonsNum;
-        float gridSizeOfSceneHeight = 200.0f / VButtonsNum;
-        int dronePostionOffset = 100;
 
+        float gridSizeOfSceneWidth = 160.0f / HButtonsNum; //200 size with 100 offset
+        float gridSizeOfSceneHeight = 160.0f / VButtonsNum;
+        int dronePostionOffset = 80;
 
         int result = 0;
         for (int i = 0; i < HButtonsNum; ++i)
