@@ -61,9 +61,15 @@ public class QuizManager : MonoBehaviour
     private HUD hud;
     private SceneManager sceneManager;
     private CameraPIP cameraPIP;
-
+    private Vehicle vehicle;
+    private NPC npc;
+    public Dictionary<GameObject, KeyValuePair<float, bool>> NPCShowTimeDic;
+    public int markedPeople;
+    public int markedCars;
     void Start()
     {
+        markedPeople = 0;
+        markedCars = 0;
         startAnswerTime = 0;
         endAnswerTime = 0;
         InputNumber.gameObject.SetActive(false);
@@ -83,7 +89,10 @@ public class QuizManager : MonoBehaviour
         hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUD>();
   //      writeToStudentID = new QuizSettingContainer();
         sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneManager>();
-        cameraPIP = GameObject.FindGameObjectWithTag("Camera_2nd_view").GetComponent<CameraPIP>(); ;
+        cameraPIP = GameObject.FindGameObjectWithTag("Camera_2nd_view").GetComponent<CameraPIP>();
+        vehicle = GameObject.FindGameObjectWithTag("Car").GetComponent<Vehicle>();
+        NPCShowTimeDic = new Dictionary<GameObject, KeyValuePair<float, bool>>();
+        npc = GameObject.FindGameObjectWithTag("People").GetComponent<NPC>();
     }
 
     private bool isWriteToXML = true;
@@ -93,11 +102,13 @@ public class QuizManager : MonoBehaviour
     {
         timeNow = Time.timeSinceLevelLoad;
         if (getQuizStartTime()- timeNow <= writeToXMLFrequency && isWriteToXML)
-        {
-            GetArea();
+        {            
             if (playerFolderActive)
             {
+                GetArea();
+                GetPeopleAndCarNums();
                 GetLastPeopleOrCarIndex();
+                GetPeopleOrCarPosition();
                 WriterResourceStatus();
             }
             isWriteToXML = false;
@@ -153,14 +164,7 @@ public class QuizManager : MonoBehaviour
         }
         return quizSettings;
     }
-
-    public void WriteToStudentIDFile()
-    {
-        
-
-    }
-
-
+    
     public GameObject AnswerStateButton;
     [HideInInspector]
     public int answerNum;
@@ -322,20 +326,77 @@ public class QuizManager : MonoBehaviour
         }
     }
 
+    private void GetPeopleOrCarPosition()
+    {
+        for (int i = 0; i < QuizManager.getInstance().getQuizSettings().quiz.question.Count; ++i)
+        {
+            if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.PeopleArea)
+            {
+                WriteToXml(npc.GetNPCArea().ToString(), i, 5);
+            }
+            else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.CarArea)
+            {
+                WriteToXml(vehicle.GetVehicleArea().ToString(), i, 5);
+            }
+        }
+    }
+
     private void GetLastPeopleOrCarIndex()
     {
         for (int i = 0; i < QuizManager.getInstance().getQuizSettings().quiz.question.Count; ++i)
         {
             if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.PeopleArea)
             {
-                WriteToXml(cameraPIP.GetLastPersonOrCarIndex("npc").ToString(), i, 8);
+                if (cameraPIP.GetLastPersonOrCarIndex("npc") == -1)
+                {}
+                else
+                {
+                    WriteToXml(cameraPIP.GetLastPersonOrCarIndex("npc").ToString(), i, 8);
+                }
             }
             else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.CarArea)
             {
-                WriteToXml(cameraPIP.GetLastPersonOrCarIndex("car").ToString(), i, 8);
+                if (cameraPIP.GetLastPersonOrCarIndex("car") == -1)
+                {}
+                else
+                {
+                    WriteToXml(cameraPIP.GetLastPersonOrCarIndex("car").ToString(), i, 8);
+                }
             }
         }
     }
+
+    private void GetPeopleAndCarNums() //identify,rescue,untag num
+    {
+        for (int i = 0; i < QuizManager.getInstance().getQuizSettings().quiz.question.Count; ++i)
+        {
+            if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberWithPeopleIdentify)
+            {
+                WriteToXml(cameraPIP.GetIdentifyPeoPleNum().ToString(), i, 5);
+            }
+            else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberWithCarIdentify)
+            {
+                WriteToXml(cameraPIP.GetIdentifyCarNum().ToString(), i, 5);
+            }
+            else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberWithPeopleRescue)
+            {
+                WriteToXml(QuizManager.getInstance().markedPeople.ToString(), i, 5);
+            }
+            else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberWithCarRescue)
+            {
+                WriteToXml(QuizManager.getInstance().markedCars.ToString(), i, 5);
+            }
+            else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberWithPeopleUntag)
+            {
+                WriteToXml(cameraPIP.GetUnableTagPeopleNum().ToString(), i, 5);
+            }
+            else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberWithCarUntag)
+            {
+                WriteToXml(cameraPIP.GetUnableTagCarsNum().ToString(), i, 5);
+            }
+        }
+    }
+    
 
     private void WriterResourceStatus()
     {
@@ -382,20 +443,7 @@ public class QuizManager : MonoBehaviour
         }
         return "";
     }
-
-    //private string GetPeopleAndCarsNum(string str)
-    //{
-    //    string result = "";
-    //    string resultInt = 0;
-    //    if(str == "npc")
-    //    {
-    //        resultInt = cameraPIP.GetIdentifyCarNum();
-    //    }
-
-    //    return result;
-
-    //}
-
+    
 
     //write to XML file
     public void WriteToXml(string str, int questionCount, int num)
@@ -456,12 +504,15 @@ public class QuizManager : MonoBehaviour
                         InstantiateOptionsButtons();
                     }
                 }
-                if (getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumber ||
-                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithHeight ||
-                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithBattery ||
-                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberwithSpeed ||
+                if (getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumber                   ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithHeight         ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithBattery        ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberwithSpeed          ||
                     getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithPeopleIdentify ||
-                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithCar)
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithPeopleRescue   ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithPeopleUntag    ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithCarUntag       ||
+                    getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithCarRescue)
                 {
                     InputNumber.text = "";
                     InputNumber.gameObject.SetActive(true);

@@ -16,11 +16,11 @@
   <scene>
     <DroneCount>4</DroneCount>
     <PeopleCount>30</PeopleCount>
-    <CarCount>5</CarCount>
+    <CarCount>30</CarCount>
     <HelicopterCount>4</HelicopterCount>
     <TreeCount>20</TreeCount>
     <FireCount>4</FireCount>
-	<QuizStartTime>15</QuizStartTime>
+	<QuizStartTime>60</QuizStartTime>
 	<VerticalButtonsNum>7</VerticalButtonsNum>
 	<HorizontalButtonsNum>7</HorizontalButtonsNum>
   </scene>

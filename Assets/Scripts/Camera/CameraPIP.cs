@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using UnityEngine; 
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
@@ -34,11 +34,11 @@ public class CameraPIP : MonoBehaviour
     private float startCheckNPCinCamera = 0;
     private float checkFrequence = 0.5f;
 
-    private int markedPeople = 0;
-    private int markedCars = 0;
+    private QuizManager quizManager;
 
     void Start()
     {
+
         cam = this.GetComponent<Camera>();
         cam2nd = this.GetComponent<Camera>();
         drone = this.transform.parent.gameObject.GetComponent<Drone>();
@@ -46,20 +46,40 @@ public class CameraPIP : MonoBehaviour
         people = GameObject.FindGameObjectsWithTag("People");
         cars = GameObject.FindGameObjectsWithTag("Car");
         peopleColliders = new Collider[people.Length];
-        NPCShowTimeDic = new Dictionary<GameObject, KeyValuePair<float, bool>>();
+        quizManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<QuizManager>();
+        //NPCShowTimeDic = new Dictionary<GameObject, KeyValuePair<float, bool>>();
+        NPCShowTimeDic = quizManager.NPCShowTimeDic;
         NPCShowTimePair = new KeyValuePair<float, bool>();
         for (int i = 0; i < people.Length; ++i)
         {
             peopleColliders[i] = people[i].GetComponent<Collider>();
         }
     }
+    private int tmp=0;
+    private int tmp1 =0;
+    private int tmp2 = 0;
 
     void Update()
     {
         //mouse hover on npc--------
         HoverMouseToResizePeople();
+        if (this.tmp != NPCShowTimeDic.Count)
+        {
+            Debug.Log("NPCShowTimeDic.Count is: "+NPCShowTimeDic.Count);
+            this.tmp = NPCShowTimeDic.Count;
+        }
+        if (this.tmp1 != QuizManager.getInstance().markedPeople)
+        {
+            Debug.Log("markedPeople is: " + QuizManager.getInstance().markedPeople);
+            this.tmp1 = QuizManager.getInstance().markedPeople;
+        }
+        if (this.tmp2 != QuizManager.getInstance().markedCars)
+        {
+            Debug.Log("markedCars is: " + QuizManager.getInstance().markedCars);
+            this.tmp2 = QuizManager.getInstance().markedCars;
+        }
         //mouse hover on npc--------
-       // IsNPCMarked();
+        // IsNPCMarked();
         //if (cam.tag == "Camera_1st_view")
         if (cam.tag == "Camera_2nd_view")
         {
@@ -85,7 +105,7 @@ public class CameraPIP : MonoBehaviour
                         if (worldObject is NPC)
                         {
                             ((NPC)worldObject).Mark();
-                            ++markedPeople;
+                            ++QuizManager.getInstance().markedPeople;
                             NPCShowTimePair = new KeyValuePair<float, bool>(Time.time, true);
                             if (!NPCShowTimeDic.ContainsKey(worldObject.gameObject))
                             {
@@ -100,7 +120,7 @@ public class CameraPIP : MonoBehaviour
                         else if (worldObject is Vehicle)
                         {
                             ((Vehicle)worldObject).Mark();
-                            ++markedCars;
+                            ++QuizManager.getInstance().markedCars;
                             NPCShowTimePair = new KeyValuePair<float, bool>(Time.time,true);
                             if (!NPCShowTimeDic.ContainsKey(worldObject.gameObject))
                             {
@@ -141,7 +161,7 @@ public class CameraPIP : MonoBehaviour
 
         foreach (Collider collider in peopleColliders)
         {
-            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds)/* || GeometryUtility.TestPlanesAABB(secondCamPlanes, collider.bounds)*/)
+            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds))
             {
                 for (int i = 0; i < people.Length; ++i)
                 {
@@ -186,11 +206,11 @@ public class CameraPIP : MonoBehaviour
 
     public int GetRescuedPeopleNum()
     {
-        return markedPeople;
+        return QuizManager.getInstance().markedPeople;
     }
     public int GetRescuedCarsNum()
     {
-        return markedCars;
+        return QuizManager.getInstance().markedPeople;
     }
     public int GetUnableTagPeopleNum()
     {
@@ -205,6 +225,7 @@ public class CameraPIP : MonoBehaviour
         float max = 0f;
         int result=0;
         int tmp = 0;
+        int changed = 0;
         bool isIncrease;
         if (str == "npc")
         {
@@ -217,6 +238,7 @@ public class CameraPIP : MonoBehaviour
                     {
                         max = NPCShowTimeDic[p].Key;
                         isIncrease = true;
+                        ++changed;
                     }
                 }
                 if (isIncrease)
@@ -237,6 +259,7 @@ public class CameraPIP : MonoBehaviour
                     {
                         max = NPCShowTimeDic[c].Key;
                         isIncrease = true;
+                        ++changed;
                     }
                 }
                 if (isIncrease)
@@ -247,6 +270,10 @@ public class CameraPIP : MonoBehaviour
             }
         }
         Debug.Log("result is: " + result);
+        if (changed == 0)
+        {
+            return -1;
+        }
         return result;
         //foreach (KeyValuePair<GameObject, KeyValuePair<float, bool>> kvp in NPCShowTimeDic)
         //{
@@ -376,16 +403,30 @@ public class CameraPIP : MonoBehaviour
         //Ray ray = cam.ScreenPointToRay(obj.transform.position);
         //Ray ray = this.cam.ScreenPointToRay(Input.mousePosition);
         Ray ray = new Ray(obj.transform.position, cam.transform.position - obj.transform.position);
+        //Ray ray = this.cam.ScreenPointToRay(obj.transform.position);
         RaycastHit hit;
+        float distance = 20f;
         if (Physics.Raycast(ray, out hit, entitylayerMask))
         {
             if (hit.collider.gameObject == obj)
+            {
+                if ((cam.transform.position - obj.transform.position).magnitude > distance)
+                {
+                    return true;
+                }
                 return false;
+            }
         }
         else if (Physics.Raycast(ray, out hit, groundlayerMask))
         {
             if (hit.collider.gameObject == obj)
+            {
+                if ((cam.transform.position - obj.transform.position).magnitude > distance)
+                {
+                    return true;
+                }
                 return false;
+            }                
         }
         return true;
     }
