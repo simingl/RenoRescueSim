@@ -31,7 +31,7 @@
       <description>How much battery left of the No.1(red) UAV? </description>
       <type>InputNumberWithBattery</type>
       <number>1</number>
-      <answer>17.48</answer>
+      <answer>18.0</answer>
       <userAnswer />
       <timeConsumed>0</timeConsumed>
     </question>
@@ -63,7 +63,7 @@
       <description>What was the altitude of the No.1(red) UAV? </description>
       <type>InputNumberWithHeight</type>
       <number>1</number>
-      <answer>3.238791</answer>
+      <answer>2.29</answer>
       <userAnswer />
       <timeConsumed>0</timeConsumed>
     </question>
@@ -87,7 +87,7 @@
       <description>What was the velocity of the No.1(red)UAV?</description>
       <type>InputNumberwithSpeed</type>
       <number>1</number>
-      <answer>1.201156</answer>
+      <answer>0</answer>
       <userAnswer />
       <timeConsumed>1</timeConsumed>
     </question>
@@ -111,7 +111,7 @@
       <description>Where is the No.1(red) UAV?</description>
       <type>DroneArea</type>
       <number>1</number>
-      <answer>8</answer>
+      <answer>9</answer>
       <userAnswer>23</userAnswer>
       <timeConsumed>0</timeConsumed>
     </question>

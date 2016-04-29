@@ -89,8 +89,26 @@ public class QuizManager : MonoBehaviour
     private bool isWriteToXML = true;
     private float writeToXMLFrequency = 0.5f;
 
+
+	public string GenerateFileName(string context)
+	{
+		return context + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + Guid.NewGuid().ToString("N");
+	}
+
     void Update()
     {
+
+		int playingNASATask = PlayerPrefs.GetInt("PlayingNASATaskLoad");
+		if (playingNASATask == 1) {
+
+			return;
+
+		} else if (PlayerPrefs.GetInt ("PlayQuestions") == 1) {
+
+			PlayerPrefs.SetInt("PlayQuestions", 0);
+			OnPopUpQuestionButtonClick ();
+		}
+
         timeNow = Time.timeSinceLevelLoad;
         if (getQuizStartTime()- timeNow <= writeToXMLFrequency && isWriteToXML)
         {
@@ -121,7 +139,10 @@ public class QuizManager : MonoBehaviour
             }
             else
             {
-                OnPopUpQuestionButtonClick();
+                //OnPopUpQuestionButtonClick();
+				PlayerPrefs.SetInt("PlayingNASATaskLoad", 1);
+				XMLLogWriter.Instance.setFileName(GenerateFileName("NASATaskLoadIndex")+".xml");
+				Application.LoadLevel("NasaTaskLoadIndex");
             }
         }
         if (QuizManager.getInstance().questionButtonCounter == QuizManager.getInstance().getQuizSettings().quiz.question.Count 
