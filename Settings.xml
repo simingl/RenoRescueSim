@@ -20,7 +20,11 @@
     <HelicopterCount>4</HelicopterCount>
     <TreeCount>20</TreeCount>
     <FireCount>4</FireCount>
+<<<<<<< HEAD
 	<QuizStartTime>60</QuizStartTime>
+=======
+	<QuizStartTime>15</QuizStartTime>
+>>>>>>> refs/remotes/origin/Sonu
 	<VerticalButtonsNum>7</VerticalButtonsNum>
 	<HorizontalButtonsNum>7</HorizontalButtonsNum>
   </scene>

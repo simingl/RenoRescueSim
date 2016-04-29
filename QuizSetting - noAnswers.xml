@@ -36,7 +36,11 @@
       <timeConsumed></timeConsumed>
     </question>		
 	<question>
+<<<<<<< HEAD
       <description>How much battery left of the No.2(green) UAV? </description>
+=======
+      <description>How much battery left of the No.2(blue) UAV? </description>
+>>>>>>> refs/remotes/origin/Sonu
       <type>InputNumberWithBattery</type>
       <number>2</number>
       <answer></answer>
@@ -44,7 +48,11 @@
       <timeConsumed></timeConsumed>
     </question>	
 	<question>
+<<<<<<< HEAD
       <description>How much battery left of the No.3(blue) UAV? </description>
+=======
+      <description>How much battery left of the No.3(magenta) UAV? </description>
+>>>>>>> refs/remotes/origin/Sonu
       <type>InputNumberWithBattery</type>
       <number>3</number>
       <answer></answer>
@@ -64,6 +72,7 @@
       <type>InputNumberWithHeight</type>
       <number>1</number>
       <answer></answer>
+<<<<<<< HEAD
       <userAnswer></userAnswer>
       <timeConsumed></timeConsumed>
     </question>
@@ -96,9 +105,43 @@
       <type>InputNumberwithSpeed</type>
       <number>2</number>
       <answer></answer>
+=======
+>>>>>>> refs/remotes/origin/Sonu
       <userAnswer></userAnswer>
       <timeConsumed></timeConsumed>
     </question>
+	<question>
+      <description>What was the altitude of the No.2(blue) UAV? </description>
+      <type>InputNumberWithHeight</type>
+      <number>2</number>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>
+	<question>
+      <description>What was the velocity of the No.0(yellow)UAV?</description>
+      <type>InputNumberwithSpeed</type>
+      <number>0</number>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>	
+	<question>
+      <description>What was the velocity of the No.1(red)UAV?</description>
+      <type>InputNumberwithSpeed</type>
+      <number>1</number>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>	
+	<question>
+      <description>What was the velocity of the No.2(blue)UAV?</description>
+      <type>InputNumberwithSpeed</type>
+      <number>2</number>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>	
     <question>
       <description>Where is the No.0(yellow) UAV?</description>
       <type>DroneArea</type>
@@ -116,7 +159,11 @@
       <timeConsumed></timeConsumed>
     </question>
     <question>
+<<<<<<< HEAD
       <description>Where is the No.2(green) UAV?</description>
+=======
+      <description>Where is the No.2(blue) UAV?</description>
+>>>>>>> refs/remotes/origin/Sonu
       <type>DroneArea</type>
       <number>2</number>
       <answer />
@@ -124,7 +171,11 @@
       <timeConsumed />
     </question>
     <question>
+<<<<<<< HEAD
       <description>Where is the No.3(blue) UAV</description>
+=======
+      <description>Where is the No.3(magenta) UAV</description>
+>>>>>>> refs/remotes/origin/Sonu
       <type>DroneArea</type>
       <number>3</number>
       <answer />
@@ -135,6 +186,7 @@
       <description>Where was the last person you identified?</description>
       <type>PeopleArea</type>
       <number></number>
+<<<<<<< HEAD
       <answer />
       <userAnswer />
       <timeConsumed />
@@ -191,6 +243,8 @@
       <description>How many cars did you see but were unable to tag?</description>
       <type>InputNumberWithCarUntag</type>
       <number></number>
+=======
+>>>>>>> refs/remotes/origin/Sonu
       <answer />
       <userAnswer />
       <timeConsumed />

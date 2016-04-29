@@ -60,12 +60,13 @@ public class QuizManager : MonoBehaviour
     private QuizSettingContainer writeToStudentID;
     private HUD hud;
     private SceneManager sceneManager;
-    private CameraPIP cameraPIP;
+
     private Vehicle vehicle;
     private NPC npc;
     public Dictionary<GameObject, KeyValuePair<float, bool>> NPCShowTimeDic;
     public int markedPeople;
     public int markedCars;
+
     void Start()
     {
         markedPeople = 0;
@@ -89,6 +90,7 @@ public class QuizManager : MonoBehaviour
         hud = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUD>();
   //      writeToStudentID = new QuizSettingContainer();
         sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneManager>();
+
         cameraPIP = GameObject.FindGameObjectWithTag("Camera_2nd_view").GetComponent<CameraPIP>();
         vehicle = GameObject.FindGameObjectWithTag("Car").GetComponent<Vehicle>();
         NPCShowTimeDic = new Dictionary<GameObject, KeyValuePair<float, bool>>();
@@ -97,6 +99,7 @@ public class QuizManager : MonoBehaviour
 
     private bool isWriteToXML = true;
     private float writeToXMLFrequency = 0.5f;
+
 
     void Update()
     {
@@ -109,6 +112,36 @@ public class QuizManager : MonoBehaviour
                 GetPeopleAndCarNums();
                 GetLastPeopleOrCarIndex();
                 GetPeopleOrCarPosition();
+
+
+
+	public string GenerateFileName(string context)
+	{
+		return context + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + Guid.NewGuid().ToString("N");
+	}
+
+    void Update()
+    {
+
+		int playingNASATask = PlayerPrefs.GetInt("PlayingNASATaskLoad");
+		if (playingNASATask == 1) {
+
+			return;
+
+		} else if (PlayerPrefs.GetInt ("PlayQuestions") == 1) {
+
+			PlayerPrefs.SetInt("PlayQuestions", 0);
+			OnPopUpQuestionButtonClick ();
+		}
+
+        timeNow = Time.timeSinceLevelLoad;
+        if (getQuizStartTime()- timeNow <= writeToXMLFrequency && isWriteToXML)
+        {
+            GetArea();
+            if (playerFolderActive)
+            {
+                GetLastPeopleOrCarIndex();
+
                 WriterResourceStatus();
             }
             isWriteToXML = false;
@@ -132,7 +165,10 @@ public class QuizManager : MonoBehaviour
             }
             else
             {
-                OnPopUpQuestionButtonClick();
+                //OnPopUpQuestionButtonClick();
+				PlayerPrefs.SetInt("PlayingNASATaskLoad", 1);
+				XMLLogWriter.Instance.setFileName(GenerateFileName("NASATaskLoadIndex")+".xml");
+				Application.LoadLevel("NasaTaskLoadIndex");
             }
         }
         if (QuizManager.getInstance().questionButtonCounter == QuizManager.getInstance().getQuizSettings().quiz.question.Count 
@@ -323,6 +359,7 @@ public class QuizManager : MonoBehaviour
                     }
                 }
             }
+
         }
     }
 
@@ -338,6 +375,7 @@ public class QuizManager : MonoBehaviour
             {
                 WriteToXml(vehicle.GetVehicleArea().ToString(), i, 5);
             }
+
         }
     }
 
@@ -365,7 +403,6 @@ public class QuizManager : MonoBehaviour
             }
         }
     }
-
     private void GetPeopleAndCarNums() //identify,rescue,untag num
     {
         for (int i = 0; i < QuizManager.getInstance().getQuizSettings().quiz.question.Count; ++i)
@@ -396,8 +433,6 @@ public class QuizManager : MonoBehaviour
             }
         }
     }
-    
-
     private void WriterResourceStatus()
     {
         Drone[] allDrones= sceneManager.getAllDrones();        
@@ -443,7 +478,21 @@ public class QuizManager : MonoBehaviour
         }
         return "";
     }
-    
+
+
+    //private string GetPeopleAndCarsNum(string str)
+    //{
+    //    string result = "";
+    //    string resultInt = 0;
+    //    if(str == "npc")
+    //    {
+    //        resultInt = cameraPIP.GetIdentifyCarNum();
+    //    }
+
+    //    return result;
+
+    //}
+
 
     //write to XML file
     public void WriteToXml(string str, int questionCount, int num)
@@ -513,6 +562,7 @@ public class QuizManager : MonoBehaviour
                     getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithPeopleUntag    ||
                     getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithCarUntag       ||
                     getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter].type == QuestionType.InputNumberWithCarRescue)
+
                 {
                     InputNumber.text = "";
                     InputNumber.gameObject.SetActive(true);

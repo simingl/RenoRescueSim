@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<QuizSetting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <quiz>
+    <question>
+      <description>How many UAVs were you handling?</description>
+      <type>Single</type>
+      <number />
+      <option>
+        <opt>
+          <name>A</name>
+          <optDescription>1</optDescription>
+        </opt>
+        <opt>
+          <name>B</name>
+          <optDescription>2</optDescription>
+        </opt>
+        <opt>
+          <name>C</name>
+          <optDescription>3</optDescription>
+        </opt>
+        <opt>
+          <name>D</name>
+          <optDescription>4</optDescription>
+        </opt>
+      </option>
+      <answer>D</answer>
+      <userAnswer>1</userAnswer>
+      <timeConsumed>1</timeConsumed>
+    </question>
+    <question>
+      <description>How much battery left of the No.1(red) UAV? </description>
+      <type>InputNumberWithBattery</type>
+      <number>1</number>
+      <answer>17.48</answer>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>How much battery left of the No.2(blue) UAV? </description>
+      <type>InputNumberWithBattery</type>
+      <number>2</number>
+      <answer>18.0</answer>
+      <userAnswer />
+      <timeConsumed>1</timeConsumed>
+    </question>
+    <question>
+      <description>How much battery left of the No.3(magenta) UAV? </description>
+      <type>InputNumberWithBattery</type>
+      <number>3</number>
+      <answer>18.0</answer>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>What was the altitude of the No.0(yellow) UAV? </description>
+      <type>InputNumberWithHeight</type>
+      <number>0</number>
+      <answer>2.29</answer>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>What was the altitude of the No.1(red) UAV? </description>
+      <type>InputNumberWithHeight</type>
+      <number>1</number>
+      <answer>3.238791</answer>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>What was the altitude of the No.2(blue) UAV? </description>
+      <type>InputNumberWithHeight</type>
+      <number>2</number>
+      <answer>2.29</answer>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>What was the velocity of the No.0(yellow)UAV?</description>
+      <type>InputNumberwithSpeed</type>
+      <number>0</number>
+      <answer>0</answer>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>What was the velocity of the No.1(red)UAV?</description>
+      <type>InputNumberwithSpeed</type>
+      <number>1</number>
+      <answer>1.201156</answer>
+      <userAnswer />
+      <timeConsumed>1</timeConsumed>
+    </question>
+    <question>
+      <description>What was the velocity of the No.2(blue)UAV?</description>
+      <type>InputNumberwithSpeed</type>
+      <number>2</number>
+      <answer>0</answer>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>Where is the No.0(yellow) UAV?</description>
+      <type>DroneArea</type>
+      <number>0</number>
+      <answer>9</answer>
+      <userAnswer>16</userAnswer>
+      <timeConsumed>2</timeConsumed>
+    </question>
+    <question>
+      <description>Where is the No.1(red) UAV?</description>
+      <type>DroneArea</type>
+      <number>1</number>
+      <answer>8</answer>
+      <userAnswer>23</userAnswer>
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>Where is the No.2(blue) UAV?</description>
+      <type>DroneArea</type>
+      <number>2</number>
+      <answer>9</answer>
+      <userAnswer>24</userAnswer>
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>Where is the No.3(magenta) UAV</description>
+      <type>DroneArea</type>
+      <number>3</number>
+      <answer>9</answer>
+      <userAnswer>17</userAnswer>
+      <timeConsumed>1</timeConsumed>
+    </question>
+    <question>
+      <description>Where was the last person you identified?</description>
+      <type>PeopleArea</type>
+      <number>9</number>
+      <answer>9</answer>
+      <userAnswer>9</userAnswer>
+      <timeConsumed>5</timeConsumed>
+    </question>
+  </quiz>
+</QuizSetting>

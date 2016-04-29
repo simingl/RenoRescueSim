@@ -25,6 +25,7 @@
       </option>
       <answer>D</answer>
       <userAnswer>1</userAnswer>
+<<<<<<< HEAD
       <timeConsumed>2</timeConsumed>
     </question>
     <question>
@@ -32,10 +33,68 @@
       <type>InputNumberWithBattery</type>
       <number>1</number>
       <answer>17.14</answer>
+=======
+      <timeConsumed>1</timeConsumed>
+    </question>
+    <question>
+      <description>How much battery left of the No.1(red) UAV? </description>
+      <type>InputNumberWithBattery</type>
+      <number>1</number>
+      <answer>17.47</answer>
       <userAnswer />
       <timeConsumed>0</timeConsumed>
     </question>
     <question>
+      <description>How much battery left of the No.2(blue) UAV? </description>
+      <type>InputNumberWithBattery</type>
+      <number>2</number>
+      <answer>17.50</answer>
+      <userAnswer />
+      <timeConsumed>1</timeConsumed>
+    </question>
+    <question>
+      <description>How much battery left of the No.3(magenta) UAV? </description>
+      <type>InputNumberWithBattery</type>
+      <number>3</number>
+      <answer>17.56</answer>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>What was the altitude of the No.0(yellow) UAV? </description>
+      <type>InputNumberWithHeight</type>
+      <number>0</number>
+      <answer>2.308415</answer>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>What was the altitude of the No.1(red) UAV? </description>
+      <type>InputNumberWithHeight</type>
+      <number>1</number>
+      <answer>3.744143</answer>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>What was the altitude of the No.2(blue) UAV? </description>
+      <type>InputNumberWithHeight</type>
+      <number>2</number>
+      <answer>7.295147</answer>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>What was the velocity of the No.0(yellow)UAV?</description>
+      <type>InputNumberwithSpeed</type>
+      <number>0</number>
+      <answer>0</answer>
+>>>>>>> refs/remotes/origin/Sonu
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+<<<<<<< HEAD
       <description>How much battery left of the No.2(green) UAV? </description>
       <type>InputNumberWithBattery</type>
       <number>2</number>
@@ -48,10 +107,17 @@
       <type>InputNumberWithBattery</type>
       <number>3</number>
       <answer>17.15</answer>
+=======
+      <description>What was the velocity of the No.1(red)UAV?</description>
+      <type>InputNumberwithSpeed</type>
+      <number>1</number>
+      <answer>0</answer>
+>>>>>>> refs/remotes/origin/Sonu
       <userAnswer />
       <timeConsumed>1</timeConsumed>
     </question>
     <question>
+<<<<<<< HEAD
       <description>What was the altitude of the No.0(yellow) UAV? </description>
       <type>InputNumberWithHeight</type>
       <number>0</number>
@@ -194,6 +260,54 @@
       <answer>0</answer>
       <userAnswer>123</userAnswer>
       <timeConsumed>0</timeConsumed>
+=======
+      <description>What was the velocity of the No.2(blue)UAV?</description>
+      <type>InputNumberwithSpeed</type>
+      <number>2</number>
+      <answer>1.225651</answer>
+      <userAnswer />
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>Where is the No.0(yellow) UAV?</description>
+      <type>DroneArea</type>
+      <number>0</number>
+      <answer>9</answer>
+      <userAnswer>16</userAnswer>
+      <timeConsumed>2</timeConsumed>
+    </question>
+    <question>
+      <description>Where is the No.1(red) UAV?</description>
+      <type>DroneArea</type>
+      <number>1</number>
+      <answer>9</answer>
+      <userAnswer>23</userAnswer>
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>Where is the No.2(blue) UAV?</description>
+      <type>DroneArea</type>
+      <number>2</number>
+      <answer>9</answer>
+      <userAnswer>24</userAnswer>
+      <timeConsumed>0</timeConsumed>
+    </question>
+    <question>
+      <description>Where is the No.3(magenta) UAV</description>
+      <type>DroneArea</type>
+      <number>3</number>
+      <answer>9</answer>
+      <userAnswer>17</userAnswer>
+      <timeConsumed>1</timeConsumed>
+    </question>
+    <question>
+      <description>Where was the last person you identified?</description>
+      <type>PeopleArea</type>
+      <number>9</number>
+      <answer />
+      <userAnswer>9</userAnswer>
+      <timeConsumed>5</timeConsumed>
+>>>>>>> refs/remotes/origin/Sonu
     </question>
   </quiz>
 </QuizSetting>
