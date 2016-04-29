@@ -57,12 +57,15 @@ public class CameraPIP : MonoBehaviour
             peopleColliders[i] = people[i].GetComponent<Collider>();
         }
     }
-
+    private int tmp=0;
     void Update()
     {
         //mouse hover on npc--------
         HoverMouseToResizePeople();
-        Debug.Log(this.NPCShowTimeDic.Count);
+        if (tmp != NPCShowTimeDic.Count)
+        {
+            Debug.Log(this.NPCShowTimeDic.Count);
+        }
         //mouse hover on npc--------
        // IsNPCMarked();
         //if (cam.tag == "Camera_1st_view")
@@ -388,6 +391,7 @@ public class CameraPIP : MonoBehaviour
         //Ray ray = cam.ScreenPointToRay(obj.transform.position);
         //Ray ray = this.cam.ScreenPointToRay(Input.mousePosition);
         Ray ray = new Ray(obj.transform.position, cam.transform.position - obj.transform.position);
+        //Ray ray = this.cam.ScreenPointToRay(obj.transform.position);
         RaycastHit hit;
         float distance = 20f;
         if (Physics.Raycast(ray, out hit, entitylayerMask))
