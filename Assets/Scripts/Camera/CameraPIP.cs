@@ -37,6 +37,8 @@ public class CameraPIP : MonoBehaviour
     private int markedPeople = 0;
     private int markedCars = 0;
 
+    private QuizManager quizmanager;
+
     void Start()
     {
         cam = this.GetComponent<Camera>();
@@ -46,7 +48,9 @@ public class CameraPIP : MonoBehaviour
         people = GameObject.FindGameObjectsWithTag("People");
         cars = GameObject.FindGameObjectsWithTag("Car");
         peopleColliders = new Collider[people.Length];
-        NPCShowTimeDic = new Dictionary<GameObject, KeyValuePair<float, bool>>();
+        quizmanager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<QuizManager>();
+        //NPCShowTimeDic = new Dictionary<GameObject, KeyValuePair<float, bool>>();
+        NPCShowTimeDic = quizmanager.NPCShowTimeDic;
         NPCShowTimePair = new KeyValuePair<float, bool>();
         for (int i = 0; i < people.Length; ++i)
         {
@@ -58,6 +62,7 @@ public class CameraPIP : MonoBehaviour
     {
         //mouse hover on npc--------
         HoverMouseToResizePeople();
+        Debug.Log(this.NPCShowTimeDic.Count);
         //mouse hover on npc--------
        // IsNPCMarked();
         //if (cam.tag == "Camera_1st_view")
@@ -141,7 +146,7 @@ public class CameraPIP : MonoBehaviour
 
         foreach (Collider collider in peopleColliders)
         {
-            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds)/* || GeometryUtility.TestPlanesAABB(secondCamPlanes, collider.bounds)*/)
+            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds))
             {
                 for (int i = 0; i < people.Length; ++i)
                 {
@@ -205,6 +210,7 @@ public class CameraPIP : MonoBehaviour
         float max = 0f;
         int result=0;
         int tmp = 0;
+        int changed = 0;
         bool isIncrease;
         if (str == "npc")
         {
@@ -217,6 +223,7 @@ public class CameraPIP : MonoBehaviour
                     {
                         max = NPCShowTimeDic[p].Key;
                         isIncrease = true;
+                        ++changed;
                     }
                 }
                 if (isIncrease)
@@ -237,6 +244,7 @@ public class CameraPIP : MonoBehaviour
                     {
                         max = NPCShowTimeDic[c].Key;
                         isIncrease = true;
+                        ++changed;
                     }
                 }
                 if (isIncrease)
@@ -247,6 +255,10 @@ public class CameraPIP : MonoBehaviour
             }
         }
         Debug.Log("result is: " + result);
+        if (changed == 0)
+        {
+            return -1;
+        }
         return result;
         //foreach (KeyValuePair<GameObject, KeyValuePair<float, bool>> kvp in NPCShowTimeDic)
         //{
@@ -377,15 +389,28 @@ public class CameraPIP : MonoBehaviour
         //Ray ray = this.cam.ScreenPointToRay(Input.mousePosition);
         Ray ray = new Ray(obj.transform.position, cam.transform.position - obj.transform.position);
         RaycastHit hit;
+        float distance = 20f;
         if (Physics.Raycast(ray, out hit, entitylayerMask))
         {
             if (hit.collider.gameObject == obj)
+            {
+                if ((cam.transform.position - obj.transform.position).magnitude > distance)
+                {
+                    return true;
+                }
                 return false;
+            }
         }
         else if (Physics.Raycast(ray, out hit, groundlayerMask))
         {
             if (hit.collider.gameObject == obj)
+            {
+                if ((cam.transform.position - obj.transform.position).magnitude > distance)
+                {
+                    return true;
+                }
                 return false;
+            }                
         }
         return true;
     }

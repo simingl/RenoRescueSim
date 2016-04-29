@@ -13,8 +13,11 @@ public enum QuestionType
     InputNumberWithBattery,
     InputNumberwithSpeed,
     InputNumberWithPeopleIdentify,
+    InputNumberWithPeopleRescue,
+    InputNumberWithPeopleUntag,
     InputNumberWithCarIdentify,
-    InputNumberWithCar,
+    InputNumberWithCarRescue,
+    InputNumberWithCarUntag,
     CarArea,
     PeopleArea,
     DroneArea

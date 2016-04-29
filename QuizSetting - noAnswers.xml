@@ -139,5 +139,61 @@
       <userAnswer />
       <timeConsumed />
     </question>
+	<question>
+      <description>Where was the last vehicle you identified?</description>
+      <type>CarArea</type>
+      <number></number>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
+    </question>
+	<question>
+      <description>How many person did you identify?</description>
+      <type>InputNumberWithPeopleIdentify</type>
+      <number></number>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
+    </question>
+	<question>
+      <description>How many cars did you identify?</description>
+      <type>InputNumberWithCarIdentify</type>
+      <number></number>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
+    </question>
+	<question>
+      <description>How many person did you rescue?</description>
+      <type>InputNumberWithPeopleRescue</type>
+      <number></number>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
+    </question>
+	<question>
+      <description>How many cars did you rescue?</description>
+      <type>InputNumberWithCarRescue</type>
+      <number></number>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
+    </question>
+	<question>
+      <description>How many people did you see but were unable to tag?</description>
+      <type>InputNumberWithPeopleUntag</type>
+      <number></number>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
+    </question>
+	<question>
+      <description>How many cars did you see but were unable to tag?</description>
+      <type>InputNumberWithCarUntag</type>
+      <number></number>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
+    </question>
   </quiz>
 </QuizSetting>
