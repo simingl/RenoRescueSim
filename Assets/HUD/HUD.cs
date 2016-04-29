@@ -53,6 +53,8 @@ public class HUD : MonoBehaviour {
     
 	private Camera camera_minimap;
 
+    public string batteryLife;
+
 	void Start () {
 		int WIDTH = Screen.width;
 		int HEIGHT = Screen.height;
@@ -138,6 +140,7 @@ public class HUD : MonoBehaviour {
 			if (obj is Drone) {
 				Drone unit = (Drone)obj;
 				battery += "Battery: " + (int)(unit.currentBattery)/60+" min " + ((int)unit.currentBattery)%60 + " sec.";
+                batteryLife = battery;
 				status += unit.currentStatus;
 				speed  += unit.speed.ToString("0.0");
 			}

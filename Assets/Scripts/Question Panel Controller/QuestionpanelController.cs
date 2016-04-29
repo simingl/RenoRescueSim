@@ -93,12 +93,20 @@ public class QuestionpanelController : MonoBehaviour {
                 instructionDetails.text = "PLEASE ENTER THE ANSWER";
                 break;
 
-            case QuestionType.Area:
+            case QuestionType.DroneArea:
                 instructionDetails.text = "PLEASE SELECT THE DRONE FROM THE MAP";
                 break;
 
+            case QuestionType.PeopleArea:
+                instructionDetails.text = "PLEASE SELECT THE PEOPLE POSITION FROM THE MAP";
+                break;
+
+            case QuestionType.CarArea:
+                instructionDetails.text = "PLEASE SELECT THE CAR POSITION FROM THE MAP";
+                break;
+
             default:
-                instructionDetails.text = "";
+                instructionDetails.text = "PLEASE ENTER THE ANSWER"; 
 
                 break;
         }

@@ -87,7 +87,29 @@ public class AnswerPanelController : MonoBehaviour {
 
                     break;
 
-            case QuestionType.Area:
+            case QuestionType.DroneArea:
+                //Debug.Log("answer panel called QuestionType.Area");
+
+                optionDropdown.gameObject.SetActive(false);
+                inputPanelText.gameObject.SetActive(false);
+                areaPanelDetails.gameObject.SetActive(true);
+                submitButton.gameObject.SetActive(false);
+
+                areaPanelDetails.text = "Please choose an area from map";
+                break;
+
+            case QuestionType.CarArea:
+                //Debug.Log("answer panel called QuestionType.Area");
+
+                optionDropdown.gameObject.SetActive(false);
+                inputPanelText.gameObject.SetActive(false);
+                areaPanelDetails.gameObject.SetActive(true);
+                submitButton.gameObject.SetActive(false);
+
+                areaPanelDetails.text = "Please choose an area from map";
+                break;
+
+            case QuestionType.PeopleArea:
                 //Debug.Log("answer panel called QuestionType.Area");
 
                 optionDropdown.gameObject.SetActive(false);
@@ -99,7 +121,11 @@ public class AnswerPanelController : MonoBehaviour {
                 break;
 
             default:
-                Debug.Log("not found");
+                optionDropdown.gameObject.SetActive(false);
+                inputPanelText.gameObject.SetActive(true);
+                areaPanelDetails.gameObject.SetActive(false);
+                submitButton.gameObject.SetActive(true);
+                inputPanelText.text = "";
                 break;
         }
 
@@ -119,13 +145,15 @@ public class AnswerPanelController : MonoBehaviour {
                 question.userAnswer = inputPanelText.text;
                 break;
 
-            case QuestionType.Area:
-                
+            case QuestionType.DroneArea:                
+                break;
+            case QuestionType.PeopleArea:
+                break;
+            case QuestionType.CarArea:
                 break;
 
             default:
-                
-
+                question.userAnswer = inputPanelText.text;
                 break;
         }
 
