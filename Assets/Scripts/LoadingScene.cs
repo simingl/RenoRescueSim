@@ -9,9 +9,9 @@ public class LoadingScene: MonoBehaviour {
     public Text errorText;
     public NextSceneButtonScript nextSceneButton;
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         nextSceneButton = new NextSceneButtonScript();
-
     }
     public void OnButtonClick()
     {

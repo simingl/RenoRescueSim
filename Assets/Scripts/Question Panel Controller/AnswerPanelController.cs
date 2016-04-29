@@ -169,15 +169,11 @@ public class AnswerPanelController : MonoBehaviour {
             quizManager.answerNum = 0;
         }
         string str = question.userAnswer;
-        quizManager.endAnswerTime = (int)Time.realtimeSinceStartup;
+        quizManager.endAnswerTime = (int)Time.timeSinceLevelLoad;
         string timeConsumed = (quizManager.endAnswerTime - quizManager.startAnswerTime).ToString();
         quizManager.WriteToXml(str, quizManager.questionButtonCounter, 6);
         quizManager.WriteToXml(timeConsumed, quizManager.questionButtonCounter, 7);
         quizManager.answered = true;
         quizManager.displayResultBoard = false;
-
-    }
-
-
-
+    }    
 }

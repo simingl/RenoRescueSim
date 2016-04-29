@@ -49,7 +49,7 @@ public class OnOptionsButtonClicked : MonoBehaviour {
 		}
         
         
-        quizManager.endAnswerTime = (int)Time.realtimeSinceStartup;
+        quizManager.endAnswerTime = (int)Time.timeSinceLevelLoad;
         string timeConsumed = (quizManager.endAnswerTime - quizManager.startAnswerTime).ToString();
         quizManager.WriteToXml(str, quizManager.questionButtonCounter, 6);
         quizManager.WriteToXml(timeConsumed, quizManager.questionButtonCounter, 7);
