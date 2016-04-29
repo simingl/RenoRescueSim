@@ -63,21 +63,21 @@ public class CameraPIP : MonoBehaviour
     {
         //mouse hover on npc--------
         HoverMouseToResizePeople();
-        //if (this.tmp != NPCShowTimeDic.Count)
-        //{
-        //    Debug.Log("NPCShowTimeDic.Count is: "+NPCShowTimeDic.Count);
-        //    this.tmp = NPCShowTimeDic.Count;
-        //}
-        //if (this.tmp1 != QuizManager.getInstance().markedPeople)
-        //{
-        //    Debug.Log("markedPeople is: " + QuizManager.getInstance().markedPeople);
-        //    this.tmp1 = QuizManager.getInstance().markedPeople;
-        //}
-        //if (this.tmp2 != QuizManager.getInstance().markedCars)
-        //{
-        //    Debug.Log("markedCars is: " + QuizManager.getInstance().markedCars);
-        //    this.tmp2 = QuizManager.getInstance().markedCars;
-        //}
+        if (this.tmp != NPCShowTimeDic.Count)
+        {
+            Debug.Log("NPCShowTimeDic.Count is: "+NPCShowTimeDic.Count);
+            this.tmp = NPCShowTimeDic.Count;
+        }
+        if (this.tmp1 != QuizManager.getInstance().markedPeople)
+        {
+            Debug.Log("markedPeople is: " + QuizManager.getInstance().markedPeople);
+            this.tmp1 = QuizManager.getInstance().markedPeople;
+        }
+        if (this.tmp2 != QuizManager.getInstance().markedCars)
+        {
+            Debug.Log("markedCars is: " + QuizManager.getInstance().markedCars);
+            this.tmp2 = QuizManager.getInstance().markedCars;
+        }
         //mouse hover on npc--------
         // IsNPCMarked();
         //if (cam.tag == "Camera_1st_view")
@@ -269,7 +269,7 @@ public class CameraPIP : MonoBehaviour
                 tmp++;
             }
         }
-        //Debug.Log("result is: " + result);
+        Debug.Log("result is: " + result);
         if (changed == 0)
         {
             return -1;

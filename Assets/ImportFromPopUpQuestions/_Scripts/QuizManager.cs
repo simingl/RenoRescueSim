@@ -32,8 +32,7 @@ public class QuizManager : MonoBehaviour
     public bool startQuestion = false;
     private float timeNow = 0f;
     // public GameObject backGround;
-    //private bool write = true;
-    private bool write ;
+    private bool write = true;
     [HideInInspector]
     public int startAnswerTime;
     [HideInInspector]
@@ -54,7 +53,7 @@ public class QuizManager : MonoBehaviour
     public GameObject resultBoard;
     [HideInInspector]
     public bool displayResultBoard;
-    private bool startPopupQuestion;
+    private bool startPopupQuestion = true;
     //    public GameObject btnChangeScene;
     private ConfigManager configManager;
     private QuizSettingContainer quizSettings;
@@ -67,9 +66,8 @@ public class QuizManager : MonoBehaviour
     public Dictionary<GameObject, KeyValuePair<float, bool>> NPCShowTimeDic;
     public int markedPeople;
     public int markedCars;
-    private float quizStartTime = 0;
     void Start()
-    {       
+    {
         markedPeople = 0;
         markedCars = 0;
         startAnswerTime = 0;
@@ -95,49 +93,38 @@ public class QuizManager : MonoBehaviour
         vehicle = GameObject.FindGameObjectWithTag("Car").GetComponent<Vehicle>();
         NPCShowTimeDic = new Dictionary<GameObject, KeyValuePair<float, bool>>();
         npc = GameObject.FindGameObjectWithTag("People").GetComponent<NPC>();
-        QuizManager.getInstance().isWriteToXML = true;
-        QuizManager.getInstance().looploadControl = getQuizStartTime();
-        QuizManager.getInstance().write  = true;
-        QuizManager.getInstance().startPopupQuestion = true;
-        QuizManager.getInstance().answered = false;
-}
+    }
 
-    //private bool isWriteToXML = true;
-    private bool isWriteToXML;
+    private bool isWriteToXML = true;
     private float writeToXMLFrequency = 0.5f;
-    private float looploadControl;
 
     void Update()
     {
-        //Debug.Log(QuizManager.getInstance().looploadControl);
         timeNow = Time.timeSinceLevelLoad;
-        //if (getQuizStartTime()- timeNow <= writeToXMLFrequency && isWriteToXML)
-        if (QuizManager.getInstance().looploadControl - timeNow <= writeToXMLFrequency && QuizManager.getInstance().isWriteToXML)
-            {            
+        if (getQuizStartTime()- timeNow <= writeToXMLFrequency && isWriteToXML)
+        {            
             if (playerFolderActive)
             {
-                QuizManager.getInstance().quizStartTime = Time.timeSinceLevelLoad;
                 GetArea();
                 GetPeopleAndCarNums();
                 GetLastPeopleOrCarIndex();
                 GetPeopleOrCarPosition();
                 WriterResourceStatus();
             }
-            QuizManager.getInstance().isWriteToXML = false;
+            isWriteToXML = false;
         }
         if (QuizManager.getInstance().answered)
         {
-            destroyOptions();
-            //AnswerState(QuizManager.getInstance().answerNum);
+            AnswerState(QuizManager.getInstance().answerNum);
 
-            if (QuizManager.getInstance().write  == false && QuizManager.getInstance().questionButtonCounter + 1 == QuizManager.getInstance().getQuizSettings().quiz.question.Count)
-            {                        
+            if (QuizManager.getInstance().write == false && QuizManager.getInstance().questionButtonCounter + 1 == QuizManager.getInstance().getQuizSettings().quiz.question.Count)
+            {
                 ResumeSceneButtonClick();
             }
 
         }
         
-        if (timeNow > QuizManager.getInstance().looploadControl && QuizManager.getInstance().write )
+        if (timeNow > getQuizStartTime() && QuizManager.getInstance().write)
         {
             if (QuizManager.getInstance().questionButtonCounter + 1 == QuizManager.getInstance().getQuizSettings().quiz.question.Count)
             {
@@ -154,8 +141,9 @@ public class QuizManager : MonoBehaviour
 
             if (QuizManager.getInstance().displayResultBoard) {
                 QuizManager.getInstance().displayResultBoard = false;
-                DisplayResult();                
-            }            
+                DisplayResult();
+            }
+            
         }
     }
 
@@ -244,7 +232,7 @@ public class QuizManager : MonoBehaviour
             }
         }
     }
-    public bool answered;
+    public bool answered = false;
 
     private void showNextQuestion()
     {
@@ -285,7 +273,7 @@ public class QuizManager : MonoBehaviour
         {
             QuizManager.getInstance().answerNum = 0;
         }
-        QuizManager.getInstance().endAnswerTime =(int) Time.timeSinceLevelLoad;
+        QuizManager.getInstance().endAnswerTime =(int) Time.realtimeSinceStartup;
         string timeConsumed = (QuizManager.getInstance().endAnswerTime - QuizManager.getInstance().startAnswerTime).ToString();
         string str;
         str = InputNumber.text;
@@ -499,10 +487,10 @@ public class QuizManager : MonoBehaviour
 
     public void OnPopUpQuestionButtonClick()
     {
-        if (QuizManager.getInstance().answered || QuizManager.getInstance().startPopupQuestion)
-            {                
+        if (QuizManager.getInstance().answered || startPopupQuestion)
+            {
                 enableQuestionPanel(true);
-                QuizManager.getInstance().startAnswerTime = (int)Time.timeSinceLevelLoad;
+                QuizManager.getInstance().startAnswerTime = (int)Time.realtimeSinceStartup;
                 int droneCount = configManager.getSceneDroneCount();
                 QuizManager.getInstance().questionButtonCounter = (++QuizManager.getInstance().questionButtonCounter) % QuizManager.getInstance().getQuizSettings().quiz.question.Count; // problem
                 showNextQuestion();
@@ -561,7 +549,7 @@ public class QuizManager : MonoBehaviour
             //   backGround.SetActive(true);
 
         }
-        QuizManager.getInstance().startPopupQuestion = false;
+        startPopupQuestion = false;
         QuizManager.getInstance().answered = false;
         QuizManager.getInstance().displayResultBoard = false;
         //}
@@ -628,13 +616,7 @@ public class QuizManager : MonoBehaviour
         CameraMain cameraMain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMain>();
         mapManagement.cameraTurnOff(false);
         cameraMain.turnOff(false);
-        //QuizManager.getInstance().answered = true;
-        QuizManager.getInstance().answered = false;
-        float timeNow = Time.timeSinceLevelLoad;
-        QuizManager.getInstance().looploadControl = QuizManager.getInstance().looploadControl+getQuizStartTime()+ timeNow-QuizManager.getInstance().quizStartTime;
-        QuizManager.getInstance().startPopupQuestion = true;
-        QuizManager.getInstance().isWriteToXML = true;
-        QuizManager.getInstance().write  = true;
-        QuizManager.getInstance().questionButtonCounter = -1;
+
+        QuizManager.getInstance().answered = true;
     }
 }
