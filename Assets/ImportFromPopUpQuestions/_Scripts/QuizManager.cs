@@ -64,8 +64,12 @@ public class QuizManager : MonoBehaviour
     private Vehicle vehicle;
     private NPC npc;
     public Dictionary<GameObject, KeyValuePair<float, bool>> NPCShowTimeDic;
+    public int markedPeople;
+    public int markedCars;
     void Start()
     {
+        markedPeople = 0;
+        markedCars = 0;
         startAnswerTime = 0;
         endAnswerTime = 0;
         InputNumber.gameObject.SetActive(false);
@@ -352,7 +356,7 @@ public class QuizManager : MonoBehaviour
             }
             else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.CarArea)
             {
-                if (cameraPIP.GetLastPersonOrCarIndex("npc") == -1)
+                if (cameraPIP.GetLastPersonOrCarIndex("car") == -1)
                 {}
                 else
                 {
@@ -376,11 +380,11 @@ public class QuizManager : MonoBehaviour
             }
             else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberWithPeopleRescue)
             {
-                WriteToXml(cameraPIP.GetRescuedPeopleNum().ToString(), i, 5);
+                WriteToXml(QuizManager.getInstance().markedPeople.ToString(), i, 5);
             }
             else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberWithCarRescue)
             {
-                WriteToXml(cameraPIP.GetRescuedCarsNum().ToString(), i, 5);
+                WriteToXml(QuizManager.getInstance().markedCars.ToString(), i, 5);
             }
             else if (QuizManager.getInstance().getQuizSettings().quiz.question[i].type == QuestionType.InputNumberWithPeopleUntag)
             {

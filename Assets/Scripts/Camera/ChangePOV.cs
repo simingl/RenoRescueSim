@@ -172,10 +172,26 @@ public class ChangePOV : MonoBehaviour {
                 player.setSelectedObject(sceneManager.getAllDrones()[9]);
                 n = 9;
             }
-        }        
+        }
+        if (Input.GetKeyDown(KeyCode.BackQuote))
+        {
+            if (droneCounter !=0)
+            {
+                doubleClickKeyboard = CheckDoubleClick(KeyCode.BackQuote);
+                player.setSelectedObject(sceneManager.getAllDrones()[0]);
+                n = 10;
+            }
+        }
         if (doubleClickKeyboard)
         {
-            sceneManager.getAllDrones()[n].centerMainCamera(); 
+            if (n == 10)
+            {
+                sceneManager.getAllDrones()[0].centerMainCamera();
+            }
+            else
+            {
+                sceneManager.getAllDrones()[n].centerMainCamera();
+            }
         }
     }
 

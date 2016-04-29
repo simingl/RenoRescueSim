@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using UnityEngine; 
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
@@ -34,13 +34,11 @@ public class CameraPIP : MonoBehaviour
     private float startCheckNPCinCamera = 0;
     private float checkFrequence = 0.5f;
 
-    private int markedPeople = 0;
-    private int markedCars = 0;
-
-    private QuizManager quizmanager;
+    private QuizManager quizManager;
 
     void Start()
     {
+
         cam = this.GetComponent<Camera>();
         cam2nd = this.GetComponent<Camera>();
         drone = this.transform.parent.gameObject.GetComponent<Drone>();
@@ -48,9 +46,9 @@ public class CameraPIP : MonoBehaviour
         people = GameObject.FindGameObjectsWithTag("People");
         cars = GameObject.FindGameObjectsWithTag("Car");
         peopleColliders = new Collider[people.Length];
-        quizmanager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<QuizManager>();
+        quizManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<QuizManager>();
         //NPCShowTimeDic = new Dictionary<GameObject, KeyValuePair<float, bool>>();
-        NPCShowTimeDic = quizmanager.NPCShowTimeDic;
+        NPCShowTimeDic = quizManager.NPCShowTimeDic;
         NPCShowTimePair = new KeyValuePair<float, bool>();
         for (int i = 0; i < people.Length; ++i)
         {
@@ -58,16 +56,30 @@ public class CameraPIP : MonoBehaviour
         }
     }
     private int tmp=0;
+    private int tmp1 =0;
+    private int tmp2 = 0;
+
     void Update()
     {
         //mouse hover on npc--------
         HoverMouseToResizePeople();
-        if (tmp != NPCShowTimeDic.Count)
+        if (this.tmp != NPCShowTimeDic.Count)
         {
-            Debug.Log(this.NPCShowTimeDic.Count);
+            Debug.Log("NPCShowTimeDic.Count is: "+NPCShowTimeDic.Count);
+            this.tmp = NPCShowTimeDic.Count;
+        }
+        if (this.tmp1 != QuizManager.getInstance().markedPeople)
+        {
+            Debug.Log("markedPeople is: " + QuizManager.getInstance().markedPeople);
+            this.tmp1 = QuizManager.getInstance().markedPeople;
+        }
+        if (this.tmp2 != QuizManager.getInstance().markedCars)
+        {
+            Debug.Log("markedCars is: " + QuizManager.getInstance().markedCars);
+            this.tmp2 = QuizManager.getInstance().markedCars;
         }
         //mouse hover on npc--------
-       // IsNPCMarked();
+        // IsNPCMarked();
         //if (cam.tag == "Camera_1st_view")
         if (cam.tag == "Camera_2nd_view")
         {
@@ -93,7 +105,7 @@ public class CameraPIP : MonoBehaviour
                         if (worldObject is NPC)
                         {
                             ((NPC)worldObject).Mark();
-                            ++markedPeople;
+                            ++QuizManager.getInstance().markedPeople;
                             NPCShowTimePair = new KeyValuePair<float, bool>(Time.time, true);
                             if (!NPCShowTimeDic.ContainsKey(worldObject.gameObject))
                             {
@@ -108,7 +120,7 @@ public class CameraPIP : MonoBehaviour
                         else if (worldObject is Vehicle)
                         {
                             ((Vehicle)worldObject).Mark();
-                            ++markedCars;
+                            ++QuizManager.getInstance().markedCars;
                             NPCShowTimePair = new KeyValuePair<float, bool>(Time.time,true);
                             if (!NPCShowTimeDic.ContainsKey(worldObject.gameObject))
                             {
@@ -194,11 +206,11 @@ public class CameraPIP : MonoBehaviour
 
     public int GetRescuedPeopleNum()
     {
-        return markedPeople;
+        return QuizManager.getInstance().markedPeople;
     }
     public int GetRescuedCarsNum()
     {
-        return markedCars;
+        return QuizManager.getInstance().markedPeople;
     }
     public int GetUnableTagPeopleNum()
     {

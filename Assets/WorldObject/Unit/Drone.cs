@@ -90,19 +90,19 @@ public class Drone : WorldObject {
         switch(this.droneNumber)
         {
             case 0:          
-                this.color = Color.yellow;
+                this.color = Color.yellow; 
                 break;
             case 1:
-                this.color = Color.red;
+                this.color = Color.red; 
                 break;
             case 2:
-                this.color = Color.blue;
+                this.color = Color.green; 
                 break;
             case 3:
-                this.color = Color.magenta;
+                this.color = Color.blue; 
                 break;
             case 4:
-                this.color = Color.green;
+                this.color = Color.magenta;
                 break;
             //case 5:
             //    this.color = Color.gray;

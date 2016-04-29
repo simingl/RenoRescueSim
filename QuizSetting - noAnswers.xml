@@ -36,7 +36,7 @@
       <timeConsumed></timeConsumed>
     </question>		
 	<question>
-      <description>How much battery left of the No.2(blue) UAV? </description>
+      <description>How much battery left of the No.2(green) UAV? </description>
       <type>InputNumberWithBattery</type>
       <number>2</number>
       <answer></answer>
@@ -44,7 +44,7 @@
       <timeConsumed></timeConsumed>
     </question>	
 	<question>
-      <description>How much battery left of the No.3(magenta) UAV? </description>
+      <description>How much battery left of the No.3(blue) UAV? </description>
       <type>InputNumberWithBattery</type>
       <number>3</number>
       <answer></answer>
@@ -68,7 +68,7 @@
       <timeConsumed></timeConsumed>
     </question>
 	<question>
-      <description>What was the altitude of the No.2(blue) UAV? </description>
+      <description>What was the altitude of the No.2(green) UAV? </description>
       <type>InputNumberWithHeight</type>
       <number>2</number>
       <answer></answer>
@@ -92,13 +92,13 @@
       <timeConsumed></timeConsumed>
     </question>	
 	<question>
-      <description>What was the velocity of the No.2(blue)UAV?</description>
+      <description>What was the velocity of the No.2(green)UAV?</description>
       <type>InputNumberwithSpeed</type>
       <number>2</number>
       <answer></answer>
       <userAnswer></userAnswer>
       <timeConsumed></timeConsumed>
-    </question>	
+    </question>
     <question>
       <description>Where is the No.0(yellow) UAV?</description>
       <type>DroneArea</type>
@@ -116,7 +116,7 @@
       <timeConsumed></timeConsumed>
     </question>
     <question>
-      <description>Where is the No.2(blue) UAV?</description>
+      <description>Where is the No.2(green) UAV?</description>
       <type>DroneArea</type>
       <number>2</number>
       <answer />
@@ -124,7 +124,7 @@
       <timeConsumed />
     </question>
     <question>
-      <description>Where is the No.3(magenta) UAV</description>
+      <description>Where is the No.3(blue) UAV</description>
       <type>DroneArea</type>
       <number>3</number>
       <answer />
@@ -156,14 +156,6 @@
       <timeConsumed />
     </question>
 	<question>
-      <description>How many cars did you identify?</description>
-      <type>InputNumberWithCarIdentify</type>
-      <number></number>
-      <answer />
-      <userAnswer />
-      <timeConsumed />
-    </question>
-	<question>
       <description>How many person did you rescue?</description>
       <type>InputNumberWithPeopleRescue</type>
       <number></number>
@@ -172,16 +164,24 @@
       <timeConsumed />
     </question>
 	<question>
-      <description>How many cars did you rescue?</description>
-      <type>InputNumberWithCarRescue</type>
+      <description>How many people did you see but were unable to tag?</description>
+      <type>InputNumberWithPeopleUntag</type>
       <number></number>
       <answer />
       <userAnswer />
       <timeConsumed />
     </question>
 	<question>
-      <description>How many people did you see but were unable to tag?</description>
-      <type>InputNumberWithPeopleUntag</type>
+      <description>How many cars did you identify?</description>
+      <type>InputNumberWithCarIdentify</type>
+      <number></number>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
+    </question>
+	<question>
+      <description>How many cars did you rescue?</description>
+      <type>InputNumberWithCarRescue</type>
       <number></number>
       <answer />
       <userAnswer />
