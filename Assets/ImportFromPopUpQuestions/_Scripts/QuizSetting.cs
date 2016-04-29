@@ -12,16 +12,19 @@ public enum QuestionType
     InputNumberWithHeight,
     InputNumberWithBattery,
     InputNumberwithSpeed,
-    InputNumberWithPeople,
+    InputNumberWithPeopleIdentify,
+    InputNumberWithCarIdentify,
     InputNumberWithCar,
-    Area
+    CarArea,
+    PeopleArea,
+    DroneArea
 }
 
 public class Question
 {
     public string description { get; set; }
     public QuestionType type { get; set; }
-    public string droneNumber { get; set; }
+    public string number { get; set; }
     public Options option { get; set; }
     public string answer { get; set; }
     public string userAnswer { get; set; }
