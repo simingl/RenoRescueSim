@@ -20,7 +20,7 @@
     <HelicopterCount>4</HelicopterCount>
     <TreeCount>20</TreeCount>
     <FireCount>4</FireCount>
-	<QuizStartTime>10</QuizStartTime>
+	<QuizStartTime>5</QuizStartTime>
 	<VerticalButtonsNum>7</VerticalButtonsNum>
 	<HorizontalButtonsNum>7</HorizontalButtonsNum>
   </scene>

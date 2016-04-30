@@ -68,6 +68,7 @@ public class QuizManager : MonoBehaviour
     public int markedPeople;
     public int markedCars;
     private float quizStartTime = 0;
+    private CameraPIP cameraPIP;
     void Start()
     {       
         markedPeople = 0;
@@ -108,24 +109,6 @@ public class QuizManager : MonoBehaviour
     private float writeToXMLFrequency = 0.5f;
     private float looploadControl;
 
-
-    void Update()
-    {
-        //Debug.Log(QuizManager.getInstance().looploadControl);
-        timeNow = Time.timeSinceLevelLoad;
-        //if (getQuizStartTime()- timeNow <= writeToXMLFrequency && isWriteToXML)
-        if (QuizManager.getInstance().looploadControl - timeNow <= writeToXMLFrequency && QuizManager.getInstance().isWriteToXML)
-            {            
-            if (playerFolderActive)
-            {
-                QuizManager.getInstance().quizStartTime = Time.timeSinceLevelLoad;
-                GetArea();
-                GetPeopleAndCarNums();
-                GetLastPeopleOrCarIndex();
-                GetPeopleOrCarPosition();
-
-
-
 	public string GenerateFileName(string context)
 	{
 		return context + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + Guid.NewGuid().ToString("N");
@@ -134,25 +117,24 @@ public class QuizManager : MonoBehaviour
     void Update()
     {
 
-		int playingNASATask = PlayerPrefs.GetInt("PlayingNASATaskLoad");
-		if (playingNASATask == 1) {
-
-			return;
-
-		} else if (PlayerPrefs.GetInt ("PlayQuestions") == 1) {
-
-			PlayerPrefs.SetInt("PlayQuestions", 0);
-			OnPopUpQuestionButtonClick ();
-		}
-
+		//int playingNASATask = PlayerPrefs.GetInt("PlayingNASATaskLoad");
+		//if (playingNASATask == 1) {            
+		//	return;
+		//} else if (PlayerPrefs.GetInt ("PlayQuestions") == 1) {
+		//	PlayerPrefs.SetInt("PlayQuestions", 0);
+		//	OnPopUpQuestionButtonClick ();
+		//}
         timeNow = Time.timeSinceLevelLoad;
-        if (getQuizStartTime()- timeNow <= writeToXMLFrequency && isWriteToXML)
+        //if (getQuizStartTime()- timeNow <= writeToXMLFrequency && isWriteToXML)
+        if (QuizManager.getInstance().looploadControl - timeNow <= writeToXMLFrequency && QuizManager.getInstance().isWriteToXML)
         {
-            GetArea();
             if (playerFolderActive)
             {
+                QuizManager.getInstance().quizStartTime = Time.timeSinceLevelLoad;
+                GetArea();
+                GetPeopleAndCarNums();
                 GetLastPeopleOrCarIndex();
-
+                GetPeopleOrCarPosition();
                 WriterResourceStatus();
             }
             QuizManager.getInstance().isWriteToXML = false;
@@ -166,7 +148,6 @@ public class QuizManager : MonoBehaviour
             {                        
                 ResumeSceneButtonClick();
             }
-
         }
         
         if (timeNow > QuizManager.getInstance().looploadControl && QuizManager.getInstance().write )
@@ -297,8 +278,6 @@ public class QuizManager : MonoBehaviour
         Question currentQuestion = QuizManager.getInstance().getQuizSettings().quiz.question[QuizManager.getInstance().questionButtonCounter];
         QuestionpanelController controller = questionPanel.GetComponent<QuestionpanelController>();
         controller.setQuestion(currentQuestion);
-
-
     }
 
     private void destroyOptions()
@@ -542,7 +521,6 @@ public class QuizManager : MonoBehaviour
         {
             controller.stopQuizMode();
         }
-
     }
 
     public void OnPopUpQuestionButtonClick()
