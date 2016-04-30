@@ -33,8 +33,8 @@ public class CameraPIP : MonoBehaviour
     //---------
     private float startCheckNPCinCamera = 0;
     private float checkFrequence = 0.5f;
-
     private QuizManager quizManager;
+
 
     void Start()
     {
@@ -79,7 +79,6 @@ public class CameraPIP : MonoBehaviour
         //    this.tmp2 = QuizManager.getInstance().markedCars;
         //}
         //mouse hover on npc--------
-        // IsNPCMarked();
         //if (cam.tag == "Camera_1st_view")
         if (cam.tag == "Camera_2nd_view")
         {
@@ -161,7 +160,7 @@ public class CameraPIP : MonoBehaviour
 
         foreach (Collider collider in peopleColliders)
         {
-            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds))
+            if (GeometryUtility.TestPlanesAABB(firstCamPlanes, collider.bounds)/* || GeometryUtility.TestPlanesAABB(secondCamPlanes, collider.bounds)*/)
             {
                 for (int i = 0; i < people.Length; ++i)
                 {
@@ -316,7 +315,6 @@ public class CameraPIP : MonoBehaviour
     //            }
     //        }
     //    }
-
     //    foreach (GameObject c in cars )
     //    {
     //        if (NPCShowTimeDic.ContainsKey(c))
