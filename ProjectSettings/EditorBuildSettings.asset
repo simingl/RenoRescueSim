@@ -15,5 +15,5 @@ EditorBuildSettings:
     path: Assets/_Scene/RenoTahoe.unity
   - enabled: 0
     path: Assets/_Scene/RenoTahoe.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scene/NasaTaskLoadIndex.unity

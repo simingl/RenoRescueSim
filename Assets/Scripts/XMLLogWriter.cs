@@ -6,6 +6,7 @@ using System.Xml.XPath;
 using System.Xml.Serialization;
 using System.Text;
 using System.Collections.Generic;
+using RTS;
 
 
 public class XMLLogWriter {

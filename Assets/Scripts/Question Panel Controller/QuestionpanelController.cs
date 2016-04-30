@@ -58,6 +58,10 @@ public class QuestionpanelController : MonoBehaviour {
         MapNav mapNav = ground.GetComponent<MapNav>();
         mapNav.switchOffToggleButton(true);
     }
+    public void StartNasaTask()
+    {
+
+    }
 
 
     public void stopQuizMode()

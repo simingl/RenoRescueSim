@@ -29,6 +29,7 @@ TagManager:
   - Camera_2nd_view
   - Car
   - HUD
+  - TaskLoader
   layers:
   - Default
   - TransparentFX
