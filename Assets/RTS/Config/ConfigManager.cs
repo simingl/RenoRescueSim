@@ -20,7 +20,7 @@ namespace RTS {
 		}
 
         public string studentID;
-        public int questionaryIndex = 0;
+        public int questionaryIndex = 1;
 
 		public static ConfigManager getInstance(){
 			return instance;

@@ -70,6 +70,7 @@ public class QuizManager : MonoBehaviour
     private float quizStartTime = 0;
     private CameraPIP cameraPIP;
     public bool NasaTaskLoadIndexComplete;
+    private TaskLoader taskLoader;
     void Start()
     {       
         markedPeople = 0;
@@ -104,6 +105,7 @@ public class QuizManager : MonoBehaviour
         QuizManager.getInstance().startPopupQuestion = true;
         QuizManager.getInstance().answered = false;
         QuizManager.getInstance().NasaTaskLoadIndexComplete = false;
+        taskLoader = GameObject.FindGameObjectWithTag("TaskLoader").GetComponent<TaskLoader>();
 }
 
     //private bool isWriteToXML = true;
@@ -113,12 +115,13 @@ public class QuizManager : MonoBehaviour
 
 	public string GenerateFileName(string context)
 	{
-		return context + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + Guid.NewGuid().ToString("N");
-	}
+        //return context + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + Guid.NewGuid().ToString("N");
+        return context + "_NASATask_" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".xml"; 
+
+    }
 
     void Update()
     {
-
         //int playingNASATask = PlayerPrefs.GetInt("PlayingNASATaskLoad");
         //if (playingNASATask == 1)
         //{
@@ -164,13 +167,19 @@ public class QuizManager : MonoBehaviour
             else
             {
                 //PlayerPrefs.SetInt("PlayingNASATaskLoad", 1);
-                
+
                 //if (!QuizManager.getInstance().NasaTaskLoadIndexComplete)
                 //{
                 //    XMLLogWriter.Instance.setFileName(GenerateFileName("NASATaskLoadIndex") + ".xml");
                 //    Application.LoadLevel("NasaTaskLoadIndex");
                 //}
-                if(QuizManager.getInstance().NasaTaskLoadIndexComplete)
+                if (!QuizManager.getInstance().NasaTaskLoadIndexComplete)
+                {
+                    //XMLLogWriter.Instance.setFileName(GenerateFileName("NASATaskLoadIndex") + ".xml");
+                    XMLLogWriter.Instance.setFileName(GenerateFileName(GetRunTimes()));
+                    NasaTaskQuestionsStart();                    
+                }
+                if (QuizManager.getInstance().NasaTaskLoadIndexComplete)
                 {
                     OnPopUpQuestionButtonClick();
                 }
@@ -185,6 +194,11 @@ public class QuizManager : MonoBehaviour
         //        DisplayResult();
         //    }            
         //}
+    }
+    private string GetRunTimes()
+    {
+        string result= ConfigManager.getInstance().studentID +"_"+ HumanFriendlyInteger.IntegerToWritten(ConfigManager.getInstance().questionaryIndex); 
+        return result;
     }
 
     private static QuizManager instance = new QuizManager();
@@ -516,7 +530,9 @@ public class QuizManager : MonoBehaviour
         {
             myContainer.quiz.question[questionCount].number = str;
         }
-        QuizSettingContainer.Serialize(myContainer, ConfigManager.getInstance().studentID);
+        //QuizSettingContainer.Serialize(myContainer, ConfigManager.getInstance().studentID);
+        string fileName = GetRunTimes() + "_Questionnaire";
+        QuizSettingContainer.Serialize(myContainer, fileName);
         //QuizSettingContainer.WriteData(myContainer, configManager.studentID);
     }
 
@@ -532,6 +548,22 @@ public class QuizManager : MonoBehaviour
         {
             controller.stopQuizMode();
         }
+    }
+
+    private void NasaTaskQuestionsStart()  //start nasa task questions
+    {
+        QuestionpanelController controller = questionPanel.GetComponent<QuestionpanelController>();
+        ScoreText.SetActive(false);
+        PlayerFolder.SetActive(false);
+        MinimapManagement mapManagement = GameObject.FindGameObjectWithTag("Camera_minimap").GetComponent<MinimapManagement>();
+        CameraMain cameraMain = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraMain>();
+        //   mapManagement.cameraTurnOff(true);
+        mapManagement.cameraTurnOff(true);
+        cameraMain.turnOff(true);
+        MapNav mapNav = controller.ground.GetComponent<MapNav>();
+        mapNav.switchOffToggleButton(true);
+        taskLoader.NasaTaskLoadIndex.SetActive(true);
+        controller.bgCamera.gameObject.SetActive(true);
     }
 
     public void OnPopUpQuestionButtonClick()
@@ -675,5 +707,6 @@ public class QuizManager : MonoBehaviour
         QuizManager.getInstance().write  = true;
         QuizManager.getInstance().questionButtonCounter = -1;
         QuizManager.getInstance().NasaTaskLoadIndexComplete = false;
+        ++ConfigManager.getInstance().questionaryIndex;
     }
 }

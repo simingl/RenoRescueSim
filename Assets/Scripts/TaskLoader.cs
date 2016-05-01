@@ -41,13 +41,14 @@ public class TaskLoader : MonoBehaviour {
 		nextButton.gameObject.SetActive (false);
 	}
 
-    private void InitialState()
+    public void InitialState()
     {
+        NasaTaskLoadIndex.SetActive(false);
         submitButton.gameObject.SetActive(false);
         secondCotainerPanel.SetActive(false);
         nextButton.gameObject.SetActive(true);
         firstCotainerPanel.SetActive(true);
-        NasaTaskLoadIndex.SetActive(false);
+        
     }
 
 	public void submitButtonPressed(){
@@ -83,8 +84,6 @@ public class TaskLoader : MonoBehaviour {
 		//PlayerPrefs.SetInt("PlayQuestions", 1);
         QuizManager.getInstance().NasaTaskLoadIndexComplete = true;
         InitialState();
-       // Application.LoadLevel ("RenoTahoe");
-
-	}
-
+        // Application.LoadLevel ("RenoTahoe");        
+    }
 }

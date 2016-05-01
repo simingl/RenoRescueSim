@@ -15,11 +15,7 @@ public class QuestionpanelController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-
         showQuestionPanel(false);
-
-
-
     }
 
     // Update is called once per frame
@@ -71,7 +67,6 @@ public class QuestionpanelController : MonoBehaviour {
         activeScreenSpaceRender(false);
         MapNav mapNav = ground.GetComponent<MapNav>();
         mapNav.switchOffToggleButton(false);
-
     }
 
 
