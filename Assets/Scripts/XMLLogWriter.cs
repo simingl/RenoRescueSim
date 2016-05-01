@@ -32,7 +32,7 @@ public class XMLLogWriter {
         fileName = inFileName;
         if (File.Exists(this.filePath()))
         {
-            //File.Delete(this.filePath());
+            File.Delete(this.filePath());
         }
 
         gamePlayers.Clear();
