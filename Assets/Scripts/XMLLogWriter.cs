@@ -6,6 +6,7 @@ using System.Xml.XPath;
 using System.Xml.Serialization;
 using System.Text;
 using System.Collections.Generic;
+using RTS;
 
 
 public class XMLLogWriter {
@@ -31,7 +32,7 @@ public class XMLLogWriter {
         fileName = inFileName;
         if (File.Exists(this.filePath()))
         {
-            File.Delete(this.filePath());
+            //File.Delete(this.filePath());
         }
 
         gamePlayers.Clear();

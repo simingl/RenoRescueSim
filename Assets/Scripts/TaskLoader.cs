@@ -20,18 +20,12 @@ public class TaskLoader : MonoBehaviour {
 	public GameObject PerformanceBtnPanel;
 	public GameObject EffortBtnPanel;
 	public GameObject FurstrationBtnPanel;
+    public GameObject NasaTaskLoadIndex;
 
-
-	// Use this for initialization
-	void Start () {
-	
-
-
-		submitButton.gameObject.SetActive (false);
-		secondCotainerPanel.SetActive (false);
-		nextButton.gameObject.SetActive (true);
-		firstCotainerPanel.SetActive (true);
-	}
+    // Use this for initialization
+    void Start () {
+        InitialState();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -46,6 +40,16 @@ public class TaskLoader : MonoBehaviour {
 		submitButton.gameObject.SetActive (true);
 		nextButton.gameObject.SetActive (false);
 	}
+
+    public void InitialState()
+    {
+        NasaTaskLoadIndex.SetActive(false);
+        submitButton.gameObject.SetActive(false);
+        secondCotainerPanel.SetActive(false);
+        nextButton.gameObject.SetActive(true);
+        firstCotainerPanel.SetActive(true);
+        
+    }
 
 	public void submitButtonPressed(){
 
@@ -76,10 +80,10 @@ public class TaskLoader : MonoBehaviour {
 
 		XMLLogWriter.Instance.log (newTasker);
 
-		PlayerPrefs.SetInt("PlayingNASATaskLoad", 0);
-		PlayerPrefs.SetInt("PlayQuestions", 1);
-		Application.LoadLevel ("RenoTahoe");
-
-	}
-
+		//PlayerPrefs.SetInt("PlayingNASATaskLoad", 0);
+		//PlayerPrefs.SetInt("PlayQuestions", 1);
+        QuizManager.getInstance().NasaTaskLoadIndexComplete = true;
+        InitialState();
+        // Application.LoadLevel ("RenoTahoe");        
+    }
 }
