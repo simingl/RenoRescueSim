@@ -72,7 +72,8 @@ public class QuizManager : MonoBehaviour
     public bool NasaTaskLoadIndexComplete;
     private TaskLoader taskLoader;
     void Start()
-    {       
+    {
+        instance = this;
         markedPeople = 0;
         markedCars = 0;
         startAnswerTime = 0;

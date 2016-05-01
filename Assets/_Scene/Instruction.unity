@@ -204,7 +204,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: -174}
+  m_AnchoredPosition: {x: 5, y: -258.4}
   m_SizeDelta: {x: 169, y: 34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &593768305
@@ -553,10 +553,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Short-cut-keys:\r\nAWSD:  RTS camera move\r\n0  --- 9:  Select first 10
-    in n.\r\nF5      :  Show all cameras.\r\nF6      :  Remove all cameras.\r\nF7
-    \     :  Blur selected drones' cameras.\nGoal   :  Maximize score by locating
-    \         \n             people and cars on Drone map.\n"
+  m_Text: "Short-cut-keys:\r\nIJKL             :  RTS camera move\r\nWASD          :
+    Control drone direction\nArrow keys: The same with WASD\nQ                    :
+    Up\nZ                    : Down\n0  --- 9         :  Select first 10 in n.\n(`)back
+    quote: Number 0 drone.\r\n\rF7                  :  Blur selected drones' cameras.\nGoal
+    \               :  Maximize score by locating          \n                           people
+    and cars on Drone map.\n"
 --- !u!222 &1759797386
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -720,6 +722,7 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
