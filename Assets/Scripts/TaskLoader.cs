@@ -79,11 +79,42 @@ public class TaskLoader : MonoBehaviour {
 		newTasker.fustationDemandValue = furstratioManager.selectedValue;
 
 		XMLLogWriter.Instance.log (newTasker);
-
-		//PlayerPrefs.SetInt("PlayingNASATaskLoad", 0);
-		//PlayerPrefs.SetInt("PlayQuestions", 1);
+        reset();
+        //PlayerPrefs.SetInt("PlayingNASATaskLoad", 0);
+        //PlayerPrefs.SetInt("PlayQuestions", 1);
         QuizManager.getInstance().NasaTaskLoadIndexComplete = true;
         InitialState();
         // Application.LoadLevel ("RenoTahoe");        
     }
+
+    private void reset()
+    {
+
+         nameText.text = "";
+         taskText.text = "";
+         dateText.text = "";
+
+        RadioButtonManager mentalManager = MentalBtnPanel.GetComponent<RadioButtonManager>();
+        mentalManager.radioButtonSelected(1);
+
+        RadioButtonManager physcialManager = PhyscialBtnPanel.GetComponent<RadioButtonManager>();
+        physcialManager.radioButtonSelected(1);
+
+        RadioButtonManager temporalManager = TemporalBtnPanel.GetComponent<RadioButtonManager>();
+        temporalManager.radioButtonSelected(1);
+
+        RadioButtonManager performanceManager = PerformanceBtnPanel.GetComponent<RadioButtonManager>();
+        performanceManager.radioButtonSelected(1);
+
+        RadioButtonManager effortManager = EffortBtnPanel.GetComponent<RadioButtonManager>();
+        effortManager.radioButtonSelected(1);
+
+        RadioButtonManager furstratioManager = FurstrationBtnPanel.GetComponent<RadioButtonManager>();
+        furstratioManager.radioButtonSelected(1);
+
+
+
+
+    }
+
 }
