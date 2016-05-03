@@ -105,6 +105,7 @@ public class CameraPIP : MonoBehaviour
                         {
                             ((NPC)worldObject).Mark();
                             ++QuizManager.getInstance().markedPeople;
+                            QuizManager.getInstance().PeopleRescuedIcon.transform.FindChild("RescuedPeopleNumber").transform.FindChild("Text").GetComponent<Text>().text = QuizManager.getInstance().markedPeople.ToString();                            
                             NPCShowTimePair = new KeyValuePair<float, bool>(Time.time, true);
                             if (!NPCShowTimeDic.ContainsKey(worldObject.gameObject))
                             {
@@ -121,6 +122,7 @@ public class CameraPIP : MonoBehaviour
                             ((Vehicle)worldObject).Mark();
                             ++QuizManager.getInstance().markedCars;
                             NPCShowTimePair = new KeyValuePair<float, bool>(Time.time,true);
+                            QuizManager.getInstance().CarRescuedIcon.transform.FindChild("RescuedCarNumber").transform.FindChild("Text").GetComponent<Text>().text = QuizManager.getInstance().markedCars.ToString();
                             if (!NPCShowTimeDic.ContainsKey(worldObject.gameObject))
                             {
                                 NPCShowTimeDic.Add(worldObject.gameObject, NPCShowTimePair);

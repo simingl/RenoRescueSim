@@ -24,176 +24,176 @@
         </opt>
       </option>
       <answer>D</answer>
-      <userAnswer>4</userAnswer>
-      <timeConsumed>3</timeConsumed>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
     </question>
-    <question>
+	<question>
       <description>How much battery left of the No.1(red) UAV? </description>
       <type>InputNumberWithBattery</type>
       <number>1</number>
-      <answer>18.0</answer>
-      <userAnswer />
-      <timeConsumed>2</timeConsumed>
-    </question>
-    <question>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>		
+	<question>
       <description>How much battery left of the No.2(green) UAV? </description>
       <type>InputNumberWithBattery</type>
       <number>2</number>
-      <answer>18.0</answer>
-      <userAnswer />
-      <timeConsumed>0</timeConsumed>
-    </question>
-    <question>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>	
+	<question>
       <description>How much battery left of the No.3(blue) UAV? </description>
       <type>InputNumberWithBattery</type>
       <number>3</number>
-      <answer>18.0</answer>
-      <userAnswer />
-      <timeConsumed>0</timeConsumed>
-    </question>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>	
     <question>
       <description>What was the altitude of the No.0(yellow) UAV? </description>
       <type>InputNumberWithHeight</type>
       <number>0</number>
-      <answer>2.29</answer>
-      <userAnswer />
-      <timeConsumed>0</timeConsumed>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
     </question>
-    <question>
+	<question>
       <description>What was the altitude of the No.1(red) UAV? </description>
       <type>InputNumberWithHeight</type>
       <number>1</number>
-      <answer>2.29</answer>
-      <userAnswer />
-      <timeConsumed>0</timeConsumed>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
     </question>
-    <question>
+	<question>
       <description>What was the altitude of the No.2(green) UAV? </description>
       <type>InputNumberWithHeight</type>
       <number>2</number>
-      <answer>2.29</answer>
-      <userAnswer />
-      <timeConsumed>1</timeConsumed>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
     </question>
-    <question>
+	<question>
       <description>What was the velocity of the No.0(yellow)UAV?</description>
       <type>InputNumberwithSpeed</type>
       <number>0</number>
-      <answer>0</answer>
-      <userAnswer />
-      <timeConsumed>0</timeConsumed>
-    </question>
-    <question>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>	
+	<question>
       <description>What was the velocity of the No.1(red)UAV?</description>
       <type>InputNumberwithSpeed</type>
       <number>1</number>
-      <answer>0</answer>
-      <userAnswer />
-      <timeConsumed>0</timeConsumed>
-    </question>
-    <question>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
+    </question>	
+	<question>
       <description>What was the velocity of the No.2(green)UAV?</description>
       <type>InputNumberwithSpeed</type>
       <number>2</number>
-      <answer>0</answer>
-      <userAnswer />
-      <timeConsumed>0</timeConsumed>
+      <answer></answer>
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
     </question>
     <question>
       <description>Where is the No.0(yellow) UAV?</description>
       <type>DroneArea</type>
       <number>0</number>
-      <answer>9</answer>
-      <userAnswer>9</userAnswer>
-      <timeConsumed>1</timeConsumed>
+      <answer />
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
     </question>
     <question>
       <description>Where is the No.1(red) UAV?</description>
       <type>DroneArea</type>
       <number>1</number>
-      <answer>9</answer>
-      <userAnswer>9</userAnswer>
-      <timeConsumed>0</timeConsumed>
+      <answer />
+      <userAnswer></userAnswer>
+      <timeConsumed></timeConsumed>
     </question>
     <question>
       <description>Where is the No.2(green) UAV?</description>
       <type>DroneArea</type>
       <number>2</number>
-      <answer>9</answer>
-      <userAnswer>9</userAnswer>
-      <timeConsumed>1</timeConsumed>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
     </question>
     <question>
       <description>Where is the No.3(blue) UAV</description>
       <type>DroneArea</type>
       <number>3</number>
-      <answer>9</answer>
-      <userAnswer>9</userAnswer>
-      <timeConsumed>0</timeConsumed>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
     </question>
-    <question>
+	<question>
       <description>Where was the last person you identified?</description>
       <type>PeopleArea</type>
-      <number>9</number>
-      <answer>10</answer>
-      <userAnswer>9</userAnswer>
-      <timeConsumed>0</timeConsumed>
+      <number></number>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
     </question>
-    <question>
+	<question>
       <description>Where was the last vehicle you identified?</description>
       <type>CarArea</type>
-      <number />
-      <answer>31</answer>
-      <userAnswer>9</userAnswer>
-      <timeConsumed>0</timeConsumed>
+      <number></number>
+      <answer />
+      <userAnswer />
+      <timeConsumed />
     </question>
-    <question>
+	<question>
       <description>How many person did you identify?</description>
       <type>InputNumberWithPeopleIdentify</type>
-      <number />
-      <answer>0</answer>
+      <number></number>
+      <answer />
       <userAnswer />
-      <timeConsumed>2</timeConsumed>
+      <timeConsumed />
     </question>
-    <question>
+	<question>
       <description>How many person did you rescue?</description>
       <type>InputNumberWithPeopleRescue</type>
-      <number />
-      <answer>0</answer>
+      <number></number>
+      <answer />
       <userAnswer />
-      <timeConsumed>0</timeConsumed>
+      <timeConsumed />
     </question>
-    <question>
+	<question>
       <description>How many people did you see but were unable to tag?</description>
       <type>InputNumberWithPeopleUntag</type>
-      <number />
-      <answer>0</answer>
+      <number></number>
+      <answer />
       <userAnswer />
-      <timeConsumed>0</timeConsumed>
+      <timeConsumed />
     </question>
-    <question>
+	<question>
       <description>How many cars did you identify?</description>
       <type>InputNumberWithCarIdentify</type>
-      <number />
-      <answer>0</answer>
+      <number></number>
+      <answer />
       <userAnswer />
-      <timeConsumed>0</timeConsumed>
+      <timeConsumed />
     </question>
-    <question>
+	<question>
       <description>How many cars did you rescue?</description>
       <type>InputNumberWithCarRescue</type>
-      <number />
-      <answer>0</answer>
+      <number></number>
+      <answer />
       <userAnswer />
-      <timeConsumed>0</timeConsumed>
+      <timeConsumed />
     </question>
-    <question>
+	<question>
       <description>How many cars did you see but were unable to tag?</description>
       <type>InputNumberWithCarUntag</type>
-      <number />
-      <answer>0</answer>
+      <number></number>
+      <answer />
       <userAnswer />
-      <timeConsumed>1</timeConsumed>
+      <timeConsumed />
     </question>
   </quiz>
 </QuizSetting>
