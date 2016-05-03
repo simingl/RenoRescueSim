@@ -22,6 +22,8 @@ public class QuizManager : MonoBehaviour
     public GameObject RenoFolder;
     public GameObject Questions;
     public GameObject ScoreText;
+    public GameObject PeopleRescuedIcon;
+    public GameObject CarRescuedIcon;
     public InputField InputNumber;
     public GameObject OptionsButton;
     public GameObject StartButton;
@@ -107,7 +109,9 @@ public class QuizManager : MonoBehaviour
         QuizManager.getInstance().answered = false;
         QuizManager.getInstance().NasaTaskLoadIndexComplete = false;
         taskLoader = GameObject.FindGameObjectWithTag("TaskLoader").GetComponent<TaskLoader>();
-}
+        PeopleRescuedIcon.transform.FindChild("RescuedPeopleNumber").transform.FindChild("Text").GetComponent<Text>().text = markedPeople.ToString();
+        CarRescuedIcon.transform.FindChild("RescuedCarNumber").transform.FindChild("Text").GetComponent<Text>().text = markedCars.ToString();
+    }
 
     //private bool isWriteToXML = true;
     private bool isWriteToXML;
